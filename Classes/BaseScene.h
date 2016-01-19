@@ -7,8 +7,13 @@
 
 namespace XUtility
 {
-	template<class T>
 	class BaseScene : public cocos2d::Layer
+	{
+
+	};
+
+	template<class T>
+	class BaseSceneImpl : public BaseScene
 	{
 	public:
 		// there's no 'id' in cpp, so we recommend returning the class instance pointer

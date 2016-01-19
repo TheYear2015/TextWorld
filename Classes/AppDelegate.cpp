@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
-#include "GameWorldScene.h"
+#include "GameSceneManager.h"
+
 
 USING_NS_CC;
 
@@ -51,7 +52,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	FileUtils::getInstance()->addSearchPath("res");
 
 	// create a scene. it's an autorelease object
-	auto scene = GameWorld::createScene();
+	auto scene = XUtility::GameSceneManager::Instance().CreateScene(XUtility::ScenenType::Launch);
 
 	// run
 	director->runWithScene(scene);
@@ -64,7 +65,7 @@ void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    //SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
