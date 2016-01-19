@@ -23,31 +23,40 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
-    auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
-    if(!glview) {
-        glview = GLViewImpl::createWithRect("TextWorld", Rect(0, 0, 960, 640));
-        director->setOpenGLView(glview);
-    }
+	// initialize director
+	auto director = Director::getInstance();
+	auto glview = director->getOpenGLView();
+	if (!glview) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+		glview = GLViewImpl::createWithRect("Text World", Rect(0, 0, 640 * 0.6f, 960 * 0.6f));
+#else 
+		glview = GLViewImpl::createWithRect("Text World", Rect(0, 0, 640, 960));
+#endif
+		director->setOpenGLView(glview);
 
-    director->getOpenGLView()->setDesignResolutionSize(960, 640, ResolutionPolicy::SHOW_ALL);
+	}
 
-    // turn on display FPS
-    director->setDisplayStats(true);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+	director->getOpenGLView()->setDesignResolutionSize(640, 960, ResolutionPolicy::FIXED_WIDTH);
+#else 
+	director->getOpenGLView()->setDesignResolutionSize(640, 960, ResolutionPolicy::FIXED_WIDTH);
+#endif
 
-    // set FPS. the default value is 1.0/60 if you don't call this
-    director->setAnimationInterval(1.0 / 60);
+	// turn on display FPS
+	director->setDisplayStats(true);
 
-    FileUtils::getInstance()->addSearchPath("res");
+	// set FPS. the default value is 1.0/60 if you don't call this
+	director->setAnimationInterval(1.0f / 60);
 
-    // create a scene. it's an autorelease object
-    auto scene = GameWorld::createScene();
+	FileUtils::getInstance()->addSearchPath("res");
 
-    // run
-    director->runWithScene(scene);
+	// create a scene. it's an autorelease object
+	auto scene = GameWorld::createScene();
 
-    return true;
+	// run
+	director->runWithScene(scene);
+
+	return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too

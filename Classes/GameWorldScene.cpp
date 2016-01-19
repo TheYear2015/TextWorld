@@ -1,4 +1,5 @@
 #include "GameWorldScene.h"
+#include "GameLogic.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
@@ -32,6 +33,9 @@ bool GameWorld::init()
     }
     
     auto rootNode = CSLoader::createNode("MainScene.csb");
+
+	//∂¡»°≈‰÷√
+	GameLogic::DataManager::Instance().ReadGameDataFromFile("ContentStage.pck");
 
     addChild(rootNode);
 
