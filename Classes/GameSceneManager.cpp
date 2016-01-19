@@ -2,6 +2,7 @@
 #include "GameLogic.h"
 #include "GameLaunchScene.h"
 #include "GameWorldScene.h"
+#include "PlayGameScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 
@@ -20,6 +21,9 @@ namespace XUtility
 			break;
 		case ScenenType::MainMenu:
 			scene = GameWorld::createScene();
+			break;
+		case ScenenType::Playing:
+			scene = PlayGame::createScene();
 			break;
 		}
 		if (scene != nullptr)

@@ -24,5 +24,11 @@ void GameLaunch::onEnterTransitionDidFinish()
 
 	GameLogic::DataManager::Instance().ReadGameDataFromFile("ContentStage.pck");
 
-	XUtility::GameSceneManager::Instance().EnterScene(XUtility::ScenenType::MainMenu);
+	scheduleOnce(schedule_selector(GameLaunch::EnterMainMenu), 2.0f);
+
+}
+
+void GameLaunch::EnterMainMenu(float dt)
+{
+	XUtility::GameSceneManager::Instance().EnterScene(XUtility::ScenenType::Playing);
 }

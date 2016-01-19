@@ -12,6 +12,9 @@ protected:
 
 	virtual void onEnterTransitionDidFinish() override;
 
+private:
+	void EnterMainMenu(float dt);
+
 };
 
 

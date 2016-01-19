@@ -6,6 +6,7 @@
         <Project Name="MainScene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
         <Project Name="LaunchScene.csd" Type="Scene" />
+        <Project Name="GameScene.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>
