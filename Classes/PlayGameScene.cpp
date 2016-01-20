@@ -94,26 +94,31 @@ void PlayGame::onEnter()
 	GameLogic::GameCore::Instance().SetInterface(this);
 
 	//加载用户数据，创建actionList
-
-
-	//test
-	if (m_normalTextNodeTmpl)
+	auto stageList = GameLogic::GameCore::Instance().GetPlayedStageList();
+	for (auto sd : stageList)
 	{
 
-		cocos2d::Vec2 pos;
-		pos.x = 0;;
-		pos.y = 0;
-		for (int i = 0; i < 1000; ++i)
-		{
-			auto nTextN = CreateNormalTextNode();
-			nTextN->setPosition(pos);
-			pos.y += 200;
-		}
-
-		auto size = m_actionScrollView->getInnerContainerSize();
-		size.height = pos.y + 200;
-		m_actionScrollView->setInnerContainerSize(size);
 	}
+
+
+	////test
+	//if (m_normalTextNodeTmpl)
+	//{
+
+	//	cocos2d::Vec2 pos;
+	//	pos.x = 0;;
+	//	pos.y = 0;
+	//	for (int i = 0; i < 1000; ++i)
+	//	{
+	//		auto nTextN = CreateNormalTextNode();
+	//		nTextN->setPosition(pos);
+	//		pos.y += 200;
+	//	}
+
+	//	auto size = m_actionScrollView->getInnerContainerSize();
+	//	size.height = pos.y + 200;
+	//	m_actionScrollView->setInnerContainerSize(size);
+	//}
 }
 
 
