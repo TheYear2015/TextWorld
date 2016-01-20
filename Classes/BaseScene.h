@@ -10,6 +10,11 @@ namespace XUtility
 	class BaseScene : public cocos2d::Layer
 	{
 
+	public:
+		cocos2d::Node* SceneRoot() const { return m_sceneRoot; }
+
+	protected:
+		cocos2d::Node* m_sceneRoot = nullptr;
 	};
 
 	template<class T>
@@ -42,8 +47,8 @@ namespace XUtility
 				return false;
 			}
 
-			auto rootNode = cocos2d::CSLoader::createNode(GetSceneCsb());
-			addChild(rootNode);
+			m_sceneRoot = cocos2d::CSLoader::createNode(GetSceneCsb());
+			addChild(m_sceneRoot);
 
 			OnSceneInited();
 

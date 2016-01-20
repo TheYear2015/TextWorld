@@ -7,6 +7,7 @@
         <Image Name="HelloWorld.png" />
         <Project Name="LaunchScene.csd" Type="Scene" />
         <Project Name="GameScene.csd" Type="Scene" />
+        <Project Name="ActionListLayer.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>
