@@ -14,13 +14,17 @@ namespace GameLogic
 	class StageActionData
 	{
 		friend class DataManager;
+
+	public:
+		uint32_t Type() const { return m_type; }
+		const char* Text() const { return m_text.c_str(); }
+		uint32_t DuringMS() const { return m_duringMS; }
+
 	private:
 		//类型
 		uint32_t m_type = 0;
-
 		//文字内容
 		std::string m_text;
-
 		//持续时间
 		uint32_t m_duringMS = 0;
 	};
@@ -33,13 +37,14 @@ namespace GameLogic
 		StageData();
 		~StageData();
 
+		uint32_t Id() const { return m_id; }
+		const std::vector<std::pair<uint32_t, std::string>>& ToStage() const { return m_goToStage; }
+		const std::vector<StageActionData>& ActionList() const { return m_actionList; }
 	private:
 		//Id
 		uint32_t m_id = 0;
-
 		//场景结束跳信息
 		std::vector<std::pair<uint32_t, std::string>> m_goToStage;
-
 		//场景行为列表
 		std::vector<StageActionData> m_actionList;
 	};

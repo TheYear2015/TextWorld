@@ -20,7 +20,7 @@ namespace GameLogic
 		//当需要选择时
 		virtual void OnNeedChoose(const StageData* stageData) = 0;
 
-		//当游戏开始时
+		//当游戏开始时，用户数据已经加载完成，游戏逻辑启动
 		virtual void OnGameBegin() = 0;
 
 		//当游戏失败时
@@ -35,6 +35,7 @@ namespace GameLogic
 	//用户游戏数据
 	class UserGameData
 	{
+		friend class GameCore;
 	public:
 		//进入场景
 		void EnterStage(uint32_t id);
@@ -74,6 +75,9 @@ namespace GameLogic
 		//读取用户数据
 		void Load();
 
+		//保存用户数据
+		void Save();
+
 		//是否有用户数据
 		bool IsHaveUserData() const;
 
@@ -97,6 +101,12 @@ namespace GameLogic
 
 		//设置交互接口
 		void SetInterface(GameLogicInterface* inf);
+
+		//获得已经游戏过的场景(stage)
+		std::vector<const StageData*> GetPlayedStageList() const;
+
+		//获得正在游戏中的场景已经过的行为(action)
+		std::vector<const StageActionData*> GetPlayingActionList() const;
 
 	private:
 		void SaveUserDataToFile();

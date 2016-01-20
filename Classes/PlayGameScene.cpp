@@ -27,10 +27,12 @@ void PlayGame::OnSceneInited()
 		if (m_normalTextNodeTmpl)
 		{
 			m_normalTextNodeTmpl->setVisible(false);
+			m_normalTextNodeSize = m_normalTextNodeTmpl->getContentSize();
 		}
 		if (m_chooseNodeTmpl)
 		{
 			m_chooseNodeTmpl->setVisible(false);
+			m_chooseNodeSize = m_chooseNodeTmpl->getContentSize();
 		}
 	}
 
@@ -89,6 +91,10 @@ void PlayGame::ReleaseChooseNode(cocos2d::ui::Layout* node)
 void PlayGame::onEnter()
 {
 	BaseScene::onEnter();
+	GameLogic::GameCore::Instance().SetInterface(this);
+
+	//加载用户数据，创建actionList
+
 
 	//test
 	if (m_normalTextNodeTmpl)
@@ -97,7 +103,7 @@ void PlayGame::onEnter()
 		cocos2d::Vec2 pos;
 		pos.x = 0;;
 		pos.y = 0;
-		for (int i = 0; i < 10; ++i)
+		for (int i = 0; i < 1000; ++i)
 		{
 			auto nTextN = CreateNormalTextNode();
 			nTextN->setPosition(pos);
@@ -108,4 +114,69 @@ void PlayGame::onEnter()
 		size.height = pos.y + 200;
 		m_actionScrollView->setInnerContainerSize(size);
 	}
+}
+
+
+void PlayGame::onExit()
+{
+	GameLogic::GameCore::Instance().SetInterface(nullptr);
+	BaseScene::onExit();
+}
+
+void PlayGame::onEnterTransitionDidFinish()
+{
+	BaseScene::onEnterTransitionDidFinish();
+	//游戏启动
+	GameLogic::GameCore::Instance().Begin();
+}
+
+
+void PlayGame::OnEnterStage(const GameLogic::StageData* stageData)
+{
+	if (stageData)
+		CCLOG("PlayGame::OnEnterStage %d.", stageData->Id());
+	else
+		CCLOGERROR("PlayGame::OnEnterStage null.");
+}
+
+void PlayGame::OnEnterAction(const GameLogic::StageActionData* actData)
+{
+	if (actData)
+	{
+		CCLOG("PlayGame::OnEnterAction %s.", actData->Text());
+		//创建新的控件
+	}
+	else
+		CCLOGERROR("PlayGame::OnEnterAction null.");
+}
+
+void PlayGame::OnLeaveStage(const GameLogic::StageData* stageData)
+{
+	if (stageData)
+		CCLOG("PlayGame::OnLeaveStage %d.", stageData->Id());
+	else
+		CCLOGERROR("PlayGame::OnLeaveStage null.");
+}
+
+void PlayGame::OnNeedChoose(const GameLogic::StageData* stageData)
+{
+	if (stageData)
+		CCLOG("PlayGame::OnNeedChoose %d.", stageData->Id());
+	else
+		CCLOGERROR("PlayGame::OnNeedChoose null.");
+}
+
+void PlayGame::OnGameBegin()
+{
+	CCLOG("PlayGame::OnGameBegin");
+}
+
+void PlayGame::OnGameFailed(int param)
+{
+	CCLOG("PlayGame::OnGameFailed %d.", param);
+}
+
+void PlayGame::OnGameOK()
+{
+	CCLOG("PlayGame::OnGameOK");
 }
