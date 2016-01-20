@@ -40,6 +40,8 @@ namespace GameLogic
 		uint32_t Id() const { return m_id; }
 		const std::vector<std::pair<uint32_t, std::string>>& ToStage() const { return m_goToStage; }
 		const std::vector<StageActionData>& ActionList() const { return m_actionList; }
+		//在结束的时候有选择
+		bool IsHaveChooseAtEnd() const;
 	private:
 		//Id
 		uint32_t m_id = 0;

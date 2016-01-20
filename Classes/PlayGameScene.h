@@ -57,6 +57,17 @@ private:
 
 	std::list<cocos2d::ui::Layout*> m_unusedNormalTextNodeList;
 	std::list<cocos2d::ui::Layout*> m_unusedChooseNodeList;
+
+	//行为单元
+	class ActionCell
+	{
+	public:
+		float m_y = 0.0f;
+		uint32_t m_stageId = 0;
+		int32_t m_actionIndex = 0;//行为索引， -1表示是选择
+	};
+
+	std::vector<ActionCell> m_actionCellArray;
 };
 
 #endif // __PLAY_GAME_SCENE_H__

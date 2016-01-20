@@ -129,4 +129,10 @@ namespace GameLogic
 	{
 
 	}
+
+	bool StageData::IsHaveChooseAtEnd() const
+	{
+		return m_goToStage[0].first != 0 && m_goToStage[1].first != 0;
+	}
+
 }

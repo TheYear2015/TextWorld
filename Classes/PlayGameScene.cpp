@@ -14,7 +14,7 @@ const char* PlayGame::GetSceneCsb() const
 
 void PlayGame::OnSceneInited()
 {
-	//获得
+	m_actionCellArray.reserve(1000);
 
 	auto l = SceneRoot()->getChildByName("ActionListLayer");
 	if (l)
@@ -94,10 +94,30 @@ void PlayGame::onEnter()
 	GameLogic::GameCore::Instance().SetInterface(this);
 
 	//加载用户数据，创建actionList
+	m_actionCellArray.clear();
+	ActionCell actionCell;
+	float beginY = 0;
 	auto stageList = GameLogic::GameCore::Instance().GetPlayedStageList();
 	for (auto sd : stageList)
 	{
-
+		actionCell.m_stageId = sd->Id();
+		for (int i = 0; i < sd->ActionList().size(); ++i)
+		{
+			actionCell.m_y = beginY;
+			actionCell.m_actionIndex = i;
+			m_actionCellArray.push_back(actionCell);
+			//if (sd->ActionList[i].Type() == 1)
+			{
+				beginY += m_normalTextNodeSize.height;
+			}
+		}
+		if (sd->IsHaveChooseAtEnd())
+		{
+			actionCell.m_y = beginY;
+			actionCell.m_actionIndex = -1;
+			m_actionCellArray.push_back(actionCell);
+			beginY += m_chooseNodeSize.height;
+		}
 	}
 
 
