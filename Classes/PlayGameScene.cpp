@@ -57,7 +57,7 @@ cocos2d::ui::Layout* PlayGame::CreateChooseNode()
 {
 	if (m_unusedChooseNodeList.empty())
 	{
-		auto n = m_normalTextNodeTmpl->clone();
+		auto n = m_chooseNodeTmpl->clone();
 		n->setTag(ChooseNodeTage);
 		m_actionScrollView->addChild(n);
 		n->setVisible(true);
@@ -94,77 +94,8 @@ void PlayGame::onEnter()
 	GameLogic::GameCore::Instance().SetInterface(this);
 
 	////加载用户数据，创建actionList
-	//m_actionCellArray.clear();
-	//ActionCell actionCell;
-	//float beginY = 0;
-	//auto stageList = GameLogic::GameCore::Instance().GetPlayedStageList();
-	//for (auto sd : stageList)
-	//{
-	//	actionCell.m_stage = sd;
-	//	for (int i = 0; i < sd->ActionList().size(); ++i)
-	//	{
-	//		actionCell.m_y = beginY;
-	//		actionCell.m_action = &sd->ActionList()[i];
-	//		m_actionCellArray.push_back(actionCell);
-	//		//if (sd->ActionList[i].Type() == 1)
-	//		{
-	//			beginY += m_normalTextNodeSize.height;
-	//		}
-	//	}
-	//	if (sd->IsHaveChooseAtEnd())
-	//	{
-	//		actionCell.m_y = beginY;
-	//		actionCell.m_action = nullptr;
-	//		m_actionCellArray.push_back(actionCell);
-	//		beginY += m_chooseNodeSize.height;
-	//	}
-	//}
-
-// 	//填充控件
-// 	cocos2d::Vec2 pos;
-// 	for (auto& c : m_actionCellArray)
-// 	{
-// 		if (c.m_action == nullptr)
-// 		{
-// 			auto n = CreateChooseNode();
-// 			if (n)
-// 			{
-// 				pos.y = c.m_y;
-// 				n->setPosition(pos);
-// 			}
-// 		}
-// 		else
-// 		{
-// 			auto n = CreateNormalTextNode();
-// 			if (n)
-// 			{
-// 				pos.y = c.m_y;
-// 				n->setPosition(pos);
-// 			}
-// 		}
-// 	}
-
+	//TODO:读取用户保存数据
 	this->schedule(schedule_selector(PlayGame::LogicUpdate), 0.05f);
-
-
-	////test
-	//if (m_normalTextNodeTmpl)
-	//{
-
-	//	cocos2d::Vec2 pos;
-	//	pos.x = 0;;
-	//	pos.y = 0;
-	//	for (int i = 0; i < 1000; ++i)
-	//	{
-	//		auto nTextN = CreateNormalTextNode();
-	//		nTextN->setPosition(pos);
-	//		pos.y += 200;
-	//	}
-
-	//	auto size = m_actionScrollView->getInnerContainerSize();
-	//	size.height = pos.y + 200;
-	//	m_actionScrollView->setInnerContainerSize(size);
-	//}
 }
 
 
@@ -209,27 +140,7 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 		}
 		actionCell.m_guiNode = n;
 		m_actionCellArray.push_back(actionCell);
-
-		//更新坐标
-		float beginY = 0.0f;
-		cocos2d::Vec2 pos = {0,0};
-		for (auto rb = m_actionCellArray.rbegin(); rb != m_actionCellArray.rend(); ++rb)
-		{
-			auto& ac = *rb;
-			pos.y = beginY;
-			if (ac.m_action == nullptr)
-				beginY += m_chooseNodeSize.height;
-			else
-				beginY += m_normalTextNodeSize.height;
-			ac.m_guiNode->setPosition(pos);
-		}
-
-
-		//刷新显示区域
-		auto size = m_actionScrollView->getInnerContainerSize();
-		size.height = beginY;
-		m_actionScrollView->setInnerContainerSize(size);
-		m_actionScrollView->scrollToBottom(0.5f, true);
+		UpdateActionScrollView();
 	}
 	else
 		CCLOGERROR("PlayGame::OnEnterAction null.");
@@ -246,7 +157,32 @@ void PlayGame::OnLeaveStage(const GameLogic::StageData* stageData)
 void PlayGame::OnNeedChoose(const GameLogic::StageData* stageData)
 {
 	if (stageData)
+	{
 		CCLOG("PlayGame::OnNeedChoose %d.", stageData->Id());
+		ActionCell actionCell;
+		actionCell.m_stage = stageData;
+		actionCell.m_action = nullptr;
+
+		//创建新的控件
+		auto n = CreateChooseNode();
+		auto btn1 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn1"));
+		if (btn1)
+		{
+			btn1->setTitleText(stageData->ToStage()[0].second);
+			btn1->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
+			btn1->setTag(0);
+		}
+		auto btn2 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn2"));
+		if (btn2)
+		{
+			btn2->setTitleText(stageData->ToStage()[1].second);
+			btn2->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
+			btn2->setTag(1);
+		}
+		actionCell.m_guiNode = n;
+		m_actionCellArray.push_back(actionCell);
+		UpdateActionScrollView();
+	}
 	else
 		CCLOGERROR("PlayGame::OnNeedChoose null.");
 }
@@ -269,4 +205,55 @@ void PlayGame::OnGameOK()
 void PlayGame::LogicUpdate(float dt)
 {
 	GameLogic::GameCore::Instance().Update(dt);
+}
+
+void PlayGame::UpdateActionScrollView()
+{
+	//更新坐标
+	float beginY = 0.0f;
+	cocos2d::Vec2 pos = { 0, 0 };
+	for (auto rb = m_actionCellArray.rbegin(); rb != m_actionCellArray.rend(); ++rb)
+	{
+		auto& ac = *rb;
+		pos.y = beginY;
+		if (ac.m_action == nullptr)
+			beginY += m_chooseNodeSize.height;
+		else
+			beginY += m_normalTextNodeSize.height;
+		ac.m_guiNode->setPosition(pos);
+	}
+
+	//刷新显示区域
+	auto size = m_actionScrollView->getInnerContainerSize();
+	size.height = beginY;
+	m_actionScrollView->setInnerContainerSize(size);
+	m_actionScrollView->scrollToBottom(0.5f, true);
+}
+
+void PlayGame::ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type)
+{
+	switch (type)
+	{
+	case cocos2d::ui::Widget::TouchEventType::BEGAN:
+		break;
+
+	case cocos2d::ui::Widget::TouchEventType::MOVED:
+		break;
+
+	case cocos2d::ui::Widget::TouchEventType::ENDED:
+	{
+		auto btn = dynamic_cast<cocos2d::ui::Button*>(target);
+		if (btn)
+		{
+			GameLogic::GameCore::Instance().ChooseAction(btn->getTag());
+		}
+	}
+	break;
+
+	case cocos2d::ui::Widget::TouchEventType::CANCELED:
+		break;
+
+	default:
+		break;
+	}
 }

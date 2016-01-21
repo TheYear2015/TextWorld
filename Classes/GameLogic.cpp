@@ -256,7 +256,16 @@ namespace GameLogic
 		if (m_interface)
 			m_interface->OnEnterStage(sd);
 
-		if (!sd->ActionList().empty())
+		++m_playedActionIndex;
+		if (m_playedActionIndex >= m_actionList.size())
+		{//游戏正常结束
+			//TODO::游戏正常结束
+			if (m_interface)
+			{
+				m_interface->OnGameOK();
+			}
+		}
+		else if (!sd->ActionList().empty())
 		{
 			if (m_interface)
 				m_interface->OnEnterAction(sd, &(sd->ActionList()[0]));

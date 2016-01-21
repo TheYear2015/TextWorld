@@ -37,6 +37,8 @@ public:
 
 	virtual void OnEnterAction(const GameLogic::StageData* stageData, const GameLogic::StageActionData* actData) override;
 
+	void UpdateActionScrollView();
+
 	virtual void OnLeaveStage(const GameLogic::StageData* stageData) override;
 
 	virtual void OnNeedChoose(const GameLogic::StageData* stageData) override;
@@ -49,6 +51,7 @@ public:
 
 private:
 	void LogicUpdate(float dt);
+	void ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
 
 private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;

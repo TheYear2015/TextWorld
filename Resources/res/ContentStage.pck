@@ -5,12 +5,12 @@
       "Id": 1,
       "Name": "112233",
       "GoId": [
-        0,
-        0
+        3,
+        7
       ],
       "GoString": [
-        "",
-        ""
+        "go to 554433",
+        "到场景7"
       ],
       "ContentList": [
         {
@@ -85,7 +85,13 @@
         "",
         ""
       ],
-      "ContentList": []
+      "ContentList": [
+        {
+          "Type": 0,
+          "DuringMS": 7000,
+          "Text": "nnsdfsflkwekfwnf"
+        }
+      ]
     },
     {
       "Id": 4,
@@ -137,7 +143,13 @@
         "",
         ""
       ],
-      "ContentList": []
+      "ContentList": [
+        {
+          "Type": 0,
+          "DuringMS": 4000,
+          "Text": "lllosdf344444"
+        }
+      ]
     },
     {
       "Id": 8,
