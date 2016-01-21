@@ -203,6 +203,10 @@ namespace GameLogic
 				if (m_playedActionIndex >= m_actionList.size())
 				{//游戏正常结束
 					//TODO::游戏正常结束
+					if (m_interface)
+					{
+						m_interface->OnGameOK();
+					}
 				}
 				else
 				{
@@ -213,13 +217,12 @@ namespace GameLogic
 						{
 							m_interface->OnNeedChoose(newAc.m_stage);
 						}
-
 					}
 					else
 					{
 						if (m_interface)
 						{
-							m_interface->OnEnterAction(newAc.m_action);
+							m_interface->OnEnterAction(newAc.m_stage, newAc.m_action);
 						}
 					}
 
@@ -256,7 +259,7 @@ namespace GameLogic
 		if (!sd->ActionList().empty())
 		{
 			if (m_interface)
-				m_interface->OnEnterAction(&(sd->ActionList()[0]));
+				m_interface->OnEnterAction(sd, &(sd->ActionList()[0]));
 		}
 		else
 		{

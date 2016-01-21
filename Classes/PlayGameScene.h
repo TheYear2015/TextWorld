@@ -35,7 +35,7 @@ private:
 public:
 	virtual void OnEnterStage(const GameLogic::StageData* stageData) override;
 
-	virtual void OnEnterAction(const GameLogic::StageActionData* actData) override;
+	virtual void OnEnterAction(const GameLogic::StageData* stageData, const GameLogic::StageActionData* actData) override;
 
 	virtual void OnLeaveStage(const GameLogic::StageData* stageData) override;
 
@@ -47,7 +47,8 @@ public:
 
 	virtual void OnGameOK() override;
 
-	virtual void update(float delta) override;
+private:
+	void LogicUpdate(float dt);
 
 private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;
@@ -64,9 +65,9 @@ private:
 	class ActionCell
 	{
 	public:
-		float m_y = 0.0f;
-		uint32_t m_stageId = 0;
-		int32_t m_actionIndex = 0;//行为索引， -1表示是选择
+		const GameLogic::StageData* m_stage = nullptr;
+		const GameLogic::StageActionData* m_action = nullptr;//行为， null表示是选择
+		cocos2d::Node* m_guiNode = nullptr;
 	};
 
 	std::vector<ActionCell> m_actionCellArray;

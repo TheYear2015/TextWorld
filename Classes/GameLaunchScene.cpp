@@ -25,7 +25,7 @@ void GameLaunch::onEnterTransitionDidFinish()
 	GameLogic::DataManager::Instance().ReadGameDataFromFile("ContentStage.pck");
 	GameLogic::GameCore::Instance().Load();
 
-	scheduleOnce(schedule_selector(GameLaunch::EnterMainMenu), 2.0f);
+	this->scheduleOnce(schedule_selector(GameLaunch::EnterMainMenu), 2.0f);
 
 }
 

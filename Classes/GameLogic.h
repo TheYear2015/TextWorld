@@ -12,7 +12,7 @@ namespace GameLogic
 		virtual void OnEnterStage(const StageData* stageData) = 0;
 
 		//当触发一个新的行为时
-		virtual void OnEnterAction(const StageActionData* actData) = 0;
+		virtual void OnEnterAction(const GameLogic::StageData* stageData, const StageActionData* actData) = 0;
 
 		//当离开当前场景时
 		virtual void OnLeaveStage(const StageData* stageData) = 0;

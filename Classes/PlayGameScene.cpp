@@ -93,57 +93,58 @@ void PlayGame::onEnter()
 	BaseScene::onEnter();
 	GameLogic::GameCore::Instance().SetInterface(this);
 
-	//加载用户数据，创建actionList
-	m_actionCellArray.clear();
-	ActionCell actionCell;
-	float beginY = 0;
-	auto stageList = GameLogic::GameCore::Instance().GetPlayedStageList();
-	for (auto sd : stageList)
-	{
-		actionCell.m_stageId = sd->Id();
-		for (int i = 0; i < sd->ActionList().size(); ++i)
-		{
-			actionCell.m_y = beginY;
-			actionCell.m_actionIndex = i;
-			m_actionCellArray.push_back(actionCell);
-			//if (sd->ActionList[i].Type() == 1)
-			{
-				beginY += m_normalTextNodeSize.height;
-			}
-		}
-		if (sd->IsHaveChooseAtEnd())
-		{
-			actionCell.m_y = beginY;
-			actionCell.m_actionIndex = -1;
-			m_actionCellArray.push_back(actionCell);
-			beginY += m_chooseNodeSize.height;
-		}
-	}
+	////加载用户数据，创建actionList
+	//m_actionCellArray.clear();
+	//ActionCell actionCell;
+	//float beginY = 0;
+	//auto stageList = GameLogic::GameCore::Instance().GetPlayedStageList();
+	//for (auto sd : stageList)
+	//{
+	//	actionCell.m_stage = sd;
+	//	for (int i = 0; i < sd->ActionList().size(); ++i)
+	//	{
+	//		actionCell.m_y = beginY;
+	//		actionCell.m_action = &sd->ActionList()[i];
+	//		m_actionCellArray.push_back(actionCell);
+	//		//if (sd->ActionList[i].Type() == 1)
+	//		{
+	//			beginY += m_normalTextNodeSize.height;
+	//		}
+	//	}
+	//	if (sd->IsHaveChooseAtEnd())
+	//	{
+	//		actionCell.m_y = beginY;
+	//		actionCell.m_action = nullptr;
+	//		m_actionCellArray.push_back(actionCell);
+	//		beginY += m_chooseNodeSize.height;
+	//	}
+	//}
 
-	//填充控件
-	cocos2d::Vec2 pos;
-	for (auto& c : m_actionCellArray)
-	{
-		if (c.m_actionIndex < 0)
-		{
-			auto n = CreateChooseNode();
-			if (n)
-			{
-				pos.y = c.m_y;
-				n->setPosition(pos);
-			}
-		}
-		else
-		{
-			auto n = CreateNormalTextNode();
-			if (n)
-			{
-				pos.y = c.m_y;
-				n->setPosition(pos);
-			}
-		}
-	}
+// 	//填充控件
+// 	cocos2d::Vec2 pos;
+// 	for (auto& c : m_actionCellArray)
+// 	{
+// 		if (c.m_action == nullptr)
+// 		{
+// 			auto n = CreateChooseNode();
+// 			if (n)
+// 			{
+// 				pos.y = c.m_y;
+// 				n->setPosition(pos);
+// 			}
+// 		}
+// 		else
+// 		{
+// 			auto n = CreateNormalTextNode();
+// 			if (n)
+// 			{
+// 				pos.y = c.m_y;
+// 				n->setPosition(pos);
+// 			}
+// 		}
+// 	}
 
+	this->schedule(schedule_selector(PlayGame::LogicUpdate), 0.05f);
 
 
 	////test
@@ -189,12 +190,46 @@ void PlayGame::OnEnterStage(const GameLogic::StageData* stageData)
 		CCLOGERROR("PlayGame::OnEnterStage null.");
 }
 
-void PlayGame::OnEnterAction(const GameLogic::StageActionData* actData)
+void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLogic::StageActionData* actData)
 {
 	if (actData)
 	{
 		CCLOG("PlayGame::OnEnterAction %s.", actData->Text());
+
+		ActionCell actionCell;
+		actionCell.m_stage = stageData;
+		actionCell.m_action = actData;
+
 		//创建新的控件
+		auto n = CreateNormalTextNode();
+		auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
+		if (text)
+		{
+			text->setString(actData->Text());
+		}
+		actionCell.m_guiNode = n;
+		m_actionCellArray.push_back(actionCell);
+
+		//更新坐标
+		float beginY = 0.0f;
+		cocos2d::Vec2 pos = {0,0};
+		for (auto rb = m_actionCellArray.rbegin(); rb != m_actionCellArray.rend(); ++rb)
+		{
+			auto& ac = *rb;
+			pos.y = beginY;
+			if (ac.m_action == nullptr)
+				beginY += m_chooseNodeSize.height;
+			else
+				beginY += m_normalTextNodeSize.height;
+			ac.m_guiNode->setPosition(pos);
+		}
+
+
+		//刷新显示区域
+		auto size = m_actionScrollView->getInnerContainerSize();
+		size.height = beginY;
+		m_actionScrollView->setInnerContainerSize(size);
+		m_actionScrollView->scrollToBottom(0.5f, true);
 	}
 	else
 		CCLOGERROR("PlayGame::OnEnterAction null.");
@@ -231,8 +266,7 @@ void PlayGame::OnGameOK()
 	CCLOG("PlayGame::OnGameOK");
 }
 
-void PlayGame::update(float delta)
+void PlayGame::LogicUpdate(float dt)
 {
-	BaseScene::update(delta);
-	GameLogic::GameCore::Instance().Update(delta);
+	GameLogic::GameCore::Instance().Update(dt);
 }
