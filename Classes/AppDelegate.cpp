@@ -30,6 +30,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	if (!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		glview = GLViewImpl::createWithRect("Text World", Rect(0, 0, 640 * 0.6f, 960 * 0.6f));
+//		glview = GLViewImpl::createWithRect("Text World", Rect(0, 0, 640, 960));
 #else 
 		glview = GLViewImpl::createWithRect("Text World", Rect(0, 0, 640, 960));
 #endif
