@@ -26,7 +26,7 @@ namespace GameLogic
 
 	GameCore::GameCore()
 	{
-
+		m_actionList.reserve(10000);
 	}
 
 	GameCore::~GameCore()
@@ -59,8 +59,43 @@ namespace GameLogic
 
 	void GameCore::Begin()
 	{
+		m_actionList.clear();
+
 		if (m_interface)
 			m_interface->OnGameBegin();
+
+		//如果是新游戏，开始第一个场景(id 1)
+		if (m_userData.m_playedStages.empty())
+		{
+			m_playedActionIndex = 0;
+
+			EnterStage(1);
+		}
+		else//加载以前的数据
+		{
+			ActionNode actionN;
+			m_currentStageTime = m_userData.m_currentStageTime;
+			auto stageList = GetPlayedStageList();
+			for (auto sd : stageList)
+			{
+				uint32_t endTime = 0;
+				actionN.m_stage = sd;
+				for (int i = 0; i < (int)sd->ActionList().size(); ++i)
+				{
+					actionN.m_isChoose = false;
+					actionN.m_action = &(sd->ActionList()[i]);
+					endTime += actionN.m_action->DuringMS();
+					actionN.m_endTime = endTime;
+					m_actionList.push_back(actionN);
+				}
+				if (sd->IsHaveChooseAtEnd())
+				{
+					actionN.m_isChoose = true;
+					actionN.m_action = nullptr;
+					m_actionList.push_back(actionN);
+				}
+			}
+		}
 	}
 
 	std::vector<const StageData*> GameCore::GetPlayedStageList() const
@@ -108,7 +143,7 @@ namespace GameLogic
 
 		if (doc.HasParseError())
 		{
-			CCLOG("DataManager::ReadGameDataFromFile parse json error!");
+			CCLOG("GameCore::Load() parse json error!");
 			return;
 		}
 		if (doc.HasMember("Stages"))
@@ -150,4 +185,99 @@ namespace GameLogic
 		cocos2d::FileUtils::getInstance()->writeStringToFile(buffer.GetString(), path);
 	}
 
-}
+	void GameCore::Update(float dt)
+	{
+		auto& currentAc = m_actionList[m_playedActionIndex];
+		if (currentAc.m_isChoose)
+		{
+			//继续等待玩家选择
+		}
+		else
+		{
+			m_currentStageTime += (dt * 1000);
+			//判断是否要进入下一个aciton
+			if (m_currentStageTime >= currentAc.m_endTime)
+			{
+				//进入下一个action
+				++m_playedActionIndex;
+				if (m_playedActionIndex >= m_actionList.size())
+				{//游戏正常结束
+					//TODO::游戏正常结束
+				}
+				else
+				{
+					auto& newAc = m_actionList[m_playedActionIndex];
+					if (newAc.m_isChoose)
+					{
+						if (m_interface)
+						{
+							m_interface->OnNeedChoose(newAc.m_stage);
+						}
+
+					}
+					else
+					{
+						if (m_interface)
+						{
+							m_interface->OnEnterAction(newAc.m_action);
+						}
+					}
+
+				}
+			}
+		}
+	}
+
+	void GameCore::EnterStage(int id)
+	{
+		m_currentStageTime = 0;
+		ActionNode actionN;
+		auto sd = DataManager::Instance().GetStageData(id);
+		uint32_t endTime = 0;
+		actionN.m_stage = sd;
+		for (int i = 0; i < (int)sd->ActionList().size(); ++i)
+		{
+			actionN.m_isChoose = false;
+			actionN.m_action = &(sd->ActionList()[i]);
+			endTime += actionN.m_action->DuringMS();
+			actionN.m_endTime = endTime;
+			m_actionList.push_back(actionN);
+		}
+		if (sd->IsHaveChooseAtEnd())
+		{
+			actionN.m_isChoose = true;
+			actionN.m_action = nullptr;
+			m_actionList.push_back(actionN);
+		}
+
+		if (m_interface)
+			m_interface->OnEnterStage(sd);
+
+		if (!sd->ActionList().empty())
+		{
+			if (m_interface)
+				m_interface->OnEnterAction(&(sd->ActionList()[0]));
+		}
+		else
+		{
+			if (m_interface)
+				m_interface->OnNeedChoose(sd);
+		}
+
+	}
+
+	//进行选择
+	void GameCore::ChooseAction(int index)
+	{
+		//进入下一个场景
+		auto& currentAc = m_actionList[m_playedActionIndex];
+		if (currentAc.m_isChoose)
+		{
+			if (index >= 0 && index < currentAc.m_stage->ToStage().size())
+			{
+				EnterStage(currentAc.m_stage->ToStage()[index].first);
+			}
+		}
+	}
+
+};

@@ -21,7 +21,7 @@ namespace GameLogic
 		m_stageDataSet.clear();
 	}
 
-	DataManager DataManager::Instance()
+	DataManager& DataManager::Instance()
 	{
 		static DataManager _ins;
 		return _ins;
@@ -132,7 +132,7 @@ namespace GameLogic
 
 	bool StageData::IsHaveChooseAtEnd() const
 	{
-		return m_goToStage[0].first != 0 && m_goToStage[1].first != 0;
+		return m_goToStage[0].first != 0 || m_goToStage[1].first != 0;
 	}
 
 }

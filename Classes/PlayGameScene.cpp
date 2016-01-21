@@ -120,6 +120,31 @@ void PlayGame::onEnter()
 		}
 	}
 
+	//МоідїШјю
+	cocos2d::Vec2 pos;
+	for (auto& c : m_actionCellArray)
+	{
+		if (c.m_actionIndex < 0)
+		{
+			auto n = CreateChooseNode();
+			if (n)
+			{
+				pos.y = c.m_y;
+				n->setPosition(pos);
+			}
+		}
+		else
+		{
+			auto n = CreateNormalTextNode();
+			if (n)
+			{
+				pos.y = c.m_y;
+				n->setPosition(pos);
+			}
+		}
+	}
+
+
 
 	////test
 	//if (m_normalTextNodeTmpl)
@@ -204,4 +229,10 @@ void PlayGame::OnGameFailed(int param)
 void PlayGame::OnGameOK()
 {
 	CCLOG("PlayGame::OnGameOK");
+}
+
+void PlayGame::update(float delta)
+{
+	BaseScene::update(delta);
+	GameLogic::GameCore::Instance().Update(delta);
 }

@@ -47,6 +47,8 @@ public:
 
 	virtual void OnGameOK() override;
 
+	virtual void update(float delta) override;
+
 private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;
 	cocos2d::ui::Layout* m_normalTextNodeTmpl = nullptr;

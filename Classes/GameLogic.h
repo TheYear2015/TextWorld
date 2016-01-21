@@ -111,12 +111,32 @@ namespace GameLogic
 	private:
 		void SaveUserDataToFile();
 
+		void EnterStage(int id);
+
 		GameLogicInterface* m_interface = nullptr;
 
 		uint64_t m_playingTimeMS = 0;
 
 		//用户数据
 		UserGameData m_userData;
+
+		//游戏中数据
+		class ActionNode
+		{
+		public:
+			bool m_isChoose = false;
+			const StageData* m_stage = nullptr;
+			const StageActionData* m_action = nullptr;
+			//结束的时间
+			uint32_t m_endTime = 0;
+		};
+		std::vector<ActionNode> m_actionList;
+
+		//最后一个执行了的action的索引
+		int m_playedActionIndex = 0;
+
+		//游戏进行的时间
+		uint32_t m_currentStageTime;
 	};
 }
 

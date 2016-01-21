@@ -60,7 +60,7 @@ namespace GameLogic
 		~DataManager();
 
 	public:
-		static DataManager Instance();
+		static DataManager& Instance();
 
 	public:
 		//从文件读取数据
