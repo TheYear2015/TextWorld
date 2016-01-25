@@ -25,11 +25,11 @@
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
                 </Children>
-                <AnchorPoint />
-                <Position X="17.0000" Y="701.0000" />
+                <AnchorPoint ScaleY="1.0000" />
+                <Position X="17.0000" Y="901.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0332" Y="0.7620" />
+                <PrePosition X="0.0332" Y="0.9793" />
                 <PreSize X="0.7813" Y="0.2174" />
                 <SingleColor A="255" R="150" G="200" B="255" />
                 <FirstColor A="255" R="150" G="200" B="255" />
@@ -72,11 +72,11 @@
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
                 </Children>
-                <AnchorPoint />
-                <Position X="19.0000" Y="603.0000" />
+                <AnchorPoint ScaleY="1.0000" />
+                <Position X="19.0000" Y="703.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0371" Y="0.6554" />
+                <PrePosition X="0.0371" Y="0.7641" />
                 <PreSize X="0.7813" Y="0.1087" />
                 <SingleColor A="255" R="150" G="200" B="255" />
                 <FirstColor A="255" R="150" G="200" B="255" />

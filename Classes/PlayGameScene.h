@@ -71,9 +71,13 @@ private:
 		const GameLogic::StageData* m_stage = nullptr;
 		const GameLogic::StageActionData* m_action = nullptr;//行为， null表示是选择
 		cocos2d::Node* m_guiNode = nullptr;
+		float m_logicY = 0;
 	};
 
 	std::vector<ActionCell> m_actionCellArray;
+
+	float GetActionCellHeight(const ActionCell& ac) const;
+
 };
 
 #endif // __PLAY_GAME_SCENE_H__

@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "PlayGameScene.h"
 #include "GameLogic.h"
 #include "cocostudio/CocoStudio.h"
@@ -131,6 +132,12 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 		actionCell.m_stage = stageData;
 		actionCell.m_action = actData;
 
+		if(!m_actionCellArray.empty())
+		{
+			auto& last = m_actionCellArray.back();
+			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
+		}
+
 		//创建新的控件
 		auto n = CreateNormalTextNode();
 		auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
@@ -139,6 +146,7 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 			text->setString(actData->Text());
 		}
 		actionCell.m_guiNode = n;
+
 		m_actionCellArray.push_back(actionCell);
 		UpdateActionScrollView();
 	}
@@ -162,6 +170,11 @@ void PlayGame::OnNeedChoose(const GameLogic::StageData* stageData)
 		ActionCell actionCell;
 		actionCell.m_stage = stageData;
 		actionCell.m_action = nullptr;
+		if (!m_actionCellArray.empty())
+		{
+			auto& last = m_actionCellArray.back();
+			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
+		}
 
 		//创建新的控件
 		auto n = CreateChooseNode();
@@ -210,22 +223,30 @@ void PlayGame::LogicUpdate(float dt)
 void PlayGame::UpdateActionScrollView()
 {
 	//更新坐标
-	float beginY = 0.0f;
+	
+	//获得新的内容尺寸
+	float height = 0;
+	auto& last = m_actionCellArray.back();
+	height = last.m_logicY + GetActionCellHeight(last);
+
+	auto size = m_actionScrollView->getContentSize();
+	height = std::max(size.height, height);
+	
+	//更新位置
 	cocos2d::Vec2 pos = { 0, 0 };
-	for (auto rb = m_actionCellArray.rbegin(); rb != m_actionCellArray.rend(); ++rb)
+	for (auto b = m_actionCellArray.begin(); b != m_actionCellArray.end(); ++b)
 	{
-		auto& ac = *rb;
-		pos.y = beginY;
-		if (ac.m_action == nullptr)
-			beginY += m_chooseNodeSize.height;
-		else
-			beginY += m_normalTextNodeSize.height;
-		ac.m_guiNode->setPosition(pos);
+		auto& ac = *b;
+		if (ac.m_guiNode)
+		{
+			pos.y = height - ac.m_logicY;
+			ac.m_guiNode->setPosition(pos);
+		}
 	}
 
 	//刷新显示区域
-	auto size = m_actionScrollView->getInnerContainerSize();
-	size.height = beginY;
+	size = m_actionScrollView->getInnerContainerSize();
+	size.height = height;
 	m_actionScrollView->setInnerContainerSize(size);
 	m_actionScrollView->scrollToBottom(0.5f, true);
 }
@@ -256,4 +277,9 @@ void PlayGame::ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEven
 	default:
 		break;
 	}
+}
+
+float PlayGame::GetActionCellHeight(const ActionCell& ac) const
+{
+	return ac.m_action == nullptr ? m_chooseNodeSize.height : m_normalTextNodeSize.height;
 }
