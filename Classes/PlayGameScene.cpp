@@ -35,6 +35,8 @@ void PlayGame::OnSceneInited()
 			m_chooseNodeTmpl->setVisible(false);
 			m_chooseNodeSize = m_chooseNodeTmpl->getContentSize();
 		}
+
+		m_actionScrollView->addEventListener(CC_CALLBACK_2(PlayGame::OnActionListScrollViewEvent, this));
 	}
 
 }
@@ -130,7 +132,7 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 		actionCell.m_stage = stageData;
 		actionCell.m_action = actData;
 
-		if(!m_actionCellArray.empty())
+		if (!m_actionCellArray.empty())
 		{
 			auto& last = m_actionCellArray.back();
 			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
@@ -149,7 +151,9 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 
 		CCLOG("PlayGame::OnEnterAction %s.(%d)", actData->Text(), m_actionCellArray.size());
 
-		UpdateActionScrollView();
+		UpdateActionScrollView(true);
+		m_actionScrollView->scrollToBottom(0.5f, true);
+
 	}
 	else
 		CCLOGERROR("PlayGame::OnEnterAction null.");
@@ -195,7 +199,9 @@ void PlayGame::OnNeedChoose(const GameLogic::StageData* stageData)
 		}
 		actionCell.m_guiNode = n;
 		m_actionCellArray.push_back(actionCell);
-		UpdateActionScrollView();
+		UpdateActionScrollView(true);
+		m_actionScrollView->scrollToBottom(0.5f, true);
+
 	}
 	else
 		CCLOGERROR("PlayGame::OnNeedChoose null.");
@@ -221,23 +227,36 @@ void PlayGame::LogicUpdate(float dt)
 	GameLogic::GameCore::Instance().Update(dt);
 }
 
-void PlayGame::UpdateActionScrollView()
+void PlayGame::UpdateActionScrollView(bool isChangeSize)
 {
 	//更新坐标
-	
+
 	//获得新的内容尺寸
 	float height = 0;
-	auto& last = m_actionCellArray.back();
-	height = last.m_logicY + GetActionCellHeight(last);
-
 	auto size = m_actionScrollView->getContentSize();
-	height = std::max(size.height, height);
-	
-	//更新位置
+	if (isChangeSize)
+	{
+		if (!m_actionCellArray.empty())
+		{
+			auto& last = m_actionCellArray.back();
+			height = last.m_logicY + GetActionCellHeight(last);
+		}
+		height = std::max(size.height, height);
+	}
+	else
+	{
+		height = size.height;
+	}
+
+	//更新控件并更新位置
 	cocos2d::Vec2 pos = { 0, 0 };
+	auto scrollVPos = m_actionScrollView->getInnerContainerPosition();
+	//scrollVPos.x = scrollVPos.y + 
 	for (auto b = m_actionCellArray.begin(); b != m_actionCellArray.end(); ++b)
 	{
 		auto& ac = *b;
+		pos.y = height - ac.m_logicY;
+		//判断是否在区域内
 		if (ac.m_guiNode)
 		{
 			pos.y = height - ac.m_logicY;
@@ -245,11 +264,13 @@ void PlayGame::UpdateActionScrollView()
 		}
 	}
 
-	//刷新显示区域
-	size = m_actionScrollView->getInnerContainerSize();
-	size.height = height;
-	m_actionScrollView->setInnerContainerSize(size);
-	m_actionScrollView->scrollToBottom(0.5f, true);
+	if (isChangeSize)
+	{
+		//刷新显示区域
+		size = m_actionScrollView->getInnerContainerSize();
+		size.height = height;
+		m_actionScrollView->setInnerContainerSize(size);
+	}
 }
 
 void PlayGame::ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type)
@@ -283,4 +304,53 @@ void PlayGame::ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEven
 float PlayGame::GetActionCellHeight(const ActionCell& ac) const
 {
 	return ac.m_action == nullptr ? m_chooseNodeSize.height : m_normalTextNodeSize.height;
+}
+
+void PlayGame::OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::ScrollView::EventType type)
+{
+	switch (type)
+	{
+	case cocos2d::ui::ScrollView::EventType::SCROLL_TO_TOP:
+		break;
+	case cocos2d::ui::ScrollView::EventType::SCROLL_TO_BOTTOM:
+		break;
+	case cocos2d::ui::ScrollView::EventType::SCROLL_TO_LEFT:
+		break;
+	case cocos2d::ui::ScrollView::EventType::SCROLL_TO_RIGHT:
+		break;
+	case cocos2d::ui::ScrollView::EventType::SCROLLING:
+// 	{
+// 		{//滑动中
+// 			auto scrollV = dynamic_cast<cocos2d::ui::ScrollView*>(target);
+// 			if (scrollV)
+// 			{
+// 				cocos2d::Vec2 pos = scrollV->getInnerContainerPosition();
+// 				//刷新控件位置
+// 			}
+// 		}
+// 	}
+		break;
+	case cocos2d::ui::ScrollView::EventType::BOUNCE_TOP:
+		break;
+	case cocos2d::ui::ScrollView::EventType::BOUNCE_BOTTOM:
+		break;
+	case cocos2d::ui::ScrollView::EventType::BOUNCE_LEFT:
+		break;
+	case cocos2d::ui::ScrollView::EventType::BOUNCE_RIGHT:
+		break;
+	case cocos2d::ui::ScrollView::EventType::CONTAINER_MOVED:
+	{//滑动结束
+		auto scrollV = dynamic_cast<cocos2d::ui::ScrollView*>(target);
+		if (scrollV)
+		{
+			cocos2d::Vec2 pos = scrollV->getInnerContainerPosition();
+			//刷新控件位置
+
+			//CCLOG("y %f", pos.y);
+		}
+	}
+	break;
+	default:
+		break;
+	}
 }
