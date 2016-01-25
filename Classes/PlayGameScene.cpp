@@ -126,8 +126,6 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 {
 	if (actData)
 	{
-		CCLOG("PlayGame::OnEnterAction %s.", actData->Text());
-
 		ActionCell actionCell;
 		actionCell.m_stage = stageData;
 		actionCell.m_action = actData;
@@ -148,6 +146,9 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 		actionCell.m_guiNode = n;
 
 		m_actionCellArray.push_back(actionCell);
+
+		CCLOG("PlayGame::OnEnterAction %s.(%d)", actData->Text(), m_actionCellArray.size());
+
 		UpdateActionScrollView();
 	}
 	else

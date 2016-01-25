@@ -62,6 +62,15 @@ namespace GameLogic
 	class GameCore
 	{
 	public:
+		enum class GameState
+		{
+			Ready = 0,//准备开始
+			Playing,//运行中
+			Paused,//暂停中
+			End,//已结束
+		};
+
+	public:
 		GameCore();
 
 		~GameCore();
@@ -108,6 +117,9 @@ namespace GameLogic
 		//获得正在游戏中的场景已经过的行为(action)
 		std::vector<const StageActionData*> GetPlayingActionList() const;
 
+		//获得游戏状态
+		GameLogic::GameCore::GameState State() const { return m_state; }
+
 	private:
 		void SaveUserDataToFile();
 
@@ -137,6 +149,9 @@ namespace GameLogic
 
 		//游戏进行的时间
 		uint32_t m_currentStageTime;
+
+		//游戏状态
+		GameState m_state = GameState::Ready;
 	};
 }
 

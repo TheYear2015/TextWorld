@@ -62,6 +62,12 @@ namespace GameLogic
 						s->m_id = stageValue["Id"].GetInt();
 						m_stageDataSet[s->m_id] = s;
 
+						if (stageValue.HasMember("AutoGoto"))
+						{
+							const auto& v = stageValue["AutoGoto"];
+							s->m_isAutoNext = v.GetBool();
+						}
+
 						if (stageValue.HasMember("ContentList"))
 						{
 							const auto& listV = stageValue["ContentList"];

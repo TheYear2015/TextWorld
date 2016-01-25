@@ -5,13 +5,14 @@
       "Id": 1,
       "Name": "112233",
       "GoId": [
-        3,
-        7
+        1,
+        3
       ],
       "GoString": [
-        "go to 554433",
-        "到场景7"
+        "go to 112233",
+        "到场景554433"
       ],
+      "AutoGoto": true,
       "ContentList": [
         {
           "Type": 0,
@@ -66,6 +67,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": [
         {
           "Type": 0,
@@ -85,6 +87,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": [
         {
           "Type": 0,
@@ -104,6 +107,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -117,6 +121,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -130,6 +135,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -143,6 +149,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": [
         {
           "Type": 0,
@@ -162,6 +169,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -175,6 +183,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -188,6 +197,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -201,6 +211,7 @@
         "go to 112233",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -214,6 +225,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -227,6 +239,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -240,6 +253,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -253,6 +267,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -266,6 +281,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -279,6 +295,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -292,6 +309,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -305,6 +323,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -318,6 +337,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     },
     {
@@ -331,6 +351,7 @@
         "",
         ""
       ],
+      "AutoGoto": false,
       "ContentList": []
     }
   ]

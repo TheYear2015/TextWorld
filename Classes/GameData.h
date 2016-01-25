@@ -38,6 +38,7 @@ namespace GameLogic
 		~StageData();
 
 		uint32_t Id() const { return m_id; }
+		bool AutoNext() const { return m_isAutoNext; }
 		const std::vector<std::pair<uint32_t, std::string>>& ToStage() const { return m_goToStage; }
 		const std::vector<StageActionData>& ActionList() const { return m_actionList; }
 		//在结束的时候有选择
@@ -45,6 +46,8 @@ namespace GameLogic
 	private:
 		//Id
 		uint32_t m_id = 0;
+		//自动进入下一个场景，使用 m_goToStage[0]
+		bool m_isAutoNext = false;
 		//场景结束跳信息
 		std::vector<std::pair<uint32_t, std::string>> m_goToStage;
 		//场景行为列表

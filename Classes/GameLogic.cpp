@@ -42,6 +42,7 @@ namespace GameLogic
 
 	void GameCore::New()
 	{
+		m_state = GameState::Ready;
 		m_playingTimeMS = 0;
 		m_userData.Reset();
 
@@ -59,6 +60,8 @@ namespace GameLogic
 
 	void GameCore::Begin()
 	{
+		m_state = GameState::Playing;
+
 		m_actionList.clear();
 
 		if (m_interface)
@@ -130,8 +133,9 @@ namespace GameLogic
 
 	void GameCore::Load()
 	{
-		m_userData.Reset();
+		m_state = GameState::Ready;
 
+		m_userData.Reset();
 
 		auto path = cocos2d::FileUtils::getInstance()->getWritablePath();
 		path.append("userdata.json");
@@ -187,45 +191,56 @@ namespace GameLogic
 
 	void GameCore::Update(float dt)
 	{
-		auto& currentAc = m_actionList[m_playedActionIndex];
-		if (currentAc.m_isChoose)
+		if (m_state == GameState::Playing)
 		{
-			//继续等待玩家选择
-		}
-		else
-		{
-			m_currentStageTime += (dt * 1000);
-			//判断是否要进入下一个aciton
-			if (m_currentStageTime >= currentAc.m_endTime)
+			auto& currentAc = m_actionList[m_playedActionIndex];
+			if (currentAc.m_isChoose)
 			{
-				//进入下一个action
-				++m_playedActionIndex;
-				if (m_playedActionIndex >= m_actionList.size())
-				{//游戏正常结束
-					//TODO::游戏正常结束
-					if (m_interface)
-					{
-						m_interface->OnGameOK();
-					}
-				}
-				else
+				//继续等待玩家选择
+			}
+			else
+			{
+				m_currentStageTime += (dt * 1000);
+				//判断是否要进入下一个aciton
+				if (m_currentStageTime >= currentAc.m_endTime)
 				{
-					auto& newAc = m_actionList[m_playedActionIndex];
-					if (newAc.m_isChoose)
-					{
+					//进入下一个action
+					++m_playedActionIndex;
+					if (m_playedActionIndex >= m_actionList.size())
+					{//游戏正常结束
+						//TODO::游戏正常结束
 						if (m_interface)
 						{
-							m_interface->OnNeedChoose(newAc.m_stage);
+							m_interface->OnGameOK();
 						}
 					}
 					else
 					{
-						if (m_interface)
+						auto& newAc = m_actionList[m_playedActionIndex];
+						if (newAc.m_isChoose)
 						{
-							m_interface->OnEnterAction(newAc.m_stage, newAc.m_action);
+							//判断是否是自动选择
+							if (newAc.m_stage->AutoNext())
+							{//进行自动选择
+								ChooseAction(0);
+							}
+							else
+							{
+								if (m_interface)
+								{
+									m_interface->OnNeedChoose(newAc.m_stage);
+								}
+							}
 						}
-					}
+						else
+						{
+							if (m_interface)
+							{
+								m_interface->OnEnterAction(newAc.m_stage, newAc.m_action);
+							}
+						}
 
+					}
 				}
 			}
 		}
@@ -281,15 +296,36 @@ namespace GameLogic
 	//进行选择
 	void GameCore::ChooseAction(int index)
 	{
-		//进入下一个场景
-		auto& currentAc = m_actionList[m_playedActionIndex];
-		if (currentAc.m_isChoose)
+		if (IsPlaying())
 		{
-			if (index >= 0 && index < currentAc.m_stage->ToStage().size())
+			//进入下一个场景
+			auto& currentAc = m_actionList[m_playedActionIndex];
+			if (currentAc.m_isChoose)
 			{
-				EnterStage(currentAc.m_stage->ToStage()[index].first);
+				if (index >= 0 && index < currentAc.m_stage->ToStage().size())
+				{
+					EnterStage(currentAc.m_stage->ToStage()[index].first);
+				}
 			}
 		}
+	}
+
+	void GameCore::Resume()
+	{
+		if (m_state == GameState::Paused)
+			m_state = GameState::Playing;
+	}
+
+	void GameCore::Pause()
+	{
+		if (m_state == GameState::Playing)
+			m_state = GameState::Paused;
+
+	}
+
+	bool GameCore::IsPlaying() const
+	{
+		return m_state == GameState::Playing;
 	}
 
 };
