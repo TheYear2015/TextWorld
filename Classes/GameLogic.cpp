@@ -219,6 +219,7 @@ namespace GameLogic
 						auto& newAc = m_actionList[m_playedActionIndex];
 						if (newAc.m_isChoose)
 						{
+							//test
 							//判断是否是自动选择
 							if (newAc.m_stage->AutoNext())
 							{//进行自动选择

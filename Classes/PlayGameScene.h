@@ -37,7 +37,6 @@ public:
 
 	virtual void OnEnterAction(const GameLogic::StageData* stageData, const GameLogic::StageActionData* actData) override;
 
-	void UpdateActionScrollView(bool isChangeSize);
 
 	virtual void OnLeaveStage(const GameLogic::StageData* stageData) override;
 
@@ -53,6 +52,10 @@ private:
 	void LogicUpdate(float dt);
 	void ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
 	void OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::ScrollView::EventType type);
+
+private:
+	void UpdateActionScrollView(bool isChangeSize);
+	cocos2d::Vec2 m_preScrollViewContainerPos;
 
 private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;

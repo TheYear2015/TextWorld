@@ -229,6 +229,15 @@ void PlayGame::LogicUpdate(float dt)
 
 void PlayGame::UpdateActionScrollView(bool isChangeSize)
 {
+	auto scrollVPos = m_actionScrollView->getInnerContainerPosition();
+	if (!isChangeSize)
+	{
+		if (fabs(scrollVPos.y - m_preScrollViewContainerPos.y) < 100)
+		{
+			return;
+		}
+	}
+	m_preScrollViewContainerPos = scrollVPos;
 	//更新坐标
 
 	//获得新的内容尺寸
@@ -245,23 +254,28 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 	}
 	else
 	{
-		height = size.height;
+		height = m_actionScrollView->getInnerContainerSize().height;
 	}
 
 	//更新控件并更新位置
 	cocos2d::Vec2 pos = { 0, 0 };
-	auto scrollVPos = m_actionScrollView->getInnerContainerPosition();
-	//scrollVPos.x = scrollVPos.y + 
+	scrollVPos.x = -scrollVPos.y - size.height * 2;
+	scrollVPos.y = -scrollVPos.y + size.height * 3;
 	for (auto b = m_actionCellArray.begin(); b != m_actionCellArray.end(); ++b)
 	{
 		auto& ac = *b;
 		pos.y = height - ac.m_logicY;
 		//判断是否在区域内
-		if (ac.m_guiNode)
+		if (pos.y >= scrollVPos.x && pos.y < scrollVPos.y)
 		{
-			pos.y = height - ac.m_logicY;
+			ac.m_guiNode->setVisible(true);
 			ac.m_guiNode->setPosition(pos);
 		}
+		else
+		{
+			ac.m_guiNode->setVisible(false);
+		}
+
 	}
 
 	if (isChangeSize)
@@ -319,16 +333,6 @@ void PlayGame::OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::Sc
 	case cocos2d::ui::ScrollView::EventType::SCROLL_TO_RIGHT:
 		break;
 	case cocos2d::ui::ScrollView::EventType::SCROLLING:
-// 	{
-// 		{//滑动中
-// 			auto scrollV = dynamic_cast<cocos2d::ui::ScrollView*>(target);
-// 			if (scrollV)
-// 			{
-// 				cocos2d::Vec2 pos = scrollV->getInnerContainerPosition();
-// 				//刷新控件位置
-// 			}
-// 		}
-// 	}
 		break;
 	case cocos2d::ui::ScrollView::EventType::BOUNCE_TOP:
 		break;
@@ -340,14 +344,7 @@ void PlayGame::OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::Sc
 		break;
 	case cocos2d::ui::ScrollView::EventType::CONTAINER_MOVED:
 	{//滑动结束
-		auto scrollV = dynamic_cast<cocos2d::ui::ScrollView*>(target);
-		if (scrollV)
-		{
-			cocos2d::Vec2 pos = scrollV->getInnerContainerPosition();
-			//刷新控件位置
-
-			//CCLOG("y %f", pos.y);
-		}
+		UpdateActionScrollView(false);
 	}
 	break;
 	default:
