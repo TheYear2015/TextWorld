@@ -76,13 +76,12 @@ void PlayGame::OnEnterStage(const GameLogic::StageData* stageData)
 		CCLOGERROR("PlayGame::OnEnterStage null.");
 }
 
-void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLogic::StageActionData* actData)
+void PlayGame::OnEnterAction(const GameLogic::ActionNode* actNode)
 {
-	if (actData)
+	if (actNode)
 	{
 		ActionCell actionCell;
-		actionCell.m_stage = stageData;
-		actionCell.m_action = actData;
+		actionCell.m_action = actNode;
 
 		if (!m_actionCellArray.empty())
 		{
@@ -92,7 +91,8 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 
 		m_actionCellArray.push_back(actionCell);
 
-		CCLOG("PlayGame::OnEnterAction %s.(%d)", actData->Text(), m_actionCellArray.size());
+		if (actNode->m_action)
+			CCLOG("PlayGame::OnEnterAction %s.(%d)", actNode->m_action->Text(), m_actionCellArray.size());
 
 		UpdateActionScrollView(true);
 		m_actionScrollView->scrollToBottom(0.5f, true);
@@ -110,14 +110,13 @@ void PlayGame::OnLeaveStage(const GameLogic::StageData* stageData)
 		CCLOGERROR("PlayGame::OnLeaveStage null.");
 }
 
-void PlayGame::OnNeedChoose(const GameLogic::StageData* stageData)
+void PlayGame::OnNeedChoose(const GameLogic::ActionNode* actNode)
 {
-	if (stageData)
+	if (actNode && actNode->m_stage)
 	{
-		CCLOG("PlayGame::OnNeedChoose %d.", stageData->Id());
+		CCLOG("PlayGame::OnNeedChoose %d.", actNode->m_stage->Id());
 		ActionCell actionCell;
-		actionCell.m_stage = stageData;
-		actionCell.m_action = nullptr;
+		actionCell.m_action = actNode;
 		if (!m_actionCellArray.empty())
 		{
 			auto& last = m_actionCellArray.back();
@@ -197,13 +196,13 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 			if (!ac.m_guiNode)
 			{
 				//创建新的控件
-				if (ac.m_action)
+				if (ac.m_action->m_action)
 				{
 					auto n = CreateActionNode(GameLogic::ActionNodeType::NormalText);
 					auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
 					if (text)
 					{
-						text->setString(ac.m_action->Text());
+						text->setString(ac.m_action->m_action->Text());
 					}
 					ac.m_guiNode = n;
 				}
@@ -214,14 +213,14 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 					auto btn1 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn1"));
 					if (btn1)
 					{
-						btn1->setTitleText(ac.m_stage->ToStage()[0].second);
+						btn1->setTitleText(ac.m_action->m_stage->ToStage()[0].second);
 						//btn1->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
 						btn1->setTag(0);
 					}
 					auto btn2 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn2"));
 					if (btn2)
 					{
-						btn2->setTitleText(ac.m_stage->ToStage()[1].second);
+						btn2->setTitleText(ac.m_action->m_stage->ToStage()[1].second);
 						//btn2->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
 						btn2->setTag(1);
 					}

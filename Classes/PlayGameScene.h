@@ -23,11 +23,11 @@ protected:
 public:
 	virtual void OnEnterStage(const GameLogic::StageData* stageData) override;
 
-	virtual void OnEnterAction(const GameLogic::StageData* stageData, const GameLogic::StageActionData* actData) override;
+	virtual void OnEnterAction(const GameLogic::ActionNode* actNode) override;
 
 	virtual void OnLeaveStage(const GameLogic::StageData* stageData) override;
 
-	virtual void OnNeedChoose(const GameLogic::StageData* stageData) override;
+	virtual void OnNeedChoose(const GameLogic::ActionNode* actNode) override;
 
 	virtual void OnGameBegin() override;
 
@@ -66,10 +66,10 @@ private:
 	class ActionCell
 	{
 	public:
-		const GameLogic::StageData* m_stage = nullptr;
-		const GameLogic::StageActionData* m_action = nullptr;//行为， null表示是选择
+		const GameLogic::ActionNode* m_action = nullptr;//行为
 		cocos2d::ui::Layout* m_guiNode = nullptr;
 		float m_logicY = 0;
+
 	};
 
 	std::vector<ActionCell> m_actionCellArray;

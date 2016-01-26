@@ -83,7 +83,7 @@ namespace GameLogic
 			uint32_t endTime = 0;
 			for (auto sd : stageList)
 			{
-				if (lastN && lastN->IsChoose())
+				if (lastN && lastN->m_action == nullptr)
 				{
 					for (int __i = 0; __i < lastN->m_stage->ToStage().size(); ++__i)
 					{
@@ -206,7 +206,7 @@ namespace GameLogic
 		if (m_state == GameState::Playing)
 		{
 			auto& currentAc = m_actionList[m_playedActionIndex];
-			if (currentAc.IsChoose())
+			if (currentAc.GetType() == ActionNodeType::Choosing)
 			{
 				//继续等待玩家选择
 			}
@@ -229,7 +229,7 @@ namespace GameLogic
 					else
 					{
 						auto& newAc = m_actionList[m_playedActionIndex];
-						if (newAc.IsChoose())
+						if (newAc.GetType() == ActionNodeType::Choosing)
 						{
 							//判断是否是自动选择
 							if (m_actionList.size() < MaxActionCount() && newAc.m_stage->AutoNext())
@@ -240,7 +240,7 @@ namespace GameLogic
 							{
 								if (m_interface)
 								{
-									m_interface->OnNeedChoose(newAc.m_stage);
+									m_interface->OnNeedChoose(&newAc);
 								}
 							}
 						}
@@ -248,7 +248,7 @@ namespace GameLogic
 						{
 							if (m_interface)
 							{
-								m_interface->OnEnterAction(newAc.m_stage, newAc.m_action);
+								m_interface->OnEnterAction(&newAc);
 							}
 						}
 
@@ -293,12 +293,12 @@ namespace GameLogic
 		else if (!sd->ActionList().empty())
 		{
 			if (m_interface)
-				m_interface->OnEnterAction(sd, &(sd->ActionList()[0]));
+				m_interface->OnEnterAction(&m_actionList[m_playedActionIndex]);
 		}
 		else
 		{
 			if (m_interface)
-				m_interface->OnNeedChoose(sd);
+				m_interface->OnNeedChoose(&m_actionList[m_playedActionIndex]);
 		}
 
 	}
@@ -310,7 +310,7 @@ namespace GameLogic
 		{
 			//进入下一个场景
 			auto& currentAc = m_actionList[m_playedActionIndex];
-			if (currentAc.IsChoose() && currentAc.m_chooseIndex < 0)
+			if (currentAc.GetType() == ActionNodeType::Choosing)
 			{
 				if (index >= 0 && index < currentAc.m_stage->ToStage().size())
 				{
@@ -337,6 +337,16 @@ namespace GameLogic
 	bool GameCore::IsPlaying() const
 	{
 		return m_state == GameState::Playing;
+	}
+
+
+	GameLogic::ActionNodeType ActionNode::GetType() const
+	{
+		if (m_chooseIndex >= 0)
+			return ActionNodeType::Choosed;
+		if (m_action == nullptr)
+			return ActionNodeType::Choosing;
+		return ActionNodeType::NormalText;
 	}
 
 };

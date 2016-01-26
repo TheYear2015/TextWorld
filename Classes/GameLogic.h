@@ -14,6 +14,19 @@ namespace GameLogic
 		Count
 	};
 
+	//游戏中数据
+	class ActionNode
+	{
+	public:
+		const StageData* m_stage = nullptr;
+		const StageActionData* m_action = nullptr;
+		//结束的时间
+		uint32_t m_endTime = 0;
+		//选择的分支
+		short m_chooseIndex = -1;
+		ActionNodeType GetType() const;
+
+	};
 
 	class GameLogicInterface
 	{
@@ -22,13 +35,13 @@ namespace GameLogic
 		virtual void OnEnterStage(const StageData* stageData) = 0;
 
 		//当触发一个新的行为时
-		virtual void OnEnterAction(const GameLogic::StageData* stageData, const StageActionData* actData) = 0;
+		virtual void OnEnterAction(const ActionNode* actNode) = 0;
 
 		//当离开当前场景时
 		virtual void OnLeaveStage(const StageData* stageData) = 0;
 
 		//当需要选择时
-		virtual void OnNeedChoose(const StageData* stageData) = 0;
+		virtual void OnNeedChoose(const ActionNode* actNode) = 0;
 
 		//当游戏开始时，用户数据已经加载完成，游戏逻辑启动
 		virtual void OnGameBegin() = 0;
@@ -142,18 +155,6 @@ namespace GameLogic
 		//用户数据
 		UserGameData m_userData;
 
-		//游戏中数据
-		class ActionNode
-		{
-		public:
-			const StageData* m_stage = nullptr;
-			const StageActionData* m_action = nullptr;
-			//结束的时间
-			uint32_t m_endTime = 0;
-			//选择的分支
-			short m_chooseIndex = -1;
-			bool IsChoose() const { return m_action == nullptr; };
-		};
 		std::vector<ActionNode> m_actionList;
 
 		//最后一个执行了的action的索引
