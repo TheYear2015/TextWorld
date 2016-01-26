@@ -6,6 +6,7 @@
 #include "BaseScene.h"
 #include "GameLogic.h"
 
+
 class PlayGame : public XUtility::BaseSceneImpl<PlayGame>, public GameLogic::GameLogicInterface
 {
 protected:
@@ -65,9 +66,11 @@ private:
 	cocos2d::Size m_normalTextNodeSize = { 0, 0 };
 	cocos2d::Size m_chooseNodeSize = { 0, 0 };
 
+private:
 	std::list<cocos2d::ui::Layout*> m_unusedNormalTextNodeList;
 	std::list<cocos2d::ui::Layout*> m_unusedChooseNodeList;
 
+private:
 	//行为单元
 	class ActionCell
 	{

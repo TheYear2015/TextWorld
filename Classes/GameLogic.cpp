@@ -79,24 +79,36 @@ namespace GameLogic
 			ActionNode actionN;
 			m_currentStageTime = m_userData.m_currentStageTime;
 			auto stageList = GetPlayedStageList();
+			ActionNode* lastN = nullptr;
+			uint32_t endTime = 0;
 			for (auto sd : stageList)
 			{
-				uint32_t endTime = 0;
+				if (lastN && lastN->IsChoose())
+				{
+					for (int __i = 0; __i < lastN->m_stage->ToStage().size(); ++__i)
+					{
+						if (sd->Id() == lastN->m_stage->ToStage()[__i].first)
+						{
+							lastN->m_chooseIndex = __i;
+							break;
+						}
+					}
+				}
+				endTime = 0;
 				actionN.m_stage = sd;
 				for (int i = 0; i < (int)sd->ActionList().size(); ++i)
 				{
-					actionN.m_isChoose = false;
 					actionN.m_action = &(sd->ActionList()[i]);
 					endTime += actionN.m_action->DuringMS();
 					actionN.m_endTime = endTime;
-					m_actionList.push_back(actionN);
 				}
 				if (sd->IsHaveChooseAtEnd())
 				{
-					actionN.m_isChoose = true;
 					actionN.m_action = nullptr;
-					m_actionList.push_back(actionN);
+					actionN.m_chooseIndex = -1;
 				}
+				m_actionList.push_back(actionN);
+				lastN = &m_actionList.back();
 			}
 		}
 	}
@@ -194,7 +206,7 @@ namespace GameLogic
 		if (m_state == GameState::Playing)
 		{
 			auto& currentAc = m_actionList[m_playedActionIndex];
-			if (currentAc.m_isChoose)
+			if (currentAc.IsChoose())
 			{
 				//继续等待玩家选择
 			}
@@ -217,9 +229,8 @@ namespace GameLogic
 					else
 					{
 						auto& newAc = m_actionList[m_playedActionIndex];
-						if (newAc.m_isChoose)
+						if (newAc.IsChoose())
 						{
-							//test
 							//判断是否是自动选择
 							if (m_actionList.size() < MaxActionCount() && newAc.m_stage->AutoNext())
 							{//进行自动选择
@@ -256,7 +267,6 @@ namespace GameLogic
 		actionN.m_stage = sd;
 		for (int i = 0; i < (int)sd->ActionList().size(); ++i)
 		{
-			actionN.m_isChoose = false;
 			actionN.m_action = &(sd->ActionList()[i]);
 			endTime += actionN.m_action->DuringMS();
 			actionN.m_endTime = endTime;
@@ -264,7 +274,6 @@ namespace GameLogic
 		}
 		if (sd->IsHaveChooseAtEnd())
 		{
-			actionN.m_isChoose = true;
 			actionN.m_action = nullptr;
 			m_actionList.push_back(actionN);
 		}
@@ -301,10 +310,11 @@ namespace GameLogic
 		{
 			//进入下一个场景
 			auto& currentAc = m_actionList[m_playedActionIndex];
-			if (currentAc.m_isChoose)
+			if (currentAc.IsChoose() && currentAc.m_chooseIndex < 0)
 			{
 				if (index >= 0 && index < currentAc.m_stage->ToStage().size())
 				{
+					currentAc.m_chooseIndex = index;
 					EnterStage(currentAc.m_stage->ToStage()[index].first);
 				}
 			}

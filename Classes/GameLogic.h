@@ -136,11 +136,13 @@ namespace GameLogic
 		class ActionNode
 		{
 		public:
-			bool m_isChoose = false;
 			const StageData* m_stage = nullptr;
 			const StageActionData* m_action = nullptr;
 			//结束的时间
 			uint32_t m_endTime = 0;
+			//选择的分支
+			short m_chooseIndex = -1;
+			bool IsChoose() const { return m_action == nullptr; };
 		};
 		std::vector<ActionNode> m_actionList;
 
@@ -153,7 +155,7 @@ namespace GameLogic
 		//游戏状态
 		GameState m_state = GameState::Ready;
 
-		uint32_t MaxActionCount() const { return 2000; };
+		uint32_t MaxActionCount() const { return 2000000; };
 	};
 }
 

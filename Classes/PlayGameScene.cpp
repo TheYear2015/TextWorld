@@ -138,15 +138,6 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
 		}
 
-// 		//创建新的控件
-// 		auto n = CreateNormalTextNode();
-// 		auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
-// 		if (text)
-// 		{
-// 			text->setString(actData->Text());
-// 		}
-// 		actionCell.m_guiNode = n;
-
 		m_actionCellArray.push_back(actionCell);
 
 		CCLOG("PlayGame::OnEnterAction %s.(%d)", actData->Text(), m_actionCellArray.size());
@@ -180,24 +171,7 @@ void PlayGame::OnNeedChoose(const GameLogic::StageData* stageData)
 			auto& last = m_actionCellArray.back();
 			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
 		}
-// 
-// 		//创建新的控件
-// 		auto n = CreateChooseNode();
-// 		auto btn1 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn1"));
-// 		if (btn1)
-// 		{
-// 			btn1->setTitleText(stageData->ToStage()[0].second);
-// 			btn1->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
-// 			btn1->setTag(0);
-// 		}
-// 		auto btn2 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn2"));
-// 		if (btn2)
-// 		{
-// 			btn2->setTitleText(stageData->ToStage()[1].second);
-// 			btn2->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
-// 			btn2->setTag(1);
-// 		}
-//		actionCell.m_guiNode = n;
+
 		m_actionCellArray.push_back(actionCell);
 		UpdateActionScrollView(true);
 		m_actionScrollView->scrollToBottom(0.5f, true);
@@ -299,8 +273,8 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 						//btn2->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
 						btn2->setTag(1);
 					}
+					//如果不是在最后，表示已经进行了选择
 					ac.m_guiNode = n;
-
 				}
 			}
 			ac.m_guiNode->setVisible(true);
@@ -308,17 +282,19 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 		}
 		else
 		{
-			if (ac.m_action)
+			if (ac.m_guiNode)
 			{
-				ReleaseNormalTextNode(ac.m_guiNode);
+				if (ac.m_action)
+				{
+					ReleaseNormalTextNode(ac.m_guiNode);
+				}
+				else
+				{
+					ReleaseChooseNode(ac.m_guiNode);
+				}
+				ac.m_guiNode = nullptr;
 			}
-			else
-			{
-				ReleaseChooseNode(ac.m_guiNode);
-			}
-			ac.m_guiNode = nullptr;
 		}
-
 	}
 
 	if (isChangeSize)

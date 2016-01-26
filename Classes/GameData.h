@@ -19,7 +19,7 @@ namespace GameLogic
 		uint32_t Type() const { return m_type; }
 		const char* Text() const { return m_text.c_str(); }
 		//uint32_t DuringMS() const { return m_duringMS; }
-		uint32_t DuringMS() const { return 300; } //test
+		uint32_t DuringMS() const { return 100; } //test
 
 	private:
 		//¿‡–Õ
