@@ -221,7 +221,7 @@ namespace GameLogic
 						{
 							//test
 							//判断是否是自动选择
-							if (newAc.m_stage->AutoNext())
+							if (m_actionList.size() < MaxActionCount() && newAc.m_stage->AutoNext())
 							{//进行自动选择
 								ChooseAction(0);
 							}

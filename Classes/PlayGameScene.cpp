@@ -138,14 +138,14 @@ void PlayGame::OnEnterAction(const GameLogic::StageData* stageData, const GameLo
 			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
 		}
 
-		//创建新的控件
-		auto n = CreateNormalTextNode();
-		auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
-		if (text)
-		{
-			text->setString(actData->Text());
-		}
-		actionCell.m_guiNode = n;
+// 		//创建新的控件
+// 		auto n = CreateNormalTextNode();
+// 		auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
+// 		if (text)
+// 		{
+// 			text->setString(actData->Text());
+// 		}
+// 		actionCell.m_guiNode = n;
 
 		m_actionCellArray.push_back(actionCell);
 
@@ -180,24 +180,24 @@ void PlayGame::OnNeedChoose(const GameLogic::StageData* stageData)
 			auto& last = m_actionCellArray.back();
 			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
 		}
-
-		//创建新的控件
-		auto n = CreateChooseNode();
-		auto btn1 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn1"));
-		if (btn1)
-		{
-			btn1->setTitleText(stageData->ToStage()[0].second);
-			btn1->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
-			btn1->setTag(0);
-		}
-		auto btn2 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn2"));
-		if (btn2)
-		{
-			btn2->setTitleText(stageData->ToStage()[1].second);
-			btn2->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
-			btn2->setTag(1);
-		}
-		actionCell.m_guiNode = n;
+// 
+// 		//创建新的控件
+// 		auto n = CreateChooseNode();
+// 		auto btn1 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn1"));
+// 		if (btn1)
+// 		{
+// 			btn1->setTitleText(stageData->ToStage()[0].second);
+// 			btn1->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
+// 			btn1->setTag(0);
+// 		}
+// 		auto btn2 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn2"));
+// 		if (btn2)
+// 		{
+// 			btn2->setTitleText(stageData->ToStage()[1].second);
+// 			btn2->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
+// 			btn2->setTag(1);
+// 		}
+//		actionCell.m_guiNode = n;
 		m_actionCellArray.push_back(actionCell);
 		UpdateActionScrollView(true);
 		m_actionScrollView->scrollToBottom(0.5f, true);
@@ -268,12 +268,55 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 		//判断是否在区域内
 		if (pos.y >= scrollVPos.x && pos.y < scrollVPos.y)
 		{
+			if (!ac.m_guiNode)
+			{
+				//创建新的控件
+				if (ac.m_action)
+				{
+					auto n = CreateNormalTextNode();
+					auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
+					if (text)
+					{
+						text->setString(ac.m_action->Text());
+					}
+					ac.m_guiNode = n;
+				}
+				else
+				{
+					//创建新的控件
+					auto n = CreateChooseNode();
+					auto btn1 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn1"));
+					if (btn1)
+					{
+						btn1->setTitleText(ac.m_stage->ToStage()[0].second);
+						//btn1->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
+						btn1->setTag(0);
+					}
+					auto btn2 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn2"));
+					if (btn2)
+					{
+						btn2->setTitleText(ac.m_stage->ToStage()[1].second);
+						//btn2->addTouchEventListener(CC_CALLBACK_2(PlayGame::ChooseAction, this));
+						btn2->setTag(1);
+					}
+					ac.m_guiNode = n;
+
+				}
+			}
 			ac.m_guiNode->setVisible(true);
 			ac.m_guiNode->setPosition(pos);
 		}
 		else
 		{
-			ac.m_guiNode->setVisible(false);
+			if (ac.m_action)
+			{
+				ReleaseNormalTextNode(ac.m_guiNode);
+			}
+			else
+			{
+				ReleaseChooseNode(ac.m_guiNode);
+			}
+			ac.m_guiNode = nullptr;
 		}
 
 	}

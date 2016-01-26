@@ -152,6 +152,8 @@ namespace GameLogic
 
 		//сно╥в╢л╛
 		GameState m_state = GameState::Ready;
+
+		uint32_t MaxActionCount() const { return 2000; };
 	};
 }
 

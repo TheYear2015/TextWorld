@@ -74,7 +74,7 @@ private:
 	public:
 		const GameLogic::StageData* m_stage = nullptr;
 		const GameLogic::StageActionData* m_action = nullptr;//行为， null表示是选择
-		cocos2d::Node* m_guiNode = nullptr;
+		cocos2d::ui::Layout* m_guiNode = nullptr;
 		float m_logicY = 0;
 	};
 
