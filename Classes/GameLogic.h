@@ -5,6 +5,16 @@
 
 namespace GameLogic
 {
+
+	enum class ActionNodeType : int
+	{
+		NormalText = 0,
+		Choosing,
+		Choosed,
+		Count
+	};
+
+
 	class GameLogicInterface
 	{
 	public:

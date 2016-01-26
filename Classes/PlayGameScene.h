@@ -20,24 +20,10 @@ protected:
 
 	virtual void onEnterTransitionDidFinish() override;
 
-private:
-	const int NormalTextNodeTage = 11122;
-
-	const int ChooseNodeTage = 13986;
-
-	cocos2d::ui::Layout* CreateNormalTextNode();
-
-	cocos2d::ui::Layout* CreateChooseNode();
-
-	void ReleaseNormalTextNode(cocos2d::ui::Layout* node);
-
-	void ReleaseChooseNode(cocos2d::ui::Layout* node);
-
 public:
 	virtual void OnEnterStage(const GameLogic::StageData* stageData) override;
 
 	virtual void OnEnterAction(const GameLogic::StageData* stageData, const GameLogic::StageActionData* actData) override;
-
 
 	virtual void OnLeaveStage(const GameLogic::StageData* stageData) override;
 
@@ -60,15 +46,20 @@ private:
 
 private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;
-	cocos2d::ui::Layout* m_normalTextNodeTmpl = nullptr;
-	cocos2d::ui::Layout* m_chooseNodeTmpl = nullptr;
-
-	cocos2d::Size m_normalTextNodeSize = { 0, 0 };
-	cocos2d::Size m_chooseNodeSize = { 0, 0 };
 
 private:
-	std::list<cocos2d::ui::Layout*> m_unusedNormalTextNodeList;
-	std::list<cocos2d::ui::Layout*> m_unusedChooseNodeList;
+	cocos2d::ui::Layout* CreateActionNode(GameLogic::ActionNodeType type);
+
+	void ReleaseActionNode(cocos2d::ui::Layout* node);
+
+	std::array<int, (int)GameLogic::ActionNodeType::Count> m_nodeTmplTag;
+	std::array<std::string, (int)GameLogic::ActionNodeType::Count> m_nodeTmplName;
+	std::array<cocos2d::ui::Layout*, (int)GameLogic::ActionNodeType::Count> m_nodeTmpl;
+	std::array<cocos2d::Size, (int)GameLogic::ActionNodeType::Count> m_nodeSize;
+
+
+private:
+	std::array<std::list<cocos2d::ui::Layout*>, (int)GameLogic::ActionNodeType::Count> m_unusedNodeList;
 
 private:
 	//行为单元

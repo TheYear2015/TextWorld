@@ -8,6 +8,13 @@ class GameWorld : public XUtility::BaseSceneImpl<GameWorld>
 {
 protected:
 	virtual const char* GetSceneCsb() const override;
+
+	virtual void OnSceneInited() override;
+
+	void NewBtnTouchEvent(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
+
+	void ContinueBtnTouchEvent(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
+
 };
 
 #endif // __GAME_WORLD_SCENE_H__

@@ -15,6 +15,10 @@ const char* PlayGame::GetSceneCsb() const
 
 void PlayGame::OnSceneInited()
 {
+	m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode";
+	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosing] = "ChooseNode";
+	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosed] = "ChoosedNode";
+
 	m_actionCellArray.reserve(1000);
 
 	auto l = SceneRoot()->getChildByName("ActionListLayer");
@@ -23,70 +27,18 @@ void PlayGame::OnSceneInited()
 
 	if (m_actionScrollView)
 	{
-		m_normalTextNodeTmpl = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName("NormalTextNode"));
-		m_chooseNodeTmpl = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName("ChooseNode"));
-		if (m_normalTextNodeTmpl)
+		for (int i = 0; i < m_nodeTmplName.size(); ++i)
 		{
-			m_normalTextNodeTmpl->setVisible(false);
-			m_normalTextNodeSize = m_normalTextNodeTmpl->getContentSize();
-		}
-		if (m_chooseNodeTmpl)
-		{
-			m_chooseNodeTmpl->setVisible(false);
-			m_chooseNodeSize = m_chooseNodeTmpl->getContentSize();
+			m_nodeTmplTag[i] = 13986 + 11;
+			m_nodeTmpl[i] = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName(m_nodeTmplName[i]));
+			if (m_nodeTmpl[i])
+			{
+				m_nodeTmpl[i]->setVisible(false);
+				m_nodeSize[i] = m_nodeTmpl[i]->getContentSize();
+			}
 		}
 
 		m_actionScrollView->addEventListener(CC_CALLBACK_2(PlayGame::OnActionListScrollViewEvent, this));
-	}
-
-}
-
-cocos2d::ui::Layout* PlayGame::CreateNormalTextNode()
-{
-	if (m_unusedNormalTextNodeList.empty())
-	{
-		auto n = m_normalTextNodeTmpl->clone();
-		n->setTag(NormalTextNodeTage);
-		m_actionScrollView->addChild(n);
-		n->setVisible(true);
-		return dynamic_cast<cocos2d::ui::Layout*>(n);
-	}
-	auto n = m_unusedNormalTextNodeList.front();
-	m_unusedNormalTextNodeList.pop_front();
-	return n;
-}
-
-cocos2d::ui::Layout* PlayGame::CreateChooseNode()
-{
-	if (m_unusedChooseNodeList.empty())
-	{
-		auto n = m_chooseNodeTmpl->clone();
-		n->setTag(ChooseNodeTage);
-		m_actionScrollView->addChild(n);
-		n->setVisible(true);
-		return dynamic_cast<cocos2d::ui::Layout*>(n);
-	}
-	auto n = m_unusedChooseNodeList.front();
-	m_unusedChooseNodeList.pop_front();
-	return n;
-
-}
-
-void PlayGame::ReleaseNormalTextNode(cocos2d::ui::Layout* node)
-{
-	if (node && node->getTag() == NormalTextNodeTage)
-	{
-		node->setVisible(false);
-		m_unusedNormalTextNodeList.push_back(node);
-	}
-}
-
-void PlayGame::ReleaseChooseNode(cocos2d::ui::Layout* node)
-{
-	if (node && node->getTag() == ChooseNodeTage)
-	{
-		node->setVisible(false);
-		m_unusedChooseNodeList.push_back(node);
 	}
 
 }
@@ -247,7 +199,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 				//创建新的控件
 				if (ac.m_action)
 				{
-					auto n = CreateNormalTextNode();
+					auto n = CreateActionNode(GameLogic::ActionNodeType::NormalText);
 					auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
 					if (text)
 					{
@@ -258,7 +210,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 				else
 				{
 					//创建新的控件
-					auto n = CreateChooseNode();
+					auto n = CreateActionNode(GameLogic::ActionNodeType::Choosing);
 					auto btn1 = dynamic_cast<cocos2d::ui::Button*>(n->getChildByName("ChooseBtn1"));
 					if (btn1)
 					{
@@ -284,14 +236,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 		{
 			if (ac.m_guiNode)
 			{
-				if (ac.m_action)
-				{
-					ReleaseNormalTextNode(ac.m_guiNode);
-				}
-				else
-				{
-					ReleaseChooseNode(ac.m_guiNode);
-				}
+				ReleaseActionNode(ac.m_guiNode);
 				ac.m_guiNode = nullptr;
 			}
 		}
@@ -336,7 +281,7 @@ void PlayGame::ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEven
 
 float PlayGame::GetActionCellHeight(const ActionCell& ac) const
 {
-	return ac.m_action == nullptr ? m_chooseNodeSize.height : m_normalTextNodeSize.height;
+	return ac.m_action == nullptr ? m_nodeSize[(int)GameLogic::ActionNodeType::Choosing].height : m_nodeSize[(int)GameLogic::ActionNodeType::NormalText].height;
 }
 
 void PlayGame::OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::ScrollView::EventType type)
@@ -368,5 +313,37 @@ void PlayGame::OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::Sc
 	break;
 	default:
 		break;
+	}
+}
+
+cocos2d::ui::Layout* PlayGame::CreateActionNode(GameLogic::ActionNodeType type)
+{
+	int t = (int)type;
+	if (m_unusedNodeList[t].empty())
+	{
+		auto n = m_nodeTmpl[t]->clone();
+		n->setTag(m_nodeTmplTag[t]);
+		m_actionScrollView->addChild(n);
+		n->setVisible(true);
+		return dynamic_cast<cocos2d::ui::Layout*>(n);
+	}
+	auto n = m_unusedNodeList[t].front();
+	m_unusedNodeList[t].pop_front();
+	return n;
+}
+
+void PlayGame::ReleaseActionNode(cocos2d::ui::Layout* node)
+{
+	if (node)
+	{
+		for (int i = 0; i < m_nodeTmplTag.size(); ++i)
+		{
+			if (node->getTag() == m_nodeTmplTag[i])
+			{
+				node->setVisible(false);
+				m_unusedNodeList[i].push_back(node);
+				break;
+			}
+		}
 	}
 }
