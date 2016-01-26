@@ -26,7 +26,7 @@ namespace GameLogic
 
 	GameCore::GameCore()
 	{
-		m_actionList.reserve(10000);
+		m_actionList.reserve(100000);
 	}
 
 	GameCore::~GameCore()

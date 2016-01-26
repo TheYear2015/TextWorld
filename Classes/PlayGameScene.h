@@ -48,6 +48,7 @@ private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;
 
 private:
+	cocos2d::ui::Layout* CreateActionNode(const GameLogic::ActionNode* action);
 	cocos2d::ui::Layout* CreateActionNode(GameLogic::ActionNodeType type);
 
 	void ReleaseActionNode(cocos2d::ui::Layout* node);
