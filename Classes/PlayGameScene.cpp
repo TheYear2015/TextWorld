@@ -32,10 +32,10 @@ void PlayGame::OnSceneInited()
 		{
 			m_loadingAnimation->setVisible(false);
 			m_loadingAnimation->setLocalZOrder(20);
-
-			auto action = CSLoader::createTimeline("NormalTextLoading.csb");
-			m_loadingAnimation->runAction(action);
-			action->play("Bring", true);
+			auto t = m_loadingAnimation->getTag();
+			auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(m_loadingAnimation->getActionByTag(t));
+			if (action)
+				action->play("Bring", true);
 		}
 
 		for (int i = 0; i < m_nodeTmplName.size(); ++i)
