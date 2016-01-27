@@ -9,6 +9,10 @@
         <Project Name="GameScene.csd" Type="Scene" />
         <Project Name="ActionListLayer.csd" Type="Layer" />
         <TTF Name="msyh.ttc" />
+        <Folder Name="image" />
+        <Folder Name="res">
+          <PlistInfo Name="image01.csi" Type="Plist" />
+        </Folder>
       </RootFolder>
     </Group>
   </SolutionFolder>

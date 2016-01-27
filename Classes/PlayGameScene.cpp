@@ -220,6 +220,8 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 		}
 	}
 
+	//需要播放出现动画的播放出现动画
+
 	if (isChangeSize)
 	{
 		//刷新显示区域
@@ -367,5 +369,15 @@ void PlayGame::ReleaseActionNode(cocos2d::ui::Layout* node)
 				break;
 			}
 		}
+	}
+}
+
+void PlayGame::PlayBringAnimation(int index)
+{
+	if (m_newIndex != index)
+	{
+		//结束以前的
+
+		//播放新的
 	}
 }

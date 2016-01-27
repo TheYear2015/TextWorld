@@ -76,6 +76,11 @@ private:
 
 	std::vector<ActionCell> m_actionCellArray;
 
+	void PlayBringAnimation(int index);
+
+	//需要播放出现动画的单元
+	int m_newIndex = -1;
+
 	float GetActionCellHeight(const ActionCell& ac) const;
 
 };
