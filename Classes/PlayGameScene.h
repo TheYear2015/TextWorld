@@ -48,7 +48,8 @@ private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;
 
 private:
-	cocos2d::ui::Layout* CreateActionNode(const GameLogic::ActionNode* action);
+	const int TagBase = 13986;
+	cocos2d::ui::Layout* CreateActionNodeByData(const GameLogic::ActionNode* action);
 	cocos2d::ui::Layout* CreateActionNode(GameLogic::ActionNodeType type);
 
 	void ReleaseActionNode(cocos2d::ui::Layout* node);

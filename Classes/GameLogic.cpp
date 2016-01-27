@@ -205,7 +205,7 @@ namespace GameLogic
 	{
 		if (m_state == GameState::Playing)
 		{
-			auto& currentAc = m_actionList[m_playedActionIndex];
+			auto& currentAc = m_actionList.at(m_playedActionIndex);
 			if (currentAc.GetType() == ActionNodeType::Choosing)
 			{
 				//继续等待玩家选择
@@ -221,6 +221,7 @@ namespace GameLogic
 					if (m_playedActionIndex >= m_actionList.size())
 					{//游戏正常结束
 						//TODO::游戏正常结束
+						m_state = GameState::End;
 						if (m_interface)
 						{
 							m_interface->OnGameOK();
@@ -285,6 +286,8 @@ namespace GameLogic
 		if (m_playedActionIndex >= m_actionList.size())
 		{//游戏正常结束
 			//TODO::游戏正常结束
+			m_playedActionIndex = m_actionList.size();
+			m_state = GameState::End;
 			if (m_interface)
 			{
 				m_interface->OnGameOK();
@@ -300,7 +303,6 @@ namespace GameLogic
 			if (m_interface)
 				m_interface->OnNeedChoose(&m_actionList[m_playedActionIndex]);
 		}
-
 	}
 
 	//进行选择

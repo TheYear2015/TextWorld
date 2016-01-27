@@ -12,7 +12,7 @@
         "go to 112233",
         "到场景554433"
       ],
-      "AutoGoto": true,
+      "AutoGoto": false,
       "ContentList": [
         {
           "Type": 0,
@@ -80,19 +80,19 @@
       "Id": 3,
       "Name": "554433",
       "GoId": [
-        0,
-        0
+        10,
+        15
       ],
       "GoString": [
-        "",
-        ""
+        "goto 场景10",
+        "goto 场景15"
       ],
       "AutoGoto": false,
       "ContentList": [
         {
           "Type": 0,
           "DuringMS": 7000,
-          "Text": "nnsdfsflkwekfwnf"
+          "Text": "nnsdfsflkwekfwnf\r\n打法沙发沙发沙发沙发"
         }
       ]
     },
@@ -260,12 +260,12 @@
       "Id": 15,
       "Name": "场景15",
       "GoId": [
-        0,
-        0
+        1,
+        3
       ],
       "GoString": [
-        "",
-        ""
+        "起点",
+        "554433"
       ],
       "AutoGoto": false,
       "ContentList": []
