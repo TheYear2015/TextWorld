@@ -1,0 +1,38 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="image02" ID="18ac71c7-8380-421e-b4ac-9b96e724b78e" Version="2.3.2.3" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="3" AllowRotation="False" AllowAnySize="False" AllowTrim="False" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="image/spinner0.png" />
+      <FilePathData Path="image/spinner01.png" />
+      <FilePathData Path="image/spinner10.png" />
+      <FilePathData Path="image/spinner11.png" />
+      <FilePathData Path="image/spinner12.png" />
+      <FilePathData Path="image/spinner13.png" />
+      <FilePathData Path="image/spinner14.png" />
+      <FilePathData Path="image/spinner15.png" />
+      <FilePathData Path="image/spinner16.png" />
+      <FilePathData Path="image/spinner17.png" />
+      <FilePathData Path="image/spinner18.png" />
+      <FilePathData Path="image/spinner19.png" />
+      <FilePathData Path="image/spinner02.png" />
+      <FilePathData Path="image/spinner20.png" />
+      <FilePathData Path="image/spinner21.png" />
+      <FilePathData Path="image/spinner22.png" />
+      <FilePathData Path="image/spinner23.png" />
+      <FilePathData Path="image/spinner24.png" />
+      <FilePathData Path="image/spinner25.png" />
+      <FilePathData Path="image/spinner26.png" />
+      <FilePathData Path="image/spinner27.png" />
+      <FilePathData Path="image/spinner28.png" />
+      <FilePathData Path="image/spinner29.png" />
+      <FilePathData Path="image/spinner03.png" />
+      <FilePathData Path="image/spinner04.png" />
+      <FilePathData Path="image/spinner05.png" />
+      <FilePathData Path="image/spinner06.png" />
+      <FilePathData Path="image/spinner07.png" />
+      <FilePathData Path="image/spinner08.png" />
+      <FilePathData Path="image/spinner09.png" />
+    </ImageFiles>
+    <MaxSize Width="512" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

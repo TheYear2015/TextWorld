@@ -27,12 +27,24 @@ void PlayGame::OnSceneInited()
 
 	if (m_actionScrollView)
 	{
+		m_loadingAnimation = m_actionScrollView->getChildByName("NomralTextLoading");
+		if (m_loadingAnimation)
+		{
+			m_loadingAnimation->setVisible(false);
+			m_loadingAnimation->setLocalZOrder(20);
+
+			auto action = CSLoader::createTimeline("NormalTextLoading.csb");
+			m_loadingAnimation->runAction(action);
+			action->play("Bring", true);
+		}
+
 		for (int i = 0; i < m_nodeTmplName.size(); ++i)
 		{
 			m_nodeTmplTag[i] = TagBase + i;
 			m_nodeTmpl[i] = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName(m_nodeTmplName[i]));
 			if (m_nodeTmpl[i])
 			{
+				m_nodeTmpl[i]->setLocalZOrder(10);
 				m_nodeTmpl[i]->setVisible(false);
 				m_nodeSize[i] = m_nodeTmpl[i]->getContentSize();
 			}
@@ -93,6 +105,11 @@ void PlayGame::OnEnterAction(const GameLogic::ActionNode* actNode)
 
 		if (actNode->m_action)
 			CCLOG("PlayGame::OnEnterAction %s.(%d)", actNode->m_action->Text().c_str(), m_actionCellArray.size());
+
+		if (actNode->GetType() == GameLogic::ActionNodeType::NormalText)
+		{
+			PlayBringAnimation(m_actionCellArray.size() - 1);
+		}
 
 		UpdateActionScrollView(true);
 		m_actionScrollView->scrollToBottom(0.5f, true);
@@ -187,6 +204,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 	cocos2d::Vec2 pos = { 0, 0 };
 	scrollVPos.x = -scrollVPos.y - size.height * 2;
 	scrollVPos.y = -scrollVPos.y + size.height * 3;
+	int ii = 0;
 	for (auto b = m_actionCellArray.begin(); b != m_actionCellArray.end(); ++b)
 	{
 		auto& ac = *b;
@@ -209,6 +227,21 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 			}
 			ac.m_guiNode->setVisible(true);
 			ac.m_guiNode->setPosition(pos);
+
+			if (ii == m_newIndex && m_loadingAnimation)
+			{
+				ac.m_guiNode->setVisible(false);
+				auto s = GetActionCellSize(ac);
+				pos.x += s.width * 0.5f;
+				pos.y -= s.height * 0.5f;
+				m_loadingAnimation->setVisible(true);
+				m_loadingAnimation->setPosition(pos);
+			}
+			else
+			{
+				ac.m_guiNode->setVisible(true);
+				ac.m_guiNode->setPosition(pos);
+			}
 		}
 		else
 		{
@@ -218,6 +251,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 				ac.m_guiNode = nullptr;
 			}
 		}
+		++ii;
 	}
 
 	//需要播放出现动画的播放出现动画
@@ -263,6 +297,13 @@ float PlayGame::GetActionCellHeight(const ActionCell& ac) const
 {
 	return m_nodeSize[(int)ac.m_action->GetType()].height;
 }
+
+
+cocos2d::Size PlayGame::GetActionCellSize(const ActionCell& ac) const
+{
+	return m_nodeSize[(int)ac.m_action->GetType()];
+}
+
 
 void PlayGame::OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::ScrollView::EventType type)
 {
@@ -376,8 +417,26 @@ void PlayGame::PlayBringAnimation(int index)
 {
 	if (m_newIndex != index)
 	{
+		m_newIndex = index;
 		//结束以前的
-
+		if (m_loadingAnimation)
+		{
+			m_loadingAnimation->setVisible(false);
+		}
 		//播放新的
+		if (m_newIndex >=0)
+		{
+			if (m_loadingAnimation)
+			{
+				m_loadingAnimation->setVisible(true);
+			}
+			this->scheduleOnce(schedule_selector(PlayGame::EndBringAnimation), 2.0f);
+		}
 	}
+}
+
+void PlayGame::EndBringAnimation(float dt)
+{
+	PlayBringAnimation(-1);
+	UpdateActionScrollView(true);
 }

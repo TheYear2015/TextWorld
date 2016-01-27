@@ -18,8 +18,7 @@ namespace GameLogic
 	public:
 		uint32_t Type() const { return m_type; }
 		const std::string& Text() const { return m_text; }
-		//uint32_t DuringMS() const { return m_duringMS; }
-		uint32_t DuringMS() const { return 100; } //test
+		uint32_t DuringMS() const { return m_duringMS; }
 
 	private:
 		//¿‡–Õ

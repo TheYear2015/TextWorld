@@ -9,10 +9,58 @@
         <Project Name="GameScene.csd" Type="Scene" />
         <Project Name="ActionListLayer.csd" Type="Layer" />
         <TTF Name="msyh.ttc" />
-        <Folder Name="image" />
+        <Folder Name="image">
+          <Image Name="choice_btn.9.png" />
+          <Image Name="choice_btn_chosen.9.png" />
+          <Image Name="choice_btn_unchosen.9.png" />
+          <Image Name="green_btn.9.png" />
+          <Image Name="border.9.png" />
+          <Image Name="btn_sidelines.png" />
+          <Image Name="menu_btn.png" />
+          <Image Name="menu_btn_icon_close.png" />
+          <Image Name="menu_btn_icon_menu.png" />
+          <Image Name="menu_btn_press.png" />
+          <Image Name="strech_chat.9.png" />
+          <Image Name="bottomareafull.png" />
+          <Image Name="icon_fast.png" />
+          <Image Name="icon_restart.png" />
+          <Image Name="icon_slow.png" />
+          <Image Name="spinner0.png" />
+          <Image Name="spinner01.png" />
+          <Image Name="spinner10.png" />
+          <Image Name="spinner11.png" />
+          <Image Name="spinner12.png" />
+          <Image Name="spinner13.png" />
+          <Image Name="spinner14.png" />
+          <Image Name="spinner15.png" />
+          <Image Name="spinner16.png" />
+          <Image Name="spinner17.png" />
+          <Image Name="spinner18.png" />
+          <Image Name="spinner19.png" />
+          <Image Name="spinner02.png" />
+          <Image Name="spinner20.png" />
+          <Image Name="spinner21.png" />
+          <Image Name="spinner22.png" />
+          <Image Name="spinner23.png" />
+          <Image Name="spinner24.png" />
+          <Image Name="spinner25.png" />
+          <Image Name="spinner26.png" />
+          <Image Name="spinner27.png" />
+          <Image Name="spinner28.png" />
+          <Image Name="spinner29.png" />
+          <Image Name="spinner03.png" />
+          <Image Name="spinner04.png" />
+          <Image Name="spinner05.png" />
+          <Image Name="spinner06.png" />
+          <Image Name="spinner07.png" />
+          <Image Name="spinner08.png" />
+          <Image Name="spinner09.png" />
+        </Folder>
         <Folder Name="res">
           <PlistInfo Name="image01.csi" Type="Plist" />
+          <PlistInfo Name="image02.csi" Type="Plist" />
         </Folder>
+        <Project Name="NormalTextLoading.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

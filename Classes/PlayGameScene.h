@@ -59,6 +59,7 @@ private:
 	std::array<cocos2d::ui::Layout*, (int)GameLogic::ActionNodeType::Count> m_nodeTmpl;
 	std::array<cocos2d::Size, (int)GameLogic::ActionNodeType::Count> m_nodeSize;
 
+	cocos2d::Node* m_loadingAnimation = nullptr;
 
 private:
 	std::array<std::list<cocos2d::ui::Layout*>, (int)GameLogic::ActionNodeType::Count> m_unusedNodeList;
@@ -77,11 +78,14 @@ private:
 	std::vector<ActionCell> m_actionCellArray;
 
 	void PlayBringAnimation(int index);
+	void EndBringAnimation(float dt);
+
 
 	//需要播放出现动画的单元
 	int m_newIndex = -1;
 
 	float GetActionCellHeight(const ActionCell& ac) const;
+	cocos2d::Size GetActionCellSize(const ActionCell& ac) const;
 
 };
 
