@@ -55,6 +55,7 @@
           <Image Name="spinner07.png" />
           <Image Name="spinner08.png" />
           <Image Name="spinner09.png" />
+          <Image Name="background.png" />
         </Folder>
         <Folder Name="res">
           <PlistInfo Name="image01.csi" Type="Plist" />

@@ -59,8 +59,6 @@ private:
 	std::array<cocos2d::ui::Layout*, (int)GameLogic::ActionNodeType::Count> m_nodeTmpl;
 	std::array<cocos2d::Size, (int)GameLogic::ActionNodeType::Count> m_nodeSize;
 
-	cocos2d::Node* m_loadingAnimation = nullptr;
-
 private:
 	std::array<std::list<cocos2d::ui::Layout*>, (int)GameLogic::ActionNodeType::Count> m_unusedNodeList;
 
@@ -86,6 +84,10 @@ private:
 
 	float GetActionCellHeight(const ActionCell& ac) const;
 	cocos2d::Size GetActionCellSize(const ActionCell& ac) const;
+
+	void ShowBringAnimation(cocos2d::Node* node, bool show);
+
+	GameLogic::ActionNodeType GetNodeType(const cocos2d::Node* node) const;
 
 };
 

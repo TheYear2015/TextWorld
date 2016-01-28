@@ -27,17 +27,6 @@ void PlayGame::OnSceneInited()
 
 	if (m_actionScrollView)
 	{
-		m_loadingAnimation = m_actionScrollView->getChildByName("NomralTextLoading");
-		if (m_loadingAnimation)
-		{
-			m_loadingAnimation->setVisible(false);
-			m_loadingAnimation->setLocalZOrder(20);
-			auto t = m_loadingAnimation->getTag();
-			auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(m_loadingAnimation->getActionByTag(t));
-			if (action)
-				action->play("Bring", true);
-		}
-
 		for (int i = 0; i < m_nodeTmplName.size(); ++i)
 		{
 			m_nodeTmplTag[i] = TagBase + i;
@@ -201,7 +190,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 	}
 
 	//更新控件并更新位置
-	cocos2d::Vec2 pos = { 0, 0 };
+	cocos2d::Vec2 pos = { size.width * 0.5f, 0 };
 	scrollVPos.x = -scrollVPos.y - size.height * 2;
 	scrollVPos.y = -scrollVPos.y + size.height * 3;
 	int ii = 0;
@@ -228,20 +217,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 			ac.m_guiNode->setVisible(true);
 			ac.m_guiNode->setPosition(pos);
 
-			if (ii == m_newIndex && m_loadingAnimation)
-			{
-				ac.m_guiNode->setVisible(false);
-				auto s = GetActionCellSize(ac);
-				pos.x += s.width * 0.5f;
-				pos.y -= s.height * 0.5f;
-				m_loadingAnimation->setVisible(true);
-				m_loadingAnimation->setPosition(pos);
-			}
-			else
-			{
-				ac.m_guiNode->setVisible(true);
-				ac.m_guiNode->setPosition(pos);
-			}
+			ShowBringAnimation(ac.m_guiNode, ii == m_newIndex);
 		}
 		else
 		{
@@ -361,11 +337,27 @@ cocos2d::ui::Layout* PlayGame::CreateActionNodeByData(const GameLogic::ActionNod
 	{
 		if (action->GetType() == GameLogic::ActionNodeType::NormalText)
 		{
-			auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
-			if (text)
+			auto content = n->getChildByName("Content");
+			if (content)
 			{
-				text->setString(action->m_action->Text());
+				auto text = dynamic_cast<cocos2d::ui::Text*>(content->getChildByName("Text"));
+				if (text)
+				{
+					text->setString(action->m_action->Text());
+				}
 			}
+			auto nn = n->getName();
+			auto ch = n->getChildren();
+			auto loadingAnimation = n->getChildByName("Loading");
+			if (loadingAnimation)
+			{
+				loadingAnimation->setVisible(false);
+				auto t = loadingAnimation->getTag();
+				auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
+				if (action)
+					action->play("Bring", true);
+			}
+
 			return n;
 		}
 		else if (action->GetType() == GameLogic::ActionNodeType::Choosing)
@@ -418,20 +410,7 @@ void PlayGame::PlayBringAnimation(int index)
 	if (m_newIndex != index)
 	{
 		m_newIndex = index;
-		//结束以前的
-		if (m_loadingAnimation)
-		{
-			m_loadingAnimation->setVisible(false);
-		}
-		//播放新的
-		if (m_newIndex >=0)
-		{
-			if (m_loadingAnimation)
-			{
-				m_loadingAnimation->setVisible(true);
-			}
-			this->scheduleOnce(schedule_selector(PlayGame::EndBringAnimation), 2.0f);
-		}
+		this->scheduleOnce(schedule_selector(PlayGame::EndBringAnimation), 2.0f);
 	}
 }
 
@@ -439,4 +418,41 @@ void PlayGame::EndBringAnimation(float dt)
 {
 	PlayBringAnimation(-1);
 	UpdateActionScrollView(true);
+}
+
+void PlayGame::ShowBringAnimation(cocos2d::Node* node, bool show)
+{
+	if (node)
+	{
+		switch (GetNodeType(node))
+		{
+		case GameLogic::ActionNodeType::NormalText:
+		{
+			auto content = node->getChildByName("Content");
+			if (content)
+			{
+				content->setVisible(!show);
+			}
+			auto loadingAnimation = node->getChildByName("Loading");
+			if (loadingAnimation)
+			{
+				loadingAnimation->setVisible(show);
+			}
+		}
+		default:
+			break;
+		}
+	}
+}
+
+GameLogic::ActionNodeType PlayGame::GetNodeType(const cocos2d::Node* node) const
+{
+	for (int i = 0; i < m_nodeTmplTag.size(); ++i)
+	{
+		if (node->getTag() == m_nodeTmplTag[i])
+		{
+			return (GameLogic::ActionNodeType)i;
+		}
+	}
+	return GameLogic::ActionNodeType::Count;
 }
