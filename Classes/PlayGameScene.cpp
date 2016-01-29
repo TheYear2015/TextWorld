@@ -15,7 +15,8 @@ const char* PlayGame::GetSceneCsb() const
 
 void PlayGame::OnSceneInited()
 {
-	m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode.csb";
+	//m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode.csb";
+	m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode";
 	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosing] = "ChooseNode";
 	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosed] = "ChoosedNode";
 
@@ -30,27 +31,13 @@ void PlayGame::OnSceneInited()
 		for (int i = 0; i < m_nodeTmplName.size(); ++i)
 		{
 			m_nodeTmplTag[i] = TagBase + i;
-			if ( i == (int)GameLogic::ActionNodeType::NormalText)
+			m_nodeTmpl[i] = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName(m_nodeTmplName[i]));
+			if (m_nodeTmpl[i])
 			{
-				auto ss = cocos2d::CSLoader::createNode(m_nodeTmplName[i]);
-				if (ss)
-				{
-					auto root = ss->getChildByName("Node");
-					m_nodeSize[i] = root->getContentSize();
-					ss->setVisible(false);
-				}
+				m_nodeSize[i] = m_nodeTmpl[i]->getContentSize();
+				m_nodeTmpl[i]->setLocalZOrder(10);
+				m_nodeTmpl[i]->setVisible(false);
 			}
-			else
-			{
-				m_nodeTmpl[i] = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName(m_nodeTmplName[i]));
-				if (m_nodeTmpl[i])
-				{
-					m_nodeSize[i] = m_nodeTmpl[i]->getContentSize();
-					m_nodeTmpl[i]->setLocalZOrder(10);
-					m_nodeTmpl[i]->setVisible(false);
-				}
-			}
-
 		}
 
 		m_actionScrollView->addEventListener(CC_CALLBACK_2(PlayGame::OnActionListScrollViewEvent, this));
@@ -332,36 +319,7 @@ cocos2d::Node* PlayGame::CreateActionNode(GameLogic::ActionNodeType type)
 	int t = (int)type;
 	if (m_unusedNodeList[t].empty())
 	{
-// 		auto n = m_nodeTmpl[t]->clone();
-// 		n->setTag(m_nodeTmplTag[t]);
-// 		m_actionScrollView->addChild(n);
-// 		n->setVisible(true);
-		cocos2d::Node*  n = nullptr;
-		if (type == GameLogic::ActionNodeType::NormalText)
-		{
-			n = cocos2d::CSLoader::createNode(m_nodeTmplName[(int)type]);
-
-// 			auto nnn1 = m_nodeTmpl[t]->getChildrenCount();
-// 			auto nnn = n->getChildrenCount();
-// 			auto loadingAnimation = n->getChildByName("Loading");
-// 			if (loadingAnimation)
-// 			{
-// 				auto timeLine = cocos2d::CSLoader::createTimeline("NormalTextLoading.csb");
-// 				loadingAnimation->runAction(timeLine);
-// 				timeLine->play("Bring", true);
-// 				//auto load = loadingAnimation;
-// 				//loadingAnimation->setVisible(false);
-// 				//auto t = loadingAnimation->getTag();
-// 				//auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
-// 				//if (action)
-// 				//	action->play("Bring", true);
-// 			}
-// 			int ii = 0;
-		}
-		else
-		{
-			n = (m_nodeTmpl[t]->clone());
-		}
+		auto n = (m_nodeTmpl[t]->clone());
 		n->setTag(m_nodeTmplTag[t]);
 		m_actionScrollView->addChild(n);
 		n->setVisible(true);
@@ -381,7 +339,7 @@ cocos2d::Node* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* act
 	{
 		if (action->GetType() == GameLogic::ActionNodeType::NormalText)
 		{
-			auto root = n->getChildByName("Node");
+			auto root = n;// ->getChildByName("Node");
 			if (root)
 			{
 				auto content = root->getChildByName("Content");
@@ -398,10 +356,10 @@ cocos2d::Node* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* act
 				if (loadingAnimation)
 				{
 					loadingAnimation->setVisible(false);
-// 					auto t = loadingAnimation->getTag();
-// 					auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
-// 					if (action)
-// 						action->play("Bring", true);
+					// 					auto t = loadingAnimation->getTag();
+					// 					auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
+					// 					if (action)
+					// 						action->play("Bring", true);
 				}
 			}
 
@@ -483,10 +441,13 @@ void PlayGame::ShowBringAnimation(cocos2d::Node* node, bool show)
 				{
 					content->setVisible(!show);
 				}
-				auto loadingAnimation = root->getChildByName("Loading");
-				if (loadingAnimation)
+				auto loading = root->getChildByName("Loading");
+				if (loading)
 				{
-					loadingAnimation->setVisible(show);
+					if (loading->isVisible() != show)
+					{
+						loading->setVisible(show);
+					}
 				}
 			}
 		}

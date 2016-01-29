@@ -3,6 +3,7 @@
 #include "GameLogic.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "XUtility/CocosHelper.h"
 
 USING_NS_CC;
 
@@ -26,6 +27,8 @@ void GameWorld::OnSceneInited()
 		continueBtn->addTouchEventListener(CC_CALLBACK_2(GameWorld::ContinueBtnTouchEvent, this));
 	}
 
+	XUtility::PlayNodeAndChlidrenAction(this->SceneRoot(), true);
+
 }
 
 void GameWorld::NewBtnTouchEvent(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type)
@@ -40,7 +43,7 @@ void GameWorld::NewBtnTouchEvent(cocos2d::Ref* target, cocos2d::ui::Widget::Touc
 
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
 	{
-		XUtility::GameSceneManager::Instance().EnterScene(XUtility::ScenenType::Playing);
+		GameSceneManager::Instance().EnterScene(ScenenType::Playing);
 	}
 	break;
 
@@ -64,7 +67,7 @@ void GameWorld::ContinueBtnTouchEvent(cocos2d::Ref* target, cocos2d::ui::Widget:
 
 	case cocos2d::ui::Widget::TouchEventType::ENDED:
 	{
-		XUtility::GameSceneManager::Instance().EnterScene(XUtility::ScenenType::Playing);
+		GameSceneManager::Instance().EnterScene(ScenenType::Playing);
 	}
 	break;
 

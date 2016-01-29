@@ -9,8 +9,7 @@
 USING_NS_CC;
 
 using namespace cocostudio::timeline;
-namespace XUtility
-{
+
 	cocos2d::Scene* GameSceneManager::CreateScene(ScenenType type)
 	{
 		cocos2d::Scene* scene = nullptr;
@@ -48,5 +47,3 @@ namespace XUtility
 			Director::getInstance()->replaceScene(fade);
 		}
 	}
-
-}

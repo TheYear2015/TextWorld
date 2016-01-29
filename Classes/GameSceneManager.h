@@ -1,9 +1,10 @@
 #ifndef __GAME_SCENE_MANAGER_H__
 #define __GAME_SCENE_MANAGER_H__
 
-#include "BaseScene.h"
-namespace XUtility
-{
+#include "cocos2d.h"
+#include "ui/CocosGUI.h"
+#include "cocostudio/CocoStudio.h"
+
 	enum class ScenenType
 	{
 		//Æô¶¯
@@ -23,7 +24,7 @@ namespace XUtility
 
 		void EnterScene(ScenenType type);
 	};
-}
+
 
 
 #endif // __GAME_SCENE_MANAGER_H__

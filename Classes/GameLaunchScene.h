@@ -1,7 +1,7 @@
 #ifndef __GAME_LAUNCH_SCENE_H__
 #define __GAME_LAUNCH_SCENE_H__
 
-#include "BaseScene.h"
+#include "XUtility/BaseScene.h"
 
 class GameLaunch : public XUtility::BaseSceneImpl<GameLaunch>
 {

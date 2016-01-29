@@ -62,7 +62,8 @@
           <PlistInfo Name="image02.csi" Type="Plist" />
         </Folder>
         <Project Name="NormalTextLoading.csd" Type="Node" />
-        <Project Name="NormalTextNode.csd" Type="Node" />
+        <Project Name="MainSceneAnim1.csd" Type="Node" />
+        <Project Name="ChoosingNode.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

@@ -2,7 +2,7 @@
 #define __GAME_WORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "BaseScene.h"
+#include "XUtility/BaseScene.h"
 
 class GameWorld : public XUtility::BaseSceneImpl<GameWorld>
 {

@@ -3,9 +3,8 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "BaseScene.h"
+#include "XUtility/BaseScene.h"
 #include "GameLogic.h"
-
 
 class PlayGame : public XUtility::BaseSceneImpl<PlayGame>, public GameLogic::GameLogicInterface
 {

@@ -31,5 +31,5 @@ void GameLaunch::onEnterTransitionDidFinish()
 
 void GameLaunch::EnterMainMenu(float dt)
 {
-	XUtility::GameSceneManager::Instance().EnterScene(XUtility::ScenenType::MainMenu);
+	GameSceneManager::Instance().EnterScene(ScenenType::MainMenu);
 }

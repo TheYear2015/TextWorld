@@ -53,7 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	FileUtils::getInstance()->addSearchPath("res");
 
 	// create a scene. it's an autorelease object
-	auto scene = XUtility::GameSceneManager::Instance().CreateScene(XUtility::ScenenType::Launch);
+	auto scene = GameSceneManager::Instance().CreateScene(ScenenType::Launch);
 
 	// run
 	director->runWithScene(scene);
