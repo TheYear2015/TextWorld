@@ -146,6 +146,19 @@
                   </AbstractNodeData>
                   <AbstractNodeData Name="Loading" ActionTag="696190579" Tag="98" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" TouchEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
                     <Size X="600.0000" Y="150.0000" />
+                    <Children>
+                      <AbstractNodeData Name="Sprite_5" ActionTag="2131421944" Tag="101" IconVisible="False" LeftMargin="-23.0000" RightMargin="577.0000" TopMargin="127.0000" BottomMargin="-23.0000" ctype="SpriteObjectData">
+                        <Size X="46.0000" Y="46.0000" />
+                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                        <Position />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                        <CColor A="255" R="255" G="255" B="255" />
+                        <PrePosition />
+                        <PreSize X="0.0000" Y="0.0000" />
+                        <FileData Type="Default" Path="Default/Sprite.png" Plist="" />
+                        <BlendFunc Src="770" Dst="771" />
+                      </AbstractNodeData>
+                    </Children>
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="300.0000" Y="75.0000" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />

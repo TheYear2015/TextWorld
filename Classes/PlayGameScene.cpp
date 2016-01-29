@@ -355,6 +355,7 @@ cocos2d::Node* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* act
 				auto loadingAnimation = root->getChildByName("Loading");
 				if (loadingAnimation)
 				{
+					auto cc = loadingAnimation->getChildren();
 					loadingAnimation->setVisible(false);
 					// 					auto t = loadingAnimation->getTag();
 					// 					auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
