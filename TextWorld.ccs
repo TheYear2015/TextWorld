@@ -62,6 +62,7 @@
           <PlistInfo Name="image02.csi" Type="Plist" />
         </Folder>
         <Project Name="NormalTextLoading.csd" Type="Node" />
+        <Project Name="NormalTextNode.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

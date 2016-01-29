@@ -49,10 +49,10 @@ private:
 
 private:
 	const int TagBase = 13986;
-	cocos2d::ui::Layout* CreateActionNodeByData(const GameLogic::ActionNode* action);
-	cocos2d::ui::Layout* CreateActionNode(GameLogic::ActionNodeType type);
+	cocos2d::Node* CreateActionNodeByData(const GameLogic::ActionNode* action);
+	cocos2d::Node* CreateActionNode(GameLogic::ActionNodeType type);
 
-	void ReleaseActionNode(cocos2d::ui::Layout* node);
+	void ReleaseActionNode(cocos2d::Node* node);
 
 	std::array<int, (int)GameLogic::ActionNodeType::Count> m_nodeTmplTag;
 	std::array<std::string, (int)GameLogic::ActionNodeType::Count> m_nodeTmplName;
@@ -60,7 +60,7 @@ private:
 	std::array<cocos2d::Size, (int)GameLogic::ActionNodeType::Count> m_nodeSize;
 
 private:
-	std::array<std::list<cocos2d::ui::Layout*>, (int)GameLogic::ActionNodeType::Count> m_unusedNodeList;
+	std::array<std::list<cocos2d::Node*>, (int)GameLogic::ActionNodeType::Count> m_unusedNodeList;
 
 private:
 	//行为单元
@@ -68,7 +68,7 @@ private:
 	{
 	public:
 		const GameLogic::ActionNode* m_action = nullptr;//行为
-		cocos2d::ui::Layout* m_guiNode = nullptr;
+		cocos2d::Node* m_guiNode = nullptr;
 		float m_logicY = 0;
 
 	};

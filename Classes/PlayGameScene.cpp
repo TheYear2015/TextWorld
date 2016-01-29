@@ -15,7 +15,7 @@ const char* PlayGame::GetSceneCsb() const
 
 void PlayGame::OnSceneInited()
 {
-	m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode";
+	m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode.csb";
 	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosing] = "ChooseNode";
 	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosed] = "ChoosedNode";
 
@@ -30,13 +30,27 @@ void PlayGame::OnSceneInited()
 		for (int i = 0; i < m_nodeTmplName.size(); ++i)
 		{
 			m_nodeTmplTag[i] = TagBase + i;
-			m_nodeTmpl[i] = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName(m_nodeTmplName[i]));
-			if (m_nodeTmpl[i])
+			if ( i == (int)GameLogic::ActionNodeType::NormalText)
 			{
-				m_nodeTmpl[i]->setLocalZOrder(10);
-				m_nodeTmpl[i]->setVisible(false);
-				m_nodeSize[i] = m_nodeTmpl[i]->getContentSize();
+				auto ss = cocos2d::CSLoader::createNode(m_nodeTmplName[i]);
+				if (ss)
+				{
+					auto root = ss->getChildByName("Node");
+					m_nodeSize[i] = root->getContentSize();
+					ss->setVisible(false);
+				}
 			}
+			else
+			{
+				m_nodeTmpl[i] = dynamic_cast<cocos2d::ui::Layout*>(m_actionScrollView->getChildByName(m_nodeTmplName[i]));
+				if (m_nodeTmpl[i])
+				{
+					m_nodeSize[i] = m_nodeTmpl[i]->getContentSize();
+					m_nodeTmpl[i]->setLocalZOrder(10);
+					m_nodeTmpl[i]->setVisible(false);
+				}
+			}
+
 		}
 
 		m_actionScrollView->addEventListener(CC_CALLBACK_2(PlayGame::OnActionListScrollViewEvent, this));
@@ -313,23 +327,53 @@ void PlayGame::OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::Sc
 	}
 }
 
-cocos2d::ui::Layout* PlayGame::CreateActionNode(GameLogic::ActionNodeType type)
+cocos2d::Node* PlayGame::CreateActionNode(GameLogic::ActionNodeType type)
 {
 	int t = (int)type;
 	if (m_unusedNodeList[t].empty())
 	{
-		auto n = m_nodeTmpl[t]->clone();
+// 		auto n = m_nodeTmpl[t]->clone();
+// 		n->setTag(m_nodeTmplTag[t]);
+// 		m_actionScrollView->addChild(n);
+// 		n->setVisible(true);
+		cocos2d::Node*  n = nullptr;
+		if (type == GameLogic::ActionNodeType::NormalText)
+		{
+			n = cocos2d::CSLoader::createNode(m_nodeTmplName[(int)type]);
+
+// 			auto nnn1 = m_nodeTmpl[t]->getChildrenCount();
+// 			auto nnn = n->getChildrenCount();
+// 			auto loadingAnimation = n->getChildByName("Loading");
+// 			if (loadingAnimation)
+// 			{
+// 				auto timeLine = cocos2d::CSLoader::createTimeline("NormalTextLoading.csb");
+// 				loadingAnimation->runAction(timeLine);
+// 				timeLine->play("Bring", true);
+// 				//auto load = loadingAnimation;
+// 				//loadingAnimation->setVisible(false);
+// 				//auto t = loadingAnimation->getTag();
+// 				//auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
+// 				//if (action)
+// 				//	action->play("Bring", true);
+// 			}
+// 			int ii = 0;
+		}
+		else
+		{
+			n = (m_nodeTmpl[t]->clone());
+		}
 		n->setTag(m_nodeTmplTag[t]);
 		m_actionScrollView->addChild(n);
 		n->setVisible(true);
-		return dynamic_cast<cocos2d::ui::Layout*>(n);
+
+		return n;
 	}
 	auto n = m_unusedNodeList[t].front();
 	m_unusedNodeList[t].pop_front();
 	return n;
 }
 
-cocos2d::ui::Layout* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* action)
+cocos2d::Node* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* action)
 {
 	//创建新的控件
 	auto n = CreateActionNode(action->GetType());
@@ -337,25 +381,28 @@ cocos2d::ui::Layout* PlayGame::CreateActionNodeByData(const GameLogic::ActionNod
 	{
 		if (action->GetType() == GameLogic::ActionNodeType::NormalText)
 		{
-			auto content = n->getChildByName("Content");
-			if (content)
+			auto root = n->getChildByName("Node");
+			if (root)
 			{
-				auto text = dynamic_cast<cocos2d::ui::Text*>(content->getChildByName("Text"));
-				if (text)
+				auto content = root->getChildByName("Content");
+				if (content)
 				{
-					text->setString(action->m_action->Text());
+					auto text = dynamic_cast<cocos2d::ui::Text*>(content->getChildByName("Text"));
+					if (text)
+					{
+						text->setString(action->m_action->Text());
+					}
 				}
-			}
-			auto nn = n->getName();
-			auto ch = n->getChildren();
-			auto loadingAnimation = n->getChildByName("Loading");
-			if (loadingAnimation)
-			{
-				loadingAnimation->setVisible(false);
-				auto t = loadingAnimation->getTag();
-				auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
-				if (action)
-					action->play("Bring", true);
+
+				auto loadingAnimation = root->getChildByName("Loading");
+				if (loadingAnimation)
+				{
+					loadingAnimation->setVisible(false);
+// 					auto t = loadingAnimation->getTag();
+// 					auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
+// 					if (action)
+// 						action->play("Bring", true);
+				}
 			}
 
 			return n;
@@ -389,7 +436,7 @@ cocos2d::ui::Layout* PlayGame::CreateActionNodeByData(const GameLogic::ActionNod
 	return n;
 }
 
-void PlayGame::ReleaseActionNode(cocos2d::ui::Layout* node)
+void PlayGame::ReleaseActionNode(cocos2d::Node* node)
 {
 	if (node)
 	{
@@ -428,15 +475,19 @@ void PlayGame::ShowBringAnimation(cocos2d::Node* node, bool show)
 		{
 		case GameLogic::ActionNodeType::NormalText:
 		{
-			auto content = node->getChildByName("Content");
-			if (content)
+			auto root = node->getChildByName("Node");
+			if (root)
 			{
-				content->setVisible(!show);
-			}
-			auto loadingAnimation = node->getChildByName("Loading");
-			if (loadingAnimation)
-			{
-				loadingAnimation->setVisible(show);
+				auto content = root->getChildByName("Content");
+				if (content)
+				{
+					content->setVisible(!show);
+				}
+				auto loadingAnimation = root->getChildByName("Loading");
+				if (loadingAnimation)
+				{
+					loadingAnimation->setVisible(show);
+				}
 			}
 		}
 		default:

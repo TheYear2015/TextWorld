@@ -19,59 +19,6 @@
           <AbstractNodeData Name="ActionScrollView" ActionTag="2016205157" Tag="6" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" TouchEnable="True" ClipAble="True" BackColorAlpha="0" ColorAngle="90.0000" IsBounceEnabled="True" ScrollDirectionType="Vertical" ctype="ScrollViewObjectData">
             <Size X="640.0000" Y="960.0000" />
             <Children>
-              <AbstractNodeData Name="NormalTextNode" ActionTag="-175143545" Tag="11" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" HorizontalEdge="BothEdge" TopMargin="76.0000" BottomMargin="734.0000" TouchEnable="True" ColorAngle="90.0000" Scale9Enable="True" LeftEage="75" RightEage="75" TopEage="17" BottomEage="17" ctype="PanelObjectData">
-                <Size X="640.0000" Y="150.0000" />
-                <Children>
-                  <AbstractNodeData Name="Content" ActionTag="1696409657" Tag="37" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="64.0000" RightMargin="64.0000" TopMargin="15.0000" BottomMargin="15.0000" TouchEnable="True" BackColorAlpha="74" ColorAngle="90.0000" Scale9Enable="True" LeftEage="75" RightEage="75" TopEage="17" BottomEage="17" ctype="PanelObjectData">
-                    <Size X="512.0000" Y="105.0000" />
-                    <Children>
-                      <AbstractNodeData Name="Text" ActionTag="1788951519" Tag="13" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="122.5000" RightMargin="122.5000" TopMargin="84.0000" BottomMargin="84.0000" FontSize="24" LabelText="Text Label111" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                        <Size X="155.0000" Y="32.0000" />
-                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                        <Position X="256.0000" Y="52.5000" />
-                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                        <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.5000" Y="0.5000" />
-                        <PreSize X="0.3225" Y="0.1300" />
-                        <FontResource Type="Normal" Path="msyh.ttc" Plist="" />
-                        <OutlineColor A="255" R="255" G="0" B="0" />
-                        <ShadowColor A="255" R="110" G="110" B="110" />
-                      </AbstractNodeData>
-                    </Children>
-                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="320.0000" Y="75.0000" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5000" Y="0.5000" />
-                    <PreSize X="0.8000" Y="0.7000" />
-                    <FileData Type="MarkedSubImage" Path="image/strech_chat.9.png" Plist="res/image01.plist" />
-                    <SingleColor A="255" R="150" G="200" B="255" />
-                    <FirstColor A="255" R="150" G="200" B="255" />
-                    <EndColor A="255" R="255" G="255" B="255" />
-                    <ColorVector ScaleY="1.0000" />
-                  </AbstractNodeData>
-                  <AbstractNodeData Name="Loading" ActionTag="158349820" Tag="61" IconVisible="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="320.0000" RightMargin="320.0000" TopMargin="75.0000" BottomMargin="75.0000" InnerActionSpeed="1.0000" ctype="ProjectNodeObjectData">
-                    <Size X="0.0000" Y="0.0000" />
-                    <AnchorPoint />
-                    <Position X="320.0000" Y="75.0000" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5000" Y="0.5000" />
-                    <PreSize X="0.0000" Y="0.0000" />
-                    <FileData Type="Normal" Path="NormalTextLoading.csd" Plist="" />
-                  </AbstractNodeData>
-                </Children>
-                <AnchorPoint ScaleX="0.5000" ScaleY="1.0000" />
-                <Position X="320.0000" Y="884.0000" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.9208" />
-                <PreSize X="1.0000" Y="0.1563" />
-                <SingleColor A="255" R="26" G="26" B="26" />
-                <FirstColor A="255" R="150" G="200" B="255" />
-                <EndColor A="255" R="255" G="255" B="255" />
-                <ColorVector ScaleY="1.0000" />
-              </AbstractNodeData>
               <AbstractNodeData Name="ChooseNode" ActionTag="-1911425143" Tag="12" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" HorizontalEdge="BothEdge" LeftMargin="64.0000" RightMargin="64.0000" TopMargin="480.0000" BottomMargin="380.0000" TouchEnable="True" BackColorAlpha="0" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
                 <Size X="512.0000" Y="100.0000" />
                 <Children>
@@ -133,6 +80,26 @@
                     <FontResource Type="Normal" Path="msyh.ttc" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Image_3" ActionTag="1517840868" Tag="16" IconVisible="False" LeftMargin="-31.0000" RightMargin="369.0000" TopMargin="67.5000" BottomMargin="-32.5000" Scale9Width="62" Scale9Height="65" ctype="ImageViewObjectData">
+                    <Size X="62.0000" Y="65.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="0.1550" Y="0.6500" />
+                    <FileData Type="MarkedSubImage" Path="image/choice_btn_chosen.9.png" Plist="res/image01.plist" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Image_4" ActionTag="68476806" Tag="17" IconVisible="False" LeftMargin="-31.0000" RightMargin="369.0000" TopMargin="67.5000" BottomMargin="-32.5000" Scale9Width="62" Scale9Height="65" ctype="ImageViewObjectData">
+                    <Size X="62.0000" Y="65.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="0.1550" Y="0.6500" />
+                    <FileData Type="MarkedSubImage" Path="image/choice_btn_chosen.9.png" Plist="res/image01.plist" />
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleY="1.0000" />
