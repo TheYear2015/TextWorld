@@ -55,6 +55,7 @@ private:
 
 	std::array<int, (int)GameLogic::ActionNodeType::Count> m_nodeTmplTag;
 	std::array<std::string, (int)GameLogic::ActionNodeType::Count> m_nodeTmplName;
+	std::array<std::string, (int)GameLogic::ActionNodeType::Count> m_nodeLoadingNodeName;
 	std::array<cocos2d::ui::Layout*, (int)GameLogic::ActionNodeType::Count> m_nodeTmpl;
 	std::array<cocos2d::Size, (int)GameLogic::ActionNodeType::Count> m_nodeSize;
 

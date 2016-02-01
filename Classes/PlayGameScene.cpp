@@ -15,10 +15,15 @@ const char* PlayGame::GetSceneCsb() const
 
 void PlayGame::OnSceneInited()
 {
-	//m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode.csb";
 	m_nodeTmplName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextNode";
 	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosing] = "ChooseNode";
 	m_nodeTmplName[(int)GameLogic::ActionNodeType::Choosed] = "ChoosedNode";
+
+
+	m_nodeLoadingNodeName[(int)GameLogic::ActionNodeType::NormalText] = "NormalTextLoading.csb";
+	m_nodeLoadingNodeName[(int)GameLogic::ActionNodeType::Choosing] = "";
+	m_nodeLoadingNodeName[(int)GameLogic::ActionNodeType::Choosed] = "";
+
 
 	m_actionCellArray.reserve(10000);
 
@@ -325,9 +330,9 @@ cocos2d::Node* PlayGame::CreateActionNode(GameLogic::ActionNodeType type)
 		n->setVisible(true);
 
 		//创建指定的动画
-		if (type == GameLogic::ActionNodeType::NormalText)
+		if (!m_nodeLoadingNodeName[t].empty())
 		{
-			auto loading = CSLoader::createNode("NormalTextLoading.csb");
+			auto loading = CSLoader::createNode(m_nodeLoadingNodeName[t]);
 			if (loading)
 			{
 				n->addChild(loading);
@@ -337,7 +342,7 @@ cocos2d::Node* PlayGame::CreateActionNode(GameLogic::ActionNodeType type)
 
 				auto name = loading->getName();
 
-				auto timeLine = CSLoader::createTimeline("NormalTextLoading.csb");
+				auto timeLine = CSLoader::createTimeline(m_nodeLoadingNodeName[t]);
 				loading->runAction(timeLine);
 				if (timeLine)
 					timeLine->play("Bring", true);
@@ -400,11 +405,34 @@ cocos2d::Node* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* act
 		}
 		else if (action->GetType() == GameLogic::ActionNodeType::Choosed)
 		{
-			auto text = dynamic_cast<cocos2d::ui::Text*>(n->getChildByName("Text"));
-			if (text)
+			int chooseIndex = action->m_chooseIndex;
+			auto node1 = n->getChildByName("Node1");
+			if (node1)
 			{
-				text->setString(action->m_stage->ToStage()[action->m_chooseIndex].second);
+				auto image0 = node1->getChildByName("Image0");
+				auto image1 = node1->getChildByName("Image1");
+				image0->setVisible(chooseIndex == 0);
+				image1->setVisible(chooseIndex != 0);
+				auto text = dynamic_cast<cocos2d::ui::Text*>(node1->getChildByName("Text"));
+				if (text)
+				{
+					text->setString(action->m_stage->ToStage().at(0).second);
+				}
 			}
+			auto node2 = n->getChildByName("Node2");
+			if (node2)
+			{
+				auto image0 = node2->getChildByName("Image0");
+				auto image1 = node2->getChildByName("Image1");
+				image0->setVisible(chooseIndex == 1);
+				image1->setVisible(chooseIndex != 1);
+				auto text = dynamic_cast<cocos2d::ui::Text*>(node2->getChildByName("Text"));
+				if (text)
+				{
+					text->setString(action->m_stage->ToStage().at(1).second);
+				}
+			}
+
 		}
 	}
 	return n;

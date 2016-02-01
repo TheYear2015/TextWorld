@@ -63,7 +63,6 @@
         </Folder>
         <Project Name="NormalTextLoading.csd" Type="Node" />
         <Project Name="MainSceneAnim1.csd" Type="Node" />
-        <Project Name="ChoosingNode.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

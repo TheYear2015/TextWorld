@@ -70,8 +70,7 @@ namespace GameLogic
 		//如果是新游戏，开始第一个场景(id 1)
 		if (m_userData.m_playedStages.empty())
 		{
-			m_playedActionIndex = 0;
-
+			m_playedActionIndex = -1;
 			EnterStage(1);
 		}
 		else//加载以前的数据
