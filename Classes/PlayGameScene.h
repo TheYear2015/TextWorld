@@ -5,6 +5,7 @@
 #include "ui/CocosGUI.h"
 #include "XUtility/BaseScene.h"
 #include "GameLogic.h"
+#include "ActionNodeGraphic.h"
 
 class PlayGame : public XUtility::BaseSceneImpl<PlayGame>, public GameLogic::GameLogicInterface
 {
@@ -36,7 +37,6 @@ public:
 
 private:
 	void LogicUpdate(float dt);
-	void ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
 	void OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::ScrollView::EventType type);
 
 private:
@@ -47,21 +47,9 @@ private:
 	cocos2d::ui::ScrollView* m_actionScrollView = nullptr;
 
 private:
-	const int TagBase = 13986;
-	cocos2d::Node* CreateActionNodeByData(const GameLogic::ActionNode* action);
-	cocos2d::Node* CreateActionNode(GameLogic::ActionNodeType type);
-
-	void ReleaseActionNode(cocos2d::Node* node);
-
-	std::array<int, (int)GameLogic::ActionNodeType::Count> m_nodeTmplTag;
-	//std::array<std::string, (int)GameLogic::ActionNodeType::Count> m_nodeTmplName;
-	std::array<std::string, (int)GameLogic::ActionNodeType::Count> m_nodeLoadingNodeName;
-	std::array<std::string, (int)GameLogic::ActionNodeType::Count> m_nodeName;
-	//std::array<cocos2d::ui::Layout*, (int)GameLogic::ActionNodeType::Count> m_nodeTmpl;
 	std::array<cocos2d::Size, (int)GameLogic::ActionNodeType::Count> m_nodeSize;
 
 private:
-	std::array<std::list<cocos2d::Node*>, (int)GameLogic::ActionNodeType::Count> m_unusedNodeList;
 
 private:
 	//行为单元
@@ -69,7 +57,7 @@ private:
 	{
 	public:
 		const GameLogic::ActionNode* m_action = nullptr;//行为
-		cocos2d::Node* m_guiNode = nullptr;
+		ActionNodeGraphic* m_guiNode = nullptr;
 		float m_logicY = 0;
 
 	};
@@ -86,9 +74,7 @@ private:
 	float GetActionCellHeight(const ActionCell& ac) const;
 	cocos2d::Size GetActionCellSize(const ActionCell& ac) const;
 
-	void ShowBringAnimation(cocos2d::Node* node, bool show);
-
-	GameLogic::ActionNodeType GetNodeType(const cocos2d::Node* node) const;
+	void ShowBringAnimation(ActionNodeGraphic* node, bool show);
 
 };
 

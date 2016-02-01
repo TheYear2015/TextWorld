@@ -45,6 +45,9 @@
     <ClCompile Include="..\Classes\XUtility\CocosHelper.cpp">
       <Filter>XUtility</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ActionNodeGraphic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\XUtility\CocosHelper.h">
       <Filter>XUtility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionNodeGraphic.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
