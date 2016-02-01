@@ -63,6 +63,9 @@
         </Folder>
         <Project Name="NormalTextLoading.csd" Type="Node" />
         <Project Name="MainSceneAnim1.csd" Type="Node" />
+        <Project Name="ChoosingNode.csd" Type="Node" />
+        <Project Name="ChoosedNode.csd" Type="Node" />
+        <Project Name="NormalNode.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>
