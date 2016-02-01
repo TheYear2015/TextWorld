@@ -50,7 +50,7 @@
           "Text": "mmsdfu4ru34n"
         },
         {
-          "Type": 0,
+          "Type": 1,
           "DuringMS": 7000,
           "Text": "lloisadfsanfasnf"
         }
@@ -90,7 +90,7 @@
       "AutoGoto": false,
       "ContentList": [
         {
-          "Type": 0,
+          "Type": 1,
           "DuringMS": 7000,
           "Text": "nnsdfsflkwekfwnf\r\n打法沙发沙发沙发沙发"
         }

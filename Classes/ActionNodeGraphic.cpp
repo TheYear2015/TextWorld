@@ -67,6 +67,9 @@ ActionNodeGraphic* ActionNodeGraphicMgr::NewCreateActionNode(GameLogic::ActionNo
 	case GameLogic::ActionNodeType::NormalText:
 		an = new NormalActionNode();
 		break;
+	case GameLogic::ActionNodeType::Tips:
+		an = new TipsActionNode();
+		break;
 	case GameLogic::ActionNodeType::Choosing:
 		an = new ChoosingActionNode();
 		break;
@@ -186,7 +189,7 @@ int TipsActionNode::GetType() const
 
 bool TipsActionNode::Init()
 {
-	const std::string nodeName = "NormalNode.csb";
+	const std::string nodeName = "TipsNode.csb";
 	const std::string loadingName = "NormalTextLoading.csb";
 	m_root = CSLoader::createNode(nodeName);
 	if (m_root)
