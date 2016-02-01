@@ -347,6 +347,8 @@ namespace GameLogic
 			return ActionNodeType::Choosed;
 		if (m_action == nullptr)
 			return ActionNodeType::Choosing;
+		if (m_action->Type() == 1)
+			return ActionNodeType::Tips;
 		return ActionNodeType::NormalText;
 	}
 

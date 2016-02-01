@@ -9,6 +9,7 @@ namespace GameLogic
 	enum class ActionNodeType : int
 	{
 		NormalText = 0,
+		Tips,
 		Choosing,
 		Choosed,
 		Count

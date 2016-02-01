@@ -67,6 +67,32 @@ private:
 
 };
 
+class TipsActionNode :public ActionNodeGraphic
+{
+
+public:
+	virtual cocos2d::Node* GetNode() override;
+
+	virtual cocos2d::Size GetSize() const override;
+
+	virtual int GetType() const override;
+
+	virtual bool Init() override;
+
+	virtual void SetData(const GameLogic::ActionNode* action) override;
+
+	virtual void ShowLoading(bool show) override;
+
+
+private:
+	cocos2d::Node* m_root = nullptr;
+	cocos2d::Node* m_node = nullptr;
+	cocos2d::Node* m_content = nullptr;
+	cocos2d::Node* m_loading = nullptr;
+
+};
+
+
 class ChoosingActionNode :public ActionNodeGraphic
 {
 public:

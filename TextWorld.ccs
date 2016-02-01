@@ -66,6 +66,7 @@
         <Project Name="ChoosingNode.csd" Type="Node" />
         <Project Name="ChoosedNode.csd" Type="Node" />
         <Project Name="NormalNode.csd" Type="Node" />
+        <Project Name="TipsNode.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>

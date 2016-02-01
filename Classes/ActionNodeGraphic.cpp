@@ -168,6 +168,89 @@ void NormalActionNode::ShowLoading(bool show)
 	}
 }
 
+
+cocos2d::Node* TipsActionNode::GetNode()
+{
+	return m_root;
+}
+
+cocos2d::Size TipsActionNode::GetSize() const
+{
+	return m_node->getContentSize();
+}
+
+int TipsActionNode::GetType() const
+{
+	return (int)GameLogic::ActionNodeType::Tips;
+}
+
+bool TipsActionNode::Init()
+{
+	const std::string nodeName = "NormalNode.csb";
+	const std::string loadingName = "NormalTextLoading.csb";
+	m_root = CSLoader::createNode(nodeName);
+	if (m_root)
+	{
+		m_node = m_root->getChildByName("Node");
+		//创建指定的动画
+		if (!loadingName.empty())
+		{
+			if (m_node)
+			{
+				m_content = m_node->getChildByName("Content");
+				m_loading = CSLoader::createNode(loadingName);
+				if (m_loading)
+				{
+					m_node->addChild(m_loading);
+					auto parentSize = m_node->getContentSize();
+					auto pos = cocos2d::Vec2{ parentSize.width * 0.5f, parentSize.height * 0.5f };
+					m_loading->setPosition(pos);
+					auto timeLine = CSLoader::createTimeline(loadingName);
+					m_loading->runAction(timeLine);
+					if (timeLine)
+						timeLine->play("Bring", true);
+				}
+			}
+		}
+	}
+	return m_root != nullptr;
+}
+
+void TipsActionNode::SetData(const GameLogic::ActionNode* action)
+{
+
+	if (m_content)
+	{
+		auto text = dynamic_cast<cocos2d::ui::Text*>(m_content->getChildByName("Text"));
+		if (text)
+		{
+			text->setString(action->m_action->Text());
+		}
+	}
+
+
+	if (m_loading)
+	{
+		m_loading->setVisible(false);
+	}
+
+}
+
+void TipsActionNode::ShowLoading(bool show)
+{
+	if (m_content)
+	{
+		m_content->setVisible(!show);
+	}
+	if (m_loading)
+	{
+		if (m_loading->isVisible() != show)
+		{
+			m_loading->setVisible(show);
+		}
+	}
+}
+
 cocos2d::Node* ChoosingActionNode::GetNode()
 {
 	return m_root;
