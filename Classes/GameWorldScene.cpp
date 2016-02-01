@@ -27,7 +27,7 @@ void GameWorld::OnSceneInited()
 		continueBtn->addTouchEventListener(CC_CALLBACK_2(GameWorld::ContinueBtnTouchEvent, this));
 	}
 
-	XUtility::PlayNodeAndChlidrenAction(this->SceneRoot(), true);
+	XUtility::PlayNodeAction(this->SceneRoot()->getChildByName("ProjectNode_1"), true);
 
 }
 

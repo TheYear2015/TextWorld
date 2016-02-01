@@ -98,10 +98,10 @@
       </Animation>
       <AnimationList>
         <AnimationInfo Name="Bring" StartIndex="0" EndIndex="58">
-          <RenderColor A="150" R="75" G="0" B="130" />
+          <RenderColor A="255" R="75" G="0" B="130" />
         </AnimationInfo>
       </AnimationList>
-      <ObjectData Name="Node" Tag="59" ctype="GameNodeObjectData">
+      <ObjectData Name="Loading" Tag="59" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
           <AbstractNodeData Name="Sprite" ActionTag="1666116952" Tag="60" IconVisible="False" ctype="SpriteObjectData">

@@ -324,6 +324,26 @@ cocos2d::Node* PlayGame::CreateActionNode(GameLogic::ActionNodeType type)
 		m_actionScrollView->addChild(n);
 		n->setVisible(true);
 
+		//创建指定的动画
+		if (type == GameLogic::ActionNodeType::NormalText)
+		{
+			auto loading = CSLoader::createNode("NormalTextLoading.csb");
+			if (loading)
+			{
+				n->addChild(loading);
+				auto parentSize = n->getContentSize();
+				auto pos = cocos2d::Vec2{ parentSize.width * 0.5f, parentSize.height * 0.5f };
+				loading->setPosition(pos);
+
+				auto name = loading->getName();
+
+				auto timeLine = CSLoader::createTimeline("NormalTextLoading.csb");
+				loading->runAction(timeLine);
+				if (timeLine)
+					timeLine->play("Bring", true);
+			}
+		}
+
 		return n;
 	}
 	auto n = m_unusedNodeList[t].front();
@@ -339,7 +359,7 @@ cocos2d::Node* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* act
 	{
 		if (action->GetType() == GameLogic::ActionNodeType::NormalText)
 		{
-			auto root = n;// ->getChildByName("Node");
+			auto root = n;
 			if (root)
 			{
 				auto content = root->getChildByName("Content");
@@ -352,15 +372,10 @@ cocos2d::Node* PlayGame::CreateActionNodeByData(const GameLogic::ActionNode* act
 					}
 				}
 
-				auto loadingAnimation = root->getChildByName("Loading");
-				if (loadingAnimation)
+				auto loading = root->getChildByName("Loading");
+				if (loading)
 				{
-					auto cc = loadingAnimation->getChildren();
-					loadingAnimation->setVisible(false);
-					// 					auto t = loadingAnimation->getTag();
-					// 					auto action = dynamic_cast<cocostudio::timeline::ActionTimeline*>(loadingAnimation->getActionByTag(t));
-					// 					if (action)
-					// 						action->play("Bring", true);
+					loading->setVisible(false);
 				}
 			}
 
@@ -434,7 +449,7 @@ void PlayGame::ShowBringAnimation(cocos2d::Node* node, bool show)
 		{
 		case GameLogic::ActionNodeType::NormalText:
 		{
-			auto root = node->getChildByName("Node");
+			auto root = node;
 			if (root)
 			{
 				auto content = root->getChildByName("Content");

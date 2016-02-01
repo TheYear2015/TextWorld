@@ -7,7 +7,8 @@
 
 namespace XUtility
 {
-	void PlayNodeAndChlidrenAction(cocos2d::Node* node, bool isLoop);
+	void PlayNodeAction(cocos2d::Node* node, bool isLoop);
+	void PlayNodeAction(cocos2d::Node* node, const std::string& name, bool isLoop);
 }
 
 #endif // __XUTILITY_COCOS_HELPER_H__
