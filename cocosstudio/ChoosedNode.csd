@@ -6,13 +6,13 @@
       <ObjectData Name="Node" Tag="74" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Node" ActionTag="-144962766" Tag="75" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-230.0000" TouchEnable="True" ColorAngle="90.0000" ctype="PanelObjectData">
-            <Size X="640.0000" Y="230.0000" />
+          <AbstractNodeData Name="Node" ActionTag="-144962766" Tag="75" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" TouchEnable="True" ColorAngle="90.0000" ctype="PanelObjectData">
+            <Size X="640.0000" Y="130.0000" />
             <Children>
               <AbstractNodeData Name="Sprite_2_0" ActionTag="347542030" Tag="76" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="256.0000" TopMargin="-14.0000" BottomMargin="-14.0000" FlipX="True" ctype="SpriteObjectData">
                 <Size X="256.0000" Y="128.0000" />
                 <AnchorPoint ScaleX="1.0000" ScaleY="0.5000" />
-                <Position X="640.0000" Y="115.0000" />
+                <Position X="640.0000" Y="65.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="1.0000" Y="0.5000" />
@@ -23,7 +23,7 @@
               <AbstractNodeData Name="Sprite_2" ActionTag="-1093315683" Tag="77" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" RightMargin="256.0000" TopMargin="-14.0000" BottomMargin="-14.0000" ctype="SpriteObjectData">
                 <Size X="256.0000" Y="128.0000" />
                 <AnchorPoint ScaleY="0.5000" />
-                <Position Y="115.0000" />
+                <Position Y="65.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition Y="0.5000" />
@@ -68,7 +68,7 @@
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="179.2000" Y="115.0000" />
+                <Position X="179.2000" Y="65.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.2800" Y="0.5000" />
@@ -115,7 +115,7 @@
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="460.8000" Y="115.0000" />
+                <Position X="460.8000" Y="65.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.7200" Y="0.5000" />

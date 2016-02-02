@@ -103,6 +103,10 @@ void PlayGame::OnEnterAction(const GameLogic::ActionNode* actNode)
 			auto& last = m_actionCellArray.back();
 			actionCell.m_logicY = last.m_logicY + GetActionCellHeight(last);
 		}
+		else
+		{
+			actionCell.m_logicY = 20;
+		}
 
 		m_actionCellArray.push_back(actionCell);
 
@@ -114,8 +118,13 @@ void PlayGame::OnEnterAction(const GameLogic::ActionNode* actNode)
 			PlayBringAnimation(m_actionCellArray.size() - 1);
 		}
 
+		bool isOnBottom = m_actionScrollView->getInnerContainerPosition().y <= m_actionScrollView->getCustomSize().height;
 		UpdateActionScrollView(true);
-		m_actionScrollView->scrollToBottom(0.5f, true);
+		if (isOnBottom)
+		{
+			m_actionScrollView->scrollToBottom(0.5f, true);
+		}
+
 
 	}
 	else
@@ -144,8 +153,13 @@ void PlayGame::OnNeedChoose(const GameLogic::ActionNode* actNode)
 		}
 
 		m_actionCellArray.push_back(actionCell);
+
+		bool isOnBottom = m_actionScrollView->getInnerContainerPosition().y <= m_actionScrollView->getCustomSize().height;
 		UpdateActionScrollView(true);
-		m_actionScrollView->scrollToBottom(0.5f, true);
+		if (isOnBottom)
+		{
+			m_actionScrollView->scrollToBottom(0.5f, true);
+		}
 
 	}
 	else
@@ -194,7 +208,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 		if (!m_actionCellArray.empty())
 		{
 			auto& last = m_actionCellArray.back();
-			height = last.m_logicY + GetActionCellHeight(last);
+			height = last.m_logicY + GetActionCellHeight(last) + 20;
 		}
 		height = std::max(size.height, height);
 	}

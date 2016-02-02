@@ -95,12 +95,23 @@ namespace XUtility
 
 	uint32_t AudioManager::PlaySound(const char* sound, bool loop)
 	{
-		return CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(GetSoundEffectName(sound).c_str(), loop);
+		bool enable = false;
+		for (auto sr : m_loadedSoundRes)
+		{
+			if (sr->m_name.compare(sound) == 0)
+			{
+				enable = true;
+				break;
+			}
+		}
+		if (enable)
+			return CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(GetSoundEffectName(sound).c_str(), loop);
+		return 0;
 	}
 
 	void AudioManager::StopSound(uint32_t id)
 	{
-		
+		CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(id);
 	}
 
 	void AudioManager::ReleaseSound(const char* sound)
