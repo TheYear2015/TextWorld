@@ -48,6 +48,9 @@
     <ClCompile Include="..\Classes\ActionNodeGraphic.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\XUtility\AudioFunction.cpp">
+      <Filter>XUtility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ActionNodeGraphic.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\XUtility\AudioFunction.h">
+      <Filter>XUtility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

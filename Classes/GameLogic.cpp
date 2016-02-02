@@ -340,6 +340,15 @@ namespace GameLogic
 		return m_state == GameState::Playing;
 	}
 
+	const StageData* GameCore::GetCurrentStage() const
+	{
+		if (IsPlaying())
+		{
+			return m_actionList.at(m_playedActionIndex).m_stage;
+		}
+		return nullptr;
+	}
+
 
 	GameLogic::ActionNodeType ActionNode::GetType() const
 	{

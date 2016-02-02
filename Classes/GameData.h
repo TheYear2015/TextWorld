@@ -43,11 +43,14 @@ namespace GameLogic
 		const std::vector<StageActionData>& ActionList() const { return m_actionList; }
 		//在结束的时候有选择
 		bool IsHaveChooseAtEnd() const;
+		//背景音乐
+		const std::string& Music() const { return m_bkMusic; }
 	private:
 		//Id
 		uint32_t m_id = 0;
 		//自动进入下一个场景，使用 m_goToStage[0]
 		bool m_isAutoNext = false;
+		std::string m_bkMusic;
 		//场景结束跳信息
 		std::vector<std::pair<uint32_t, std::string>> m_goToStage;
 		//场景行为列表

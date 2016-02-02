@@ -67,6 +67,7 @@ private:
 	void PlayBringAnimation(int index);
 	void EndBringAnimation(float dt);
 
+	void PlayStageMusic(float dt);
 
 	//需要播放出现动画的单元
 	int m_newIndex = -1;

@@ -32,5 +32,4 @@ namespace XUtility
 				action->play(name, isLoop);
 		}
 	}
-
 }

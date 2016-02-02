@@ -68,6 +68,12 @@ namespace GameLogic
 							s->m_isAutoNext = v.GetBool();
 						}
 
+						if (stageValue.HasMember("BackMusic"))
+						{
+							const auto& v = stageValue["BackMusic"];
+							s->m_bkMusic = v.GetString();
+						}
+
 						if (stageValue.HasMember("ContentList"))
 						{
 							const auto& listV = stageValue["ContentList"];

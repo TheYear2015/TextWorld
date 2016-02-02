@@ -13,6 +13,7 @@
         "到场景554433"
       ],
       "AutoGoto": false,
+      "BackMusic": "bk1",
       "ContentList": [
         {
           "Type": 0,
@@ -68,6 +69,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": [
         {
           "Type": 0,
@@ -88,6 +90,7 @@
         "goto 场景15"
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": [
         {
           "Type": 1,
@@ -108,6 +111,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -122,6 +126,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -136,6 +141,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -150,6 +156,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": [
         {
           "Type": 0,
@@ -170,6 +177,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -184,6 +192,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -198,6 +207,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -212,6 +222,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -226,6 +237,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -240,6 +252,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -254,6 +267,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -268,6 +282,7 @@
         "554433"
       ],
       "AutoGoto": false,
+      "BackMusic": "bk2",
       "ContentList": []
     },
     {
@@ -282,6 +297,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -296,6 +312,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -310,6 +327,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -324,6 +342,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -338,6 +357,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     },
     {
@@ -352,6 +372,7 @@
         ""
       ],
       "AutoGoto": false,
+      "BackMusic": "",
       "ContentList": []
     }
   ]

@@ -141,6 +141,9 @@ namespace GameLogic
 		//获得正在游戏中的场景已经过的行为(action)
 		std::vector<const StageActionData*> GetPlayingActionList() const;
 
+		//获得当前场景
+		const StageData* GetCurrentStage() const;
+
 		//获得游戏状态
 		GameLogic::GameCore::GameState State() const { return m_state; }
 

@@ -3,6 +3,7 @@
 #include "GameLogic.h"
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "XUtility/AudioFunction.h"
 
 USING_NS_CC;
 
@@ -69,6 +70,25 @@ void PlayGame::OnEnterStage(const GameLogic::StageData* stageData)
 		CCLOG("PlayGame::OnEnterStage %d.", stageData->Id());
 	else
 		CCLOGERROR("PlayGame::OnEnterStage null.");
+
+	//加载自身的音乐，加载后续场景的音乐
+	if (!stageData->Music().empty())
+	{
+		XUtility::AudioManager::Instance().InitMusic(stageData->Music().c_str());
+
+		//延迟播放音乐
+		this->scheduleOnce(schedule_selector(PlayGame::PlayStageMusic), 1.0f);
+	}
+
+	auto next = stageData->ToStage();
+	for (auto& n : next)
+	{
+		auto s = GameLogic::DataManager::Instance().GetStageData( n.first);
+		if (s && !s->Music().empty())
+		{
+			XUtility::AudioManager::Instance().InitMusic(s->Music().c_str());
+		}
+	}
 }
 
 void PlayGame::OnEnterAction(const GameLogic::ActionNode* actNode)
@@ -299,4 +319,11 @@ void PlayGame::ShowBringAnimation(ActionNodeGraphic* node, bool show)
 	{
 		node->ShowLoading(show);
 	}
+}
+
+void PlayGame::PlayStageMusic(float dt)
+{
+	auto stage = GameLogic::GameCore::Instance().GetCurrentStage();
+	XUtility::AudioManager::Instance().PlayMusic(stage->Music().c_str());
+
 }

@@ -154,6 +154,7 @@ xcopy /Y /Q "$(COCOS_FRAMEWORKS)\cocos2d-x-3.8\prebuilt\win32\*.*" "$(OutDir)"
     <ClCompile Include="..\Classes\GameSceneManager.cpp" />
     <ClCompile Include="..\Classes\GameWorldScene.cpp" />
     <ClCompile Include="..\Classes\PlayGameScene.cpp" />
+    <ClCompile Include="..\Classes\XUtility\AudioFunction.cpp" />
     <ClCompile Include="..\Classes\XUtility\BaseScene.cpp" />
     <ClCompile Include="..\Classes\XUtility\CocosHelper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -167,6 +168,7 @@ xcopy /Y /Q "$(COCOS_FRAMEWORKS)\cocos2d-x-3.8\prebuilt\win32\*.*" "$(OutDir)"
     <ClInclude Include="..\Classes\GameSceneManager.h" />
     <ClInclude Include="..\Classes\GameWorldScene.h" />
     <ClInclude Include="..\Classes\PlayGameScene.h" />
+    <ClInclude Include="..\Classes\XUtility\AudioFunction.h" />
     <ClInclude Include="..\Classes\XUtility\BaseScene.h" />
     <ClInclude Include="..\Classes\XUtility\CocosHelper.h" />
     <ClInclude Include="main.h" />
