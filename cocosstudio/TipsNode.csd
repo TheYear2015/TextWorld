@@ -6,10 +6,10 @@
       <ObjectData Name="Node" Tag="9" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Node" ActionTag="-542098612" Tag="14" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-150.0000" TouchEnable="True" ColorAngle="90.0000" Scale9Enable="True" LeftEage="75" RightEage="75" TopEage="17" BottomEage="17" ctype="PanelObjectData">
+          <AbstractNodeData Name="Node" ActionTag="-542098612" Tag="14" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-150.0000" ColorAngle="90.0000" Scale9Enable="True" LeftEage="75" RightEage="75" TopEage="17" BottomEage="17" ctype="PanelObjectData">
             <Size X="640.0000" Y="150.0000" />
             <Children>
-              <AbstractNodeData Name="Content" ActionTag="-872920495" Tag="15" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="64.0000" RightMargin="64.0000" TopMargin="22.5000" BottomMargin="22.5000" TouchEnable="True" BackColorAlpha="74" ColorAngle="90.0000" Scale9Enable="True" LeftEage="75" RightEage="75" TopEage="17" BottomEage="17" ctype="PanelObjectData">
+              <AbstractNodeData Name="Content" ActionTag="-872920495" Tag="15" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="64.0000" RightMargin="64.0000" TopMargin="22.5000" BottomMargin="22.5000" BackColorAlpha="74" ColorAngle="90.0000" Scale9Enable="True" LeftEage="75" RightEage="75" TopEage="17" BottomEage="17" ctype="PanelObjectData">
                 <Size X="512.0000" Y="105.0000" />
                 <Children>
                   <AbstractNodeData Name="Text" ActionTag="-1328885214" Tag="16" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="122.5000" RightMargin="122.5000" TopMargin="84.0000" BottomMargin="84.0000" FontSize="24" LabelText="Text Label111" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">

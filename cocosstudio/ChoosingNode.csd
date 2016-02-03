@@ -6,7 +6,7 @@
       <ObjectData Name="Node" Tag="66" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Node" ActionTag="496738361" Tag="67" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" TouchEnable="True" BackColorAlpha="0" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Node" ActionTag="496738361" Tag="67" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" BackColorAlpha="0" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="640.0000" Y="130.0000" />
             <Children>
               <AbstractNodeData Name="ChooseBtn1" ActionTag="-1086024041" Tag="68" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="79.2000" RightMargin="360.8000" TopMargin="25.0000" BottomMargin="25.0000" TouchEnable="True" FontSize="24" ButtonText="Button" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="15" BottomEage="15" Scale9OriginX="15" Scale9OriginY="15" Scale9Width="32" Scale9Height="35" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
