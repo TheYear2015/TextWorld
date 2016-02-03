@@ -242,7 +242,7 @@ void PlayGame::UpdateActionScrollView(bool isChangeSize)
 				//创建新的控件
 				ac.m_guiNode = ActionNodeGraphicMgr::Instance().CreateActionNodeByData(ac.m_action, m_actionScrollView);
 			}
-			ac.m_guiNode->GetNode()->setPosition(pos);
+			ac.m_guiNode->GetNode()->getParent()->setPosition(pos);
 
 			ShowBringAnimation(ac.m_guiNode, ii == m_newIndex);
 		}
@@ -337,6 +337,7 @@ void PlayGame::ShowBringAnimation(ActionNodeGraphic* node, bool show)
 
 void PlayGame::PlayStageMusic(float dt)
 {
+	return;
 	auto stage = GameLogic::GameCore::Instance().GetCurrentStage();
 	XUtility::AudioManager::Instance().PlayMusic(stage->Music().c_str());
 

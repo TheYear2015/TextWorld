@@ -15,7 +15,7 @@ public:
 
 	virtual int GetType() const = 0;
 
-	virtual bool Init() = 0;
+	virtual bool Init(cocos2d::Node* parent) = 0;
 
 	virtual void SetData(const GameLogic::ActionNode* action) = 0;
 
@@ -36,7 +36,7 @@ public:
 	void ReleaseActionNode(ActionNodeGraphic* node);
 
 private:
-	ActionNodeGraphic* NewCreateActionNode(GameLogic::ActionNodeType type);
+	ActionNodeGraphic* NewCreateActionNode(GameLogic::ActionNodeType type,cocos2d::Node* parent);
 
 	std::array<int, (int)GameLogic::ActionNodeType::Count> m_nodeTmplTag;
 	std::array<std::list<ActionNodeGraphic*>, (int)GameLogic::ActionNodeType::Count> m_unusedNodeList;
@@ -52,7 +52,7 @@ public:
 
 	virtual int GetType() const override;
 
-	virtual bool Init() override;
+	virtual bool Init(cocos2d::Node* parent) override;
 
 	virtual void SetData(const GameLogic::ActionNode* action) override;
 
@@ -77,7 +77,7 @@ public:
 
 	virtual int GetType() const override;
 
-	virtual bool Init() override;
+	virtual bool Init(cocos2d::Node* parent) override;
 
 	virtual void SetData(const GameLogic::ActionNode* action) override;
 
@@ -103,7 +103,7 @@ public:
 
 	virtual int GetType() const override;
 
-	virtual bool Init() override;
+	virtual bool Init(cocos2d::Node* parent) override;
 
 	virtual void SetData(const GameLogic::ActionNode* action) override;
 
@@ -127,7 +127,7 @@ public:
 
 	virtual int GetType() const override;
 
-	virtual bool Init() override;
+	virtual bool Init(cocos2d::Node* parent) override;
 
 	virtual void SetData(const GameLogic::ActionNode* action) override;
 

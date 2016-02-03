@@ -24,17 +24,23 @@ ActionNodeGraphic* ActionNodeGraphicMgr::CreateActionNode(GameLogic::ActionNodeT
 	int t = (int)type;
 	if (m_unusedNodeList[t].empty())
 	{
-		auto a = NewCreateActionNode(type);
+		auto a = NewCreateActionNode(type,parent);
 		if (a)
 		{
-
-			parent->addChild(a->GetNode());
-			a->GetNode()->setVisible(true);
+			auto panelT = dynamic_cast<cocos2d::ui::Layout*>(parent->getChildByName("Item"));
+			auto panel = panelT->clone();
+			if (panel)
+			{
+				panel->addChild(a->GetNode());
+				a->GetNode()->setPosition(panel->getContentSize().width*0.5f, panel->getContentSize().height*0.5f);
+				parent->addChild(panel);
+				panel->setVisible(true);
+			}
 		}
 		return a;
 	}
 	auto a = m_unusedNodeList[t].front();
-	a->GetNode()->setVisible(true);
+	a->GetNode()->getParent()->setVisible(true);
 	m_unusedNodeList[t].pop_front();
 	return a;
 }
@@ -58,7 +64,7 @@ void ActionNodeGraphicMgr::ReleaseActionNode(ActionNodeGraphic* node)
 	}
 }
 
-ActionNodeGraphic* ActionNodeGraphicMgr::NewCreateActionNode(GameLogic::ActionNodeType type)
+ActionNodeGraphic* ActionNodeGraphicMgr::NewCreateActionNode(GameLogic::ActionNodeType type, cocos2d::Node* parent)
 {
 	ActionNodeGraphic* an = nullptr;
 	int t = (int)type;
@@ -79,7 +85,7 @@ ActionNodeGraphic* ActionNodeGraphicMgr::NewCreateActionNode(GameLogic::ActionNo
 	}
 	if (an)
 	{
-		if (!an->Init())
+		if (!an->Init(parent))
 		{
 			delete an;
 			an = nullptr;
@@ -104,7 +110,7 @@ int NormalActionNode::GetType() const
 	return (int)GameLogic::ActionNodeType::NormalText;
 }
 
-bool NormalActionNode::Init()
+bool NormalActionNode::Init(cocos2d::Node* parent)
 {
 	const std::string nodeName = "NormalNode.csb";
 	const std::string loadingName = "NormalTextLoading.csb";
@@ -187,7 +193,7 @@ int TipsActionNode::GetType() const
 	return (int)GameLogic::ActionNodeType::Tips;
 }
 
-bool TipsActionNode::Init()
+bool TipsActionNode::Init(cocos2d::Node* parent)
 {
 	const std::string nodeName = "TipsNode.csb";
 	const std::string loadingName = "NormalTextLoading.csb";
@@ -269,7 +275,7 @@ int ChoosingActionNode::GetType() const
 	return (int)GameLogic::ActionNodeType::Choosing;
 }
 
-bool ChoosingActionNode::Init()
+bool ChoosingActionNode::Init(cocos2d::Node* parent)
 {
 	const std::string nodeName = "ChoosingNode.csb";
 	m_root = CSLoader::createNode(nodeName);
@@ -348,7 +354,7 @@ int ChoosedActionNode::GetType() const
 	return (int)GameLogic::ActionNodeType::Choosed;
 }
 
-bool ChoosedActionNode::Init()
+bool ChoosedActionNode::Init(cocos2d::Node* parent)
 {
 	const std::string nodeName = "ChoosedNode.csb";
 	m_root = CSLoader::createNode(nodeName);
