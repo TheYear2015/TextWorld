@@ -133,4 +133,54 @@ namespace XUtility
 
 	}
 
+	void AudioManager::PlaySoundInChannel(int channel, const char* sound, bool loop)
+	{
+		//Í£µôÏÖÔÚµÄ
+		if (channel >= 0 && channel < m_channelArray.size())
+		{
+			if (m_channelSoundName[channel].compare(sound) == 0)
+			{
+				return;
+			}
+			StopSound(m_channelArray[channel]);
+			m_channelArray[channel] = 0;
+			m_channelSoundName[channel] = "";
+
+			auto id = PlaySound(sound, loop);
+			if (id)
+			{
+				m_channelArray[channel] = id;
+				m_channelSoundName[channel] = sound;
+			}
+		}
+	}
+
+	void AudioManager::StopSoundChannel(int channel)
+	{
+		if (channel >= 0 && channel < m_channelArray.size())
+		{
+			if (m_channelArray[channel])
+			{
+				StopSound(m_channelArray[channel]);
+				m_channelArray[channel] = 0;
+				m_channelSoundName[channel] = "";
+			}
+		}
+	}
+
+	AudioManager::AudioManager()
+	{
+		m_channelArray.fill(0);
+	}
+
+	void AudioManager::StopAllChannel()
+	{
+		for (int i = 0; i < m_channelArray.size(); ++i)
+		{
+			StopSoundChannel(m_channelArray[i]);
+		}
+		m_channelArray.fill(0);
+
+	}
+
 }

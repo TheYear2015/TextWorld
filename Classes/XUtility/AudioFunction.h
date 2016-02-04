@@ -4,6 +4,8 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
+#include <array>
+#include <string>
 
 namespace XUtility
 {
@@ -14,6 +16,7 @@ namespace XUtility
 		static AudioManager& Instance();
 
 	public:
+		AudioManager();
 		void InitMusic(const char* music);
 		void InitSound(const char* sound);
 		void ReleaseSound(const char* sound);
@@ -25,7 +28,11 @@ namespace XUtility
 		void ResumeMusic();
 		uint32_t PlaySound(const char* sound, bool loop);
 		void StopSound(uint32_t id);
-		void ReleaseSound(uint32_t id);
+
+	public:
+		void PlaySoundInChannel(int channel, const char* sound, bool loop);
+		void StopSoundChannel(int channel);
+		void StopAllChannel();
 
 	private:
 		class AudioRes
@@ -36,6 +43,9 @@ namespace XUtility
 		};
 
 		std::list<AudioRes*> m_loadedSoundRes;
+
+		std::array<std::string, 3> m_channelSoundName;
+		std::array<uint32_t, 3> m_channelArray;
 	};
 
 }
