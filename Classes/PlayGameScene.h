@@ -35,6 +35,8 @@ public:
 
 	virtual void OnGameOK() override;
 
+	virtual void OnBackToAction(const GameLogic::ActionNode* actNode) override;
+
 private:
 	void LogicUpdate(float dt);
 	void OnActionListScrollViewEvent(cocos2d::Ref* target, cocos2d::ui::ScrollView::EventType type);

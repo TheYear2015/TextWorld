@@ -107,11 +107,12 @@ public:
 
 	virtual void SetData(const GameLogic::ActionNode* action) override;
 
-	void ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
-
 	virtual void ShowLoading(bool show) override;
 
+	void ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
+
 private:
+
 	cocos2d::Node* m_root = nullptr;
 	cocos2d::Node* m_node = nullptr;
 
@@ -133,10 +134,12 @@ public:
 
 	virtual void ShowLoading(bool show) override;
 
+	void ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type);
 
 private:
 	cocos2d::Node* m_root = nullptr;
 	cocos2d::Node* m_node = nullptr;
+	const GameLogic::ActionNode* m_action = nullptr;
 
 };
 

@@ -341,3 +341,27 @@ void PlayGame::PlayStageMusic(float dt)
 	XUtility::AudioManager::Instance().PlayMusic(stage->Music().c_str());
 
 }
+
+void PlayGame::OnBackToAction(const GameLogic::ActionNode* actNode)
+{
+	bool needUpdate = false;
+	for (auto i = m_actionCellArray.begin(); i != m_actionCellArray.end(); ++i)
+	{
+		if (i->m_action == actNode)
+		{
+			++i;
+			if (i != m_actionCellArray.end())
+			{
+				for (auto __i = i; __i != m_actionCellArray.end(); ++__i)
+				{
+					ActionNodeGraphicMgr::Instance().ReleaseActionNode(__i->m_guiNode);
+				}
+				m_actionCellArray.erase(i, m_actionCellArray.end());
+				needUpdate = true;
+			}
+			break;
+		}
+	}
+	if (needUpdate)
+		UpdateActionScrollView(true);
+}

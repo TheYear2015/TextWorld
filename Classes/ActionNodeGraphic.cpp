@@ -276,6 +276,21 @@ bool ChoosingActionNode::Init()
 	if (m_root)
 	{
 		m_node = m_root->getChildByName("Node");
+		if (m_node)
+		{
+			auto btn1 = dynamic_cast<cocos2d::ui::Button*>(m_node->getChildByName("ChooseBtn1"));
+			if (btn1)
+			{
+				btn1->addTouchEventListener(CC_CALLBACK_2(ChoosingActionNode::ChooseAction, this));
+				btn1->setTag(0);
+			}
+			auto btn2 = dynamic_cast<cocos2d::ui::Button*>(m_node->getChildByName("ChooseBtn2"));
+			if (btn2)
+			{
+				btn2->addTouchEventListener(CC_CALLBACK_2(ChoosingActionNode::ChooseAction, this));
+				btn2->setTag(1);
+			}
+		}
 	}
 	return m_root != nullptr;
 }
@@ -288,15 +303,11 @@ void ChoosingActionNode::SetData(const GameLogic::ActionNode* action)
 		if (btn1)
 		{
 			btn1->setTitleText(action->m_stage->ToStage()[0].second);
-			btn1->addTouchEventListener(CC_CALLBACK_2(ChoosingActionNode::ChooseAction, this));
-			btn1->setTag(0);
 		}
 		auto btn2 = dynamic_cast<cocos2d::ui::Button*>(m_node->getChildByName("ChooseBtn2"));
 		if (btn2)
 		{
 			btn2->setTitleText(action->m_stage->ToStage()[1].second);
-			btn2->addTouchEventListener(CC_CALLBACK_2(ChoosingActionNode::ChooseAction, this));
-			btn2->setTag(1);
 		}
 	}
 }
@@ -355,6 +366,12 @@ bool ChoosedActionNode::Init()
 	if (m_root)
 	{
 		m_node = m_root->getChildByName("Node");
+		auto layout = dynamic_cast<cocos2d::ui::Layout*>(m_node);
+		if (layout)
+		{
+			layout->addTouchEventListener(CC_CALLBACK_2(ChoosedActionNode::ChooseAction, this));
+
+		}
 	}
 	return m_root != nullptr;
 }
@@ -362,6 +379,7 @@ bool ChoosedActionNode::Init()
 void ChoosedActionNode::SetData(const GameLogic::ActionNode* action)
 {
 	int chooseIndex = action->m_chooseIndex;
+	m_action = action;
 	if (m_node)
 	{
 		auto node1 = m_node->getChildByName("Node1");
@@ -393,6 +411,35 @@ void ChoosedActionNode::SetData(const GameLogic::ActionNode* action)
 	}
 
 }
+
+
+void ChoosedActionNode::ChooseAction(cocos2d::Ref* target, cocos2d::ui::Widget::TouchEventType type)
+{
+	switch (type)
+	{
+	case cocos2d::ui::Widget::TouchEventType::BEGAN:
+		break;
+
+	case cocos2d::ui::Widget::TouchEventType::MOVED:
+		break;
+
+	case cocos2d::ui::Widget::TouchEventType::ENDED:
+	{
+		if (m_action)
+		{
+			GameLogic::GameCore::Instance().BackToAction(m_action);
+		}
+	}
+	break;
+
+	case cocos2d::ui::Widget::TouchEventType::CANCELED:
+		break;
+
+	default:
+		break;
+	}
+}
+
 
 void ChoosedActionNode::ShowLoading(bool show)
 {

@@ -44,6 +44,9 @@ namespace GameLogic
 		//当需要选择时
 		virtual void OnNeedChoose(const ActionNode* actNode) = 0;
 
+		//当回到指定场景时
+		virtual void OnBackToAction(const ActionNode* actNode) = 0;
+
 		//当游戏开始时，用户数据已经加载完成，游戏逻辑启动
 		virtual void OnGameBegin() = 0;
 
@@ -131,6 +134,9 @@ namespace GameLogic
 
 		//进行选择
 		void ChooseAction(int index);
+
+		//回到到指定Action
+		void BackToAction(const ActionNode* action);
 
 		//设置交互接口
 		void SetInterface(GameLogicInterface* inf);

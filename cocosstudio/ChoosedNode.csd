@@ -6,7 +6,7 @@
       <ObjectData Name="Node" Tag="74" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Node" ActionTag="-144962766" Tag="75" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Node" ActionTag="-144962766" Tag="75" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" TouchEnable="True" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="640.0000" Y="130.0000" />
             <Children>
               <AbstractNodeData Name="Sprite_2_0" ActionTag="347542030" Tag="76" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="256.0000" TopMargin="-14.0000" BottomMargin="-14.0000" FlipX="True" ctype="SpriteObjectData">

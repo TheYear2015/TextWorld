@@ -349,6 +349,31 @@ namespace GameLogic
 		return nullptr;
 	}
 
+	void GameCore::BackToAction(const ActionNode* action)
+	{
+		for (auto i = m_actionList.begin(); i != m_actionList.end(); ++i)
+		{
+			if (action == &(*i))
+			{
+				i->m_chooseIndex = -1;
+				++i;
+				for (; i != m_actionList.end(); ++i)
+				{
+					if (action->m_stage != i->m_stage)
+					{
+						m_actionList.erase(i, m_actionList.end());
+						//重置m_playedActionIndex
+						m_playedActionIndex = m_actionList.size() - 1;
+						//重置时间
+						if (m_interface)
+							m_interface->OnBackToAction(action);
+						break;
+					}
+				}
+				break;
+			}
+		}
+	}
 
 	GameLogic::ActionNodeType ActionNode::GetType() const
 	{
