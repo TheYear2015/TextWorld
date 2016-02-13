@@ -156,6 +156,9 @@ namespace GameLogic
 		//获得当前音效的配置
 		const StageActionData::SoundChannelDef* GetActionSoundDef(const ActionNode* action) const;
 
+		//获得场景中使用的音效
+		std::vector<std::string> GetStageUsedSoud(const StageData* stage) const;
+
 	private:
 		void SaveUserDataToFile();
 

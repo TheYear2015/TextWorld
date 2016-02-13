@@ -42,6 +42,7 @@ void PlayGame::OnSceneInited()
 void PlayGame::onEnter()
 {
 	BaseScene::onEnter();
+	XUtility::AudioManager::Instance().ReleaseAllChannelSound();
 	GameLogic::GameCore::Instance().SetInterface(this);
 
 	////加载用户数据，创建actionList
@@ -52,6 +53,7 @@ void PlayGame::onEnter()
 
 void PlayGame::onExit()
 {
+	XUtility::AudioManager::Instance().ReleaseAllChannelSound();
 	GameLogic::GameCore::Instance().SetInterface(nullptr);
 	BaseScene::onExit();
 }
@@ -71,7 +73,7 @@ void PlayGame::OnEnterStage(const GameLogic::StageData* stageData)
 	else
 		CCLOGERROR("PlayGame::OnEnterStage null.");
 
-	//加载自身的音乐，加载后续场景的音乐
+	//加载自身的音乐
 	if (!stageData->Music().empty())
 	{
 		XUtility::AudioManager::Instance().InitMusic(stageData->Music().c_str());
@@ -80,6 +82,14 @@ void PlayGame::OnEnterStage(const GameLogic::StageData* stageData)
 		this->scheduleOnce(schedule_selector(PlayGame::PlayStageMusic), 1.0f);
 	}
 
+	//加载自身的音效
+	auto allSound = GameLogic::GameCore::Instance().GetStageUsedSoud(stageData);
+	for (auto& s : allSound)
+	{
+		XUtility::AudioManager::Instance().InitSound(s.c_str());
+	}
+
+	//加载后续场景的音乐
 	auto next = stageData->ToStage();
 	for (auto& n : next)
 	{

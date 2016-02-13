@@ -50,21 +50,31 @@ namespace XUtility
 
 	void AudioManager::InitSound(const char* sound)
 	{
-		for (auto sr : m_loadedSoundRes)
+		for (auto sr = m_loadedSoundRes.begin(); sr != m_loadedSoundRes.end(); ++sr)
 		{
-			if (sr->m_name.compare(sound) == 0)
+			if ((*sr)->m_name.compare(sound) == 0)
 			{
-				++sr->m_refCount;
+				auto as = *sr;
+				m_loadedSoundRes.erase(sr);
+				m_loadedSoundRes.push_front(as);
 				return;
 			}
 		}
 
-		auto sr = new AudioRes();
-		sr->m_name = sound;
-		++sr->m_refCount;
-		m_loadedSoundRes.push_back(sr);
+		auto as = new AudioRes();
+		as->m_name = sound;
+		m_loadedSoundRes.push_front(as);
 
 		CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(GetSoundEffectName(sound).c_str());
+
+		//回收资源
+		while (m_loadedSoundRes.size() > 10)
+		{
+			auto as = m_loadedSoundRes.back();
+			m_loadedSoundRes.pop_back();
+			CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(GetSoundEffectName(as->m_name.c_str()).c_str());
+			delete as;
+		}
 	}
 
 	void AudioManager::PlayMusic(const char* music)
@@ -114,25 +124,6 @@ namespace XUtility
 		CocosDenshion::SimpleAudioEngine::getInstance()->stopEffect(id);
 	}
 
-	void AudioManager::ReleaseSound(const char* sound)
-	{
-		for (auto sr = m_loadedSoundRes.begin(); sr != m_loadedSoundRes.end(); ++sr)
-		{
-			if ((*sr)->m_name.compare(sound) == 0)
-			{
-				--(*sr)->m_refCount;
-				if ((*sr)->m_refCount <= 0)
-				{
-					CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect(GetSoundEffectName(sound).c_str());
-					delete *sr;
-					m_loadedSoundRes.erase(sr);
-				}
-				break;
-			}
-		}
-
-	}
-
 	void AudioManager::PlaySoundInChannel(int channel, const char* sound, bool loop)
 	{
 		//停掉现在的
@@ -150,7 +141,8 @@ namespace XUtility
 			if (id)
 			{
 				m_channelArray[channel] = id;
-				m_channelSoundName[channel] = sound;
+				if (loop)
+					m_channelSoundName[channel] = sound;
 			}
 		}
 	}
@@ -180,6 +172,18 @@ namespace XUtility
 			StopSoundChannel(m_channelArray[i]);
 		}
 		m_channelArray.fill(0);
+
+	}
+
+	void AudioManager::ReleaseAllChannelSound()
+	{
+		StopAllChannel();
+		for (auto sr : m_loadedSoundRes)
+		{
+			CocosDenshion::SimpleAudioEngine::getInstance()->unloadEffect(GetSoundEffectName(sr->m_name.c_str()).c_str());
+			delete sr;
+		}
+		m_loadedSoundRes.clear();
 
 	}
 

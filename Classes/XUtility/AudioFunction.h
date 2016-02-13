@@ -19,8 +19,7 @@ namespace XUtility
 		AudioManager();
 		void InitMusic(const char* music);
 		void InitSound(const char* sound);
-		void ReleaseSound(const char* sound);
-
+		void ReleaseAllChannelSound();
 	public:
 		void PlayMusic(const char* music);
 		void StopMusic();
@@ -39,7 +38,6 @@ namespace XUtility
 		{
 		public:
 			std::string m_name;
-			int m_refCount = 0;
 		};
 
 		std::list<AudioRes*> m_loadedSoundRes;

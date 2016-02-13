@@ -404,6 +404,28 @@ namespace GameLogic
 		return nullptr;
 	}
 
+	std::vector<std::string> GameCore::GetStageUsedSoud(const StageData* stage) const
+	{
+		std::vector<std::string> rev;
+		std::string tmp;
+		for (auto i = m_actionList.begin(); i != m_actionList.end(); ++i)
+		{
+			if (i->m_action
+				&& i->m_action->SoundChannel())
+			{
+				for (int jj = 0; jj < (int)GameLogic::StageActionData::SoundChannelDef::Define::ChannelCount; ++jj)
+				{
+					tmp = i->m_action->SoundChannel()->SoundName(jj);
+					if (!tmp.empty())
+					{
+						rev.push_back(tmp);
+					}
+				}
+			}
+		}
+		return rev;
+	}
+
 	GameLogic::ActionNodeType ActionNode::GetType() const
 	{
 		if (m_chooseIndex >= 0)
