@@ -125,7 +125,27 @@ void PlayGame::OnEnterAction(const GameLogic::ActionNode* actNode)
 			m_actionScrollView->scrollToBottom(0.5f, true);
 		}
 
-
+		auto soundDef = GameLogic::GameCore::Instance().GetActionSoundDef(actNode);
+		if (soundDef)
+		{
+			for (int i = 0; i < (int)GameLogic::StageActionData::SoundChannelDef::Define::ChannelCount; ++i)
+			{
+				auto& s = soundDef->SoundName(i);
+				if (!s.empty())
+				{
+					auto loop = soundDef->IsLoop(i);
+					XUtility::AudioManager::Instance().PlaySoundInChannel(i, s.c_str(), loop);
+				}
+				else
+				{
+					auto isStop = soundDef->IsStop(i);
+					if (isStop)
+					{
+						XUtility::AudioManager::Instance().StopSoundChannel(i);
+					}
+				}
+			}
+		}
 	}
 	else
 		CCLOGERROR("PlayGame::OnEnterAction null.");

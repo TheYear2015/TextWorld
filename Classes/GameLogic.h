@@ -152,6 +152,9 @@ namespace GameLogic
 
 		//获得游戏状态
 		GameLogic::GameCore::GameState State() const { return m_state; }
+		
+		//获得当前音效的配置
+		const StageActionData::SoundChannelDef* GetActionSoundDef(const ActionNode* action) const;
 
 	private:
 		void SaveUserDataToFile();

@@ -88,6 +88,49 @@ namespace GameLogic
 									action.m_type = aV["Type"].GetInt();
 									action.m_duringMS = aV["DuringMS"].GetInt();
 									action.m_text = aV["Text"].GetString();
+
+									if (stageValue.HasMember("SoundChannel")
+										&& stageValue.HasMember("StopChannel")
+										&& stageValue.HasMember("SoundIsLoop"))
+									{
+										bool isHaveSoundChannel = false;
+										const auto& soundChannel = stageValue["SoundChannel"];
+										const auto& channelStop = stageValue["StopChannel"];
+										const auto& channelIsLoop = stageValue["SoundIsLoop"];
+
+										std::string tmp;
+										for (int nn = 0; nn < soundChannel.Size(); ++nn)
+										{
+											tmp = soundChannel[nn].GetString();
+											if (!tmp.empty())
+											{
+												isHaveSoundChannel = true;
+												break;
+											}
+										}
+										if (!isHaveSoundChannel)
+										{
+											for (int nn = 0; nn < channelStop.Size(); ++nn)
+											{
+												if(channelStop[nn].GetBool())
+												{
+													isHaveSoundChannel = true;
+													break;
+												}
+											}
+										}
+
+										if (isHaveSoundChannel)
+										{
+											action.m_soundDef = new	StageActionData::SoundChannelDef();
+											for (int nn = 0; nn < action.m_soundDef->m_soundChannel.size(); ++nn)
+											{
+												action.m_soundDef->m_soundChannel[nn] = soundChannel[nn].GetString();
+												action.m_soundDef->m_isChannelLoop[nn] = channelIsLoop[nn].GetBool();
+												action.m_soundDef->m_isChannelStop[nn] = channelStop[nn].GetBool();
+											}
+										}
+									}
 								}
 							}
 						}

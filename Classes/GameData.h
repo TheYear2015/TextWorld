@@ -16,17 +16,58 @@ namespace GameLogic
 		friend class DataManager;
 
 	public:
+		class SoundChannelDef
+		{
+			friend class DataManager;
+		public:
+			enum class Define
+			{
+				ChannelCount = 3,
+			};
+
+			SoundChannelDef()
+			{
+				m_isChannelLoop.fill(false);
+				m_isChannelStop.fill(false);
+			}
+			bool IsStop(int channel) const
+			{
+				return m_isChannelStop.at(channel);
+			}
+			bool IsLoop(int channel) const
+			{
+				return m_isChannelLoop.at(channel);
+			}
+			const std::string& SoundName(int channel) const
+			{
+				return m_soundChannel.at(channel);
+			}
+		private:
+
+			//音轨的音效名字
+			std::array<std::string, (std::size_t)Define::ChannelCount> m_soundChannel;
+			//音轨是否循环
+			std::array<bool, (std::size_t)Define::ChannelCount> m_isChannelLoop;
+			//音轨是否停止
+			std::array<bool, (std::size_t)Define::ChannelCount> m_isChannelStop;
+		};
+
+	public:
 		uint32_t Type() const { return m_type; }
 		const std::string& Text() const { return m_text; }
 		uint32_t DuringMS() const { return m_duringMS; }
-
+		const SoundChannelDef* SoundChannel() const { return m_soundDef; }
 	private:
+
 		//类型
 		uint32_t m_type = 0;
 		//文字内容
 		std::string m_text;
 		//持续时间
 		uint32_t m_duringMS = 0;
+		//音效配置
+		SoundChannelDef* m_soundDef = nullptr;
+
 	};
 
 	//游戏内容场景的数据

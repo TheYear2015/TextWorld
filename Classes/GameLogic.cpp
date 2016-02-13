@@ -375,6 +375,35 @@ namespace GameLogic
 		}
 	}
 
+	const StageActionData::SoundChannelDef* GameCore::GetActionSoundDef(const ActionNode* action) const
+	{
+		if (!action)
+			return nullptr;
+
+		if (action->m_action
+			&& action->m_action->SoundChannel())
+		{
+			return action->m_action->SoundChannel();
+		}
+
+		for (auto i = m_actionList.rbegin(); i != m_actionList.rend(); ++i)
+		{
+			if (action == &(*i))
+			{
+				for (; i != m_actionList.rend(); ++i)
+				{
+					if (i->m_action
+						&& i->m_action->SoundChannel())
+					{
+						return i->m_action->SoundChannel();
+					}
+				}
+				return nullptr;
+			}
+		}
+		return nullptr;
+	}
+
 	GameLogic::ActionNodeType ActionNode::GetType() const
 	{
 		if (m_chooseIndex >= 0)
