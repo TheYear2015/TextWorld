@@ -157,7 +157,7 @@ namespace GameLogic
 		const StageActionData::SoundChannelDef* GetActionSoundDef(const ActionNode* action) const;
 
 		//获得场景中使用的音效
-		std::vector<std::string> GetStageUsedSoud(const StageData* stage) const;
+		const std::vector<std::string>& GetStageUsedSoud(const StageData* stage) const;
 
 	private:
 		void SaveUserDataToFile();

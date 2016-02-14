@@ -86,6 +86,8 @@ namespace GameLogic
 		bool IsHaveChooseAtEnd() const;
 		//背景音乐
 		const std::string& Music() const { return m_bkMusic; }
+
+		const std::vector<std::string>& GetUsedSound() const;
 	private:
 		//Id
 		uint32_t m_id = 0;
@@ -96,6 +98,8 @@ namespace GameLogic
 		std::vector<std::pair<uint32_t, std::string>> m_goToStage;
 		//场景行为列表
 		std::vector<StageActionData> m_actionList;
+
+		mutable std::vector<std::string>* m_usedSound = nullptr;
 	};
 
 	//游戏数据管理器

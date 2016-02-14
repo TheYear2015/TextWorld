@@ -182,12 +182,38 @@ namespace GameLogic
 
 	StageData::~StageData()
 	{
-
+		if (m_usedSound)
+			delete m_usedSound;
+		m_usedSound = nullptr;
 	}
 
 	bool StageData::IsHaveChooseAtEnd() const
 	{
 		return m_goToStage[0].first != 0 || m_goToStage[1].first != 0;
+	}
+
+	const std::vector<std::string>& StageData::GetUsedSound() const
+	{
+		if (!m_usedSound)
+		{
+			m_usedSound = new std::vector<std::string>();
+			std::string tmp;
+			for (auto i = m_actionList.begin(); i != m_actionList.end(); ++i)
+			{
+				if (i->SoundChannel())
+				{
+					for (int jj = 0; jj < (int)GameLogic::StageActionData::SoundChannelDef::Define::ChannelCount; ++jj)
+					{
+						tmp = i->SoundChannel()->SoundName(jj);
+						if (!tmp.empty())
+						{
+							m_usedSound->push_back(tmp);
+						}
+					}
+				}
+			}
+		}
+		return *m_usedSound;
 	}
 
 }
