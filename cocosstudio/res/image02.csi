@@ -1,5 +1,5 @@
 <PlistInfoProjectFile>
-  <PropertyGroup Type="Plist" Name="image02" ID="18ac71c7-8380-421e-b4ac-9b96e724b78e" Version="2.3.2.3" />
+  <PropertyGroup Name="image02" Type="Plist" ID="18ac71c7-8380-421e-b4ac-9b96e724b78e" Version="3.10.0.0" />
   <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="3" AllowRotation="False" AllowAnySize="False" AllowTrim="False" ctype="PlistInfoData">
     <ImageFiles>
       <FilePathData Path="image/spinner0.png" />

@@ -1,5 +1,5 @@
-<GameProjectFile>
-  <PropertyGroup Type="Layer" Name="SettingMenu" ID="d9c86e40-975c-45e3-88f6-66b33d36ace7" Version="2.3.2.3" />
+<GameFile>
+  <PropertyGroup Name="SettingMenu" Type="Layer" ID="d9c86e40-975c-45e3-88f6-66b33d36ace7" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="60" Speed="1.0000" ActivedAnimationName="In">
@@ -26,7 +26,7 @@
       <ObjectData Name="Layer" Tag="32" ctype="GameLayerObjectData">
         <Size X="640.0000" Y="960.0000" />
         <Children>
-          <AbstractNodeData Name="Menu" ActionTag="-1087260518" Tag="41" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="64.0000" RightMargin="64.0000" TopMargin="60.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Menu" ActionTag="-1087260518" Tag="41" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="64.0000" RightMargin="64.0000" TopMargin="60.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="512.0000" Y="900.0000" />
             <Children>
               <AbstractNodeData Name="FastGameBtn" ActionTag="-1108464738" Tag="42" IconVisible="False" HorizontalEdge="BothEdge" LeftMargin="106.0000" RightMargin="106.0000" TopMargin="810.0000" BottomMargin="10.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="32" Scale9Height="43" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
@@ -167,4 +167,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameProjectFile>
+</GameFile>

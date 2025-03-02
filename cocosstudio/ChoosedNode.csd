@@ -1,12 +1,12 @@
-<GameProjectFile>
-  <PropertyGroup Type="Node" Name="ChoosedNode" ID="a3fd9460-2b33-4861-95f3-6dd64cd9c778" Version="2.3.2.3" />
+<GameFile>
+  <PropertyGroup Name="ChoosedNode" Type="Node" ID="a3fd9460-2b33-4861-95f3-6dd64cd9c778" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Node" Tag="74" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Node" ActionTag="-144962766" Tag="75" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" TouchEnable="True" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Node" ActionTag="-144962766" Tag="75" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" TouchEnable="True" ClipAble="False" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="640.0000" Y="130.0000" />
             <Children>
               <AbstractNodeData Name="Sprite_2_0" ActionTag="347542030" Tag="76" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="256.0000" TopMargin="-14.0000" BottomMargin="-14.0000" FlipX="True" ctype="SpriteObjectData">
@@ -31,7 +31,7 @@
                 <FileData Type="MarkedSubImage" Path="image/btn_sidelines.png" Plist="res/image01.plist" />
                 <BlendFunc Src="770" Dst="771" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Node1" ActionTag="-228536314" Tag="78" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="79.2000" RightMargin="360.8000" TopMargin="25.0000" BottomMargin="25.0000" TouchEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+              <AbstractNodeData Name="Node1" ActionTag="-228536314" Tag="78" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="79.2000" RightMargin="360.8000" TopMargin="25.0000" BottomMargin="25.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
                 <Size X="200.0000" Y="80.0000" />
                 <Children>
                   <AbstractNodeData Name="Image0" ActionTag="646745150" Tag="79" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" Scale9Enable="True" LeftEage="30" RightEage="30" TopEage="21" BottomEage="21" Scale9OriginX="30" Scale9OriginY="21" Scale9Width="2" Scale9Height="23" ctype="ImageViewObjectData">
@@ -78,7 +78,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Node2" ActionTag="1331010915" Tag="82" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="360.8000" RightMargin="79.2000" TopMargin="25.0000" BottomMargin="25.0000" TouchEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+              <AbstractNodeData Name="Node2" ActionTag="1331010915" Tag="82" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="360.8000" RightMargin="79.2000" TopMargin="25.0000" BottomMargin="25.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
                 <Size X="200.0000" Y="80.0000" />
                 <Children>
                   <AbstractNodeData Name="Image0" ActionTag="259241761" Tag="83" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" Scale9Enable="True" LeftEage="30" RightEage="30" TopEage="21" BottomEage="21" Scale9OriginX="30" Scale9OriginY="21" Scale9Width="2" Scale9Height="23" ctype="ImageViewObjectData">
@@ -141,4 +141,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameProjectFile>
+</GameFile>

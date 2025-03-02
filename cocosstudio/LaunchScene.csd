@@ -1,5 +1,5 @@
-<GameProjectFile>
-  <PropertyGroup Type="Scene" Name="LaunchScene" ID="39d620d6-829b-4cc9-b397-3ff86c6f8a85" Version="2.3.2.3" />
+<GameFile>
+  <PropertyGroup Name="LaunchScene" Type="Scene" ID="39d620d6-829b-4cc9-b397-3ff86c6f8a85" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -21,4 +21,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameProjectFile>
+</GameFile>

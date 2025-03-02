@@ -1,5 +1,5 @@
-<GameProjectFile>
-  <PropertyGroup Type="Node" Name="NormalTextLoading" ID="f13d0cef-c255-4e91-94c2-a654bb5bb1a3" Version="2.3.2.3" />
+<GameFile>
+  <PropertyGroup Name="NormalTextLoading" Type="Node" ID="f13d0cef-c255-4e91-94c2-a654bb5bb1a3" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="58" Speed="1.0000" ActivedAnimationName="Bring">
@@ -119,4 +119,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameProjectFile>
+</GameFile>

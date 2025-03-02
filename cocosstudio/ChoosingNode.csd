@@ -1,12 +1,12 @@
-<GameProjectFile>
-  <PropertyGroup Type="Node" Name="ChoosingNode" ID="dcbd1ea3-7675-42dd-ba9b-d8879108a38b" Version="2.3.2.3" />
+<GameFile>
+  <PropertyGroup Name="ChoosingNode" Type="Node" ID="dcbd1ea3-7675-42dd-ba9b-d8879108a38b" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
       <ObjectData Name="Node" Tag="66" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Node" ActionTag="496738361" Tag="67" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" BackColorAlpha="0" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Node" ActionTag="496738361" Tag="67" IconVisible="False" LeftMargin="-320.0000" RightMargin="-320.0000" BottomMargin="-130.0000" ClipAble="False" BackColorAlpha="0" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="640.0000" Y="130.0000" />
             <Children>
               <AbstractNodeData Name="Sprite_2" ActionTag="-403763539" Tag="22" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" RightMargin="256.0000" TopMargin="-14.0000" BottomMargin="-14.0000" ctype="SpriteObjectData">
@@ -79,4 +79,4 @@
       </ObjectData>
     </Content>
   </Content>
-</GameProjectFile>
+</GameFile>
